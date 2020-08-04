@@ -1,0 +1,37 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<h1 mat-dialog-title>Failure dialog</h1>
+<div mat-dialog-content>
+  <span *ngIf="displayMessage(0)">question1 <br>
+    Text explaining why this answer resulted in the traffic light test failing <br>
+  </span>
+  <span *ngIf="displayMessage(1)">question2 <br>
+    Text explaining why this answer resulted in the traffic light test failing <br>
+  </span>
+  <span *ngIf="displayMessage(2)">question3 <br>
+    Text explaining why this answer resulted in the traffic light test failing <br>
+  </span>
+  <span *ngIf="displayMessage(3)">question4 <br>
+    Text explaining why this answer resulted in the traffic light test failing <br>
+  </span>
+
+</div>
+<div mat-dialog-actions style="margin-top: 20px">
+  <button mat-button mat-dialog-close>
+    Return
+  </button>
+  <button mat-button mat-dialog-close
+          [routerLink]="['']">
+    Home
+  </button>
+</div>
+

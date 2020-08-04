@@ -15,46 +15,69 @@
        <h2>
          Traffic light questions
        </h2>
+       <p>
+         Text about the traffic light test
+       </p>
        <form  [formGroup]='trafficLightForm' (ngSubmit)="onSubmit()">
-         <div class="form-group" style="margin-top: 20px">
+         <div class="form-group; question_border" style="margin-top: 20px">
            <h4>
              question 1 here
            </h4>
-           <select id="question1" name="question1"
-                   class="form-control" formControlName="question1"
-                   [ngClass] = "{ 'error' : isInvalid('question1')}">
-             <option value="yes">yes</option>
-             <option value="no">no</option>
-           </select>
+           <p (click)="openHelpDialog('question1')">Help</p>
+           <mat-radio-group id="question1" name="question1"
+                            class="form-control" formControlName="question1" aria-label="Select an option"
+                            [ngClass] = "{ 'error' : isInvalid('question1')}">
+             <mat-radio-button value="yes">yes</mat-radio-button>
+             <mat-radio-button value="no">no</mat-radio-button>
+           </mat-radio-group>
          </div>
-         <div class="form-group" style="margin-top: 50px">
+         <div class="form-group; question_border" style="margin-top: 50px">
            <h4>
              question 2 here
            </h4>
-           <select id="question2" name="question2"
-                   class="form-control" formControlName="question2"
-                   [ngClass] = "{ 'error' : isInvalid('question2')}">
-             <option value="yes">yes</option>
-             <option value="no">no</option>
-           </select>
+           <p (click)="openHelpDialog('question2')">Help</p>
+           <mat-radio-group id="question2" name="question2"
+                            class="form-control" formControlName="question2" aria-label="Select an option"
+                            [ngClass] = "{ 'error' : isInvalid('question2')}">
+             <mat-radio-button value="yes">yes</mat-radio-button>
+             <mat-radio-button value="no">no</mat-radio-button>
+           </mat-radio-group>
          </div>
-         <div class="form-group" style="margin-top: 50px">
+         <div class="form-group; question_border" style="margin-top: 50px;">
            <h4>
              question 3 here
            </h4>
-           <select id="question3" name="question3"
-                   class="form-control" formControlName="question3"
-                   [ngClass] = "{ 'error' : isInvalid('question3')}">
-             <option value="yes">yes</option>
-             <option value="no">no</option>
-           </select>
+           <p (click)="openHelpDialog('question3')">Help</p>
+           <mat-radio-group id="question3" name="question3"
+                            class="form-control" formControlName="question3" aria-label="Select an option"
+                            [ngClass] = "{ 'error' : isInvalid('question3')}">
+             <mat-radio-button value="yes">yes</mat-radio-button>
+             <mat-radio-button value="no">no</mat-radio-button>
+           </mat-radio-group>
          </div>
-         <span *ngIf="isIncomplete()">
-           Please select an answer for each question
-         </span>
-         <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">
-           Submit
-         </button>
+         <div class="form-group; question_border" style="margin-top: 50px;">
+           <h4>
+             Question 4
+           </h4>
+           <p (click)="openHelpDialog('question4')">Help</p>
+           <p>
+             your text
+           </p>
+           <mat-radio-group id="question4" name="question4"
+                            class="form-control" formControlName="question4" aria-label="Select an option"
+                            [ngClass] = "{ 'error' : isInvalid('question4')}">
+             <mat-radio-button value="yes">yes</mat-radio-button>
+             <mat-radio-button value="no">no</mat-radio-button>
+           </mat-radio-group>
+         </div>
+         <div style="margin-top: 30px">
+           <span *ngIf="isIncomplete()">
+             Please select an answer for each question
+           </span>
+           <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">
+             Submit
+           </button>
+         </div>
        </form>
      </div>
   </div>

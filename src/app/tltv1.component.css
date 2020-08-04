@@ -1,1 +1,15 @@
 .error {background-color: #fff0f0;}
+
+div.question_border
+{
+  border-style: solid;
+  border-width: 2px;
+  border-color: #CCCCCC;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.mat-radio-button ~ .mat-radio-button
+{
+  margin-left: 16px;
+}

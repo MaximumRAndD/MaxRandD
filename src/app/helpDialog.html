@@ -1,0 +1,21 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<h1 mat-dialog-title>Help dialog</h1>
+<div mat-dialog-content>
+  <span *ngIf="data.question === 'question1'">question 1 was pressed</span>
+  <span *ngIf="data.question === 'question2'">question 2 was pressed</span>
+  <span *ngIf="data.question === 'question3'">question 3 was pressed</span>
+  <span *ngIf="data.question === 'question4'">question 4 was pressed</span>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
