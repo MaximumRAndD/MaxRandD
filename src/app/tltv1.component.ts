@@ -2,10 +2,11 @@ import {Component, Inject} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {delay} from 'rxjs/operators';
 
 export interface DialogData
 {
-  question: 'question1' | 'question2' | 'question3' | 'question4';
+  question: 'question1' | 'question2' | 'question3' | 'question4' | 'question5' | 'question6' | 'question7';
 }
 
 @Component
@@ -20,6 +21,10 @@ export class Tltv1ComponentComponent
 
   trafficLightForm;
 
+  // question4Ans: string;
+
+  question5Enable: boolean;
+
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
               public dialog: MatDialog)
   {
@@ -29,10 +34,12 @@ export class Tltv1ComponentComponent
         question2: ['', Validators.required],
         question3: ['', Validators.required],
         question4: ['', Validators.required],
-        question5: ['', Validators.required],
+        question5: ['no', Validators.required],
         question6: ['', Validators.required],
         question7: ['', Validators.required]
       });
+
+    this.question5Enable = false;
   }
 
   onSubmit(): void
@@ -51,7 +58,7 @@ export class Tltv1ComponentComponent
     for (const i in response)
     {
       console.log(i);
-      if (response[i] === 'yes')
+      if (response[i] === 'yes' || response[3] === 'yes' || response[4] === 'yes')
       {
         if (i === '6')
         {
@@ -83,7 +90,6 @@ export class Tltv1ComponentComponent
       this.trafficLightForm.controls.question2.pristine ||
       this.trafficLightForm.controls.question3.pristine ||
       this.trafficLightForm.controls.question4.pristine ||
-      this.trafficLightForm.controls.question5.pristine ||
       this.trafficLightForm.controls.question6.pristine ||
       this.trafficLightForm.controls.question7.pristine;
   }
@@ -100,6 +106,15 @@ export class Tltv1ComponentComponent
       this.isUntouched();
   }
 
+  isQ5Invalid(): boolean
+  {
+    if (this.displayQ5() &&  this.isInvalid('question5'))
+    {
+      return true;
+    }
+    return false;
+  }
+
   openHelpDialog(control): void
   {
     this.dialog.open(HelpDialog,
@@ -109,6 +124,44 @@ export class Tltv1ComponentComponent
             question: control
           }
       });
+  }
+
+  async question4Answered(): Promise<void>
+  {
+    await this.delay(100);
+
+    if (this.trafficLightForm.value.question4 === '')
+    {
+      this.question5Enable = false;
+    }
+
+    if (this.trafficLightForm.value.question4 === 'no')
+    {
+      this.question5Enable = true;
+    }
+
+    if (this.trafficLightForm.value.question4 === 'yes')
+    {
+      this.question5Enable = false;
+    }
+  }
+
+  displayQ5(): boolean
+  {
+    if (this.question5Enable)
+    {
+      return true;
+    }
+
+    if (!this.question5Enable)
+    {
+      return false;
+    }
+  }
+
+  async delay(ms: number): Promise<void>
+  {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
   }
 }
 
@@ -139,7 +192,6 @@ export class FailureDialog
 
   displayMessage(index): boolean
   {
-    // console.log(this.data[index]);
     if (this.data[index] === 'no')
     {
       return true;

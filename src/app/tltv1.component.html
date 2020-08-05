@@ -9,7 +9,7 @@
 <!--</body>-->
 <!--</html>-->
 
-<div class="container" style="margin-top: 100px">
+<div class="container" style="margin-top: 100px; margin-bottom: 50px">
   <div class="row">
      <div class="col-sm-12">
        <h2>
@@ -20,17 +20,9 @@
        </p>
        <form  [formGroup]='trafficLightForm' (ngSubmit)="onSubmit()">
          <div class="form-group; question_border" style="margin-top: 20px">
-           <h4>
-             Question 1 title
-           </h4>
-           <p>
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
-             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
-             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
-             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
-             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
-             imperdiet quis.
-           </p>
+           <h6 style="margin-left: 3px">
+             Is your business a Limited Company?
+           </h6>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question1" name="question1"
@@ -50,17 +42,9 @@
            </div>
          </div>
          <div class="form-group; question_border" style="margin-top: 50px">
-           <h4>
-             Question 2 title
-           </h4>
-           <p>
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
-           imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
-           venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
-           venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
-           tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
-           imperdiet quis.
-           </p>
+           <h6 style="margin-left: 3px">
+             Is your Company in the UK?
+           </h6>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question2" name="question2"
@@ -80,17 +64,9 @@
            </div>
          </div>
          <div class="form-group; question_border" style="margin-top: 50px;">
-           <h4>
-             Question 3 title
-           </h4>
-           <p>
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
-           imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
-           venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
-           venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
-           tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
-           imperdiet quis.
-           </p>
+           <h6 style="margin-left: 3px">
+             Did your Accounting Period end within the last 24 Months?
+           </h6>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question3" name="question3"
@@ -110,26 +86,20 @@
            </div>
          </div>
          <div class="form-group; question_border" style="margin-top: 50px;">
-           <h4>
-             Question 4 title
-           </h4>
-           <p>
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
-             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
-             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
-             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
-             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
-             imperdiet quis.
-           </p>
+           <h6 style="margin-left: 3px">
+             Are you developing, or have you already created a new product or process?
+           </h6>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question4" name="question4"
                                 class="form-control" formControlName="question4"
                                 aria-label="Select an option"
+                                (click)="question4Answered()"
                                 [ngClass] = "{ 'error' : isInvalid('question4')}">
                  <mat-radio-button value="yes">yes</mat-radio-button>
                  <mat-radio-button value="no">no</mat-radio-button>
                </mat-radio-group>
+<!--               [(ngModel)]="question4Ans"-->
              </div>
              <div class="col">
                <mat-icon aria-hidden="false" aria-label="Example info icon"
@@ -140,22 +110,16 @@
            </div>
          </div>
          <div class="form-group; question_border" style="margin-top: 50px">
-           <h4>
-             Question 5 title
-           </h4>
-           <p>
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
-             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
-             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
-             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
-             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
-             imperdiet quis.
-           </p>
+           <h6 style="margin-left: 3px">
+             If not, are you trying to adapt, modify or reinvent a new product or process?
+           </h6>
+           <p> test {{question5Enable}} </p>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question5" name="question5"
                                 class="form-control" formControlName="question5"
                                 aria-label="Select an option"
+                                *ngIf="displayQ5()"
                                 [ngClass] = "{ 'error' : isInvalid('question5')}">
                  <mat-radio-button value="yes">yes</mat-radio-button>
                  <mat-radio-button value="no">no</mat-radio-button>
@@ -170,17 +134,9 @@
            </div>
          </div>
          <div class="form-group; question_border" style="margin-top: 50px">
-           <h4>
-             Question 6 title
-           </h4>
-           <p>
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
-             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
-             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
-             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
-             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
-             imperdiet quis.
-           </p>
+           <h6 style="margin-left: 3px">
+             Is there a risk your project will not succeed?
+           </h6>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question6" name="question6"
@@ -200,17 +156,9 @@
            </div>
          </div>
          <div class="form-group; question_border" style="margin-top: 50px">
-           <h4>
-             Question 7 title
-           </h4>
-           <p>
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
-             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
-             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
-             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
-             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
-             imperdiet quis.
-           </p>
+           <h6 style="margin-left: 3px">
+             Is your company making a profit before tax?
+           </h6>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question7" name="question7"
