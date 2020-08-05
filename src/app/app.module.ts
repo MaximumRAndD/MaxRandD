@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule} from '@angular/material/dialog';
+import {MatIconModule} from '@angular/material/icon';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome.component';
@@ -44,7 +45,7 @@ const routes =
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
-    FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule
+    FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule, MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

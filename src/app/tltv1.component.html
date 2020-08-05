@@ -21,54 +21,213 @@
        <form  [formGroup]='trafficLightForm' (ngSubmit)="onSubmit()">
          <div class="form-group; question_border" style="margin-top: 20px">
            <h4>
-             question 1 here
+             Question 1 title
            </h4>
-           <p (click)="openHelpDialog('question1')">Help</p>
-           <mat-radio-group id="question1" name="question1"
-                            class="form-control" formControlName="question1" aria-label="Select an option"
-                            [ngClass] = "{ 'error' : isInvalid('question1')}">
-             <mat-radio-button value="yes">yes</mat-radio-button>
-             <mat-radio-button value="no">no</mat-radio-button>
-           </mat-radio-group>
+           <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
+             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
+             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
+             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
+             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
+             imperdiet quis.
+           </p>
+           <div class="row">
+             <div class="justify-content-lg-around" style="padding-left: 15px">
+               <mat-radio-group id="question1" name="question1"
+                                class="form-control" formControlName="question1"
+                                aria-label="Select an option"
+                                [ngClass] = "{ 'error' : isInvalid('question1')}">
+                 <mat-radio-button value="yes">yes</mat-radio-button>
+                 <mat-radio-button value="no">no</mat-radio-button>
+               </mat-radio-group>
+             </div>
+             <div class="col">
+               <mat-icon aria-hidden="false" aria-label="Example info icon"
+                         (click)="openHelpDialog('question1')"
+                         style="cursor: pointer">info
+               </mat-icon>
+             </div>
+           </div>
          </div>
          <div class="form-group; question_border" style="margin-top: 50px">
            <h4>
-             question 2 here
+             Question 2 title
            </h4>
-           <p (click)="openHelpDialog('question2')">Help</p>
-           <mat-radio-group id="question2" name="question2"
-                            class="form-control" formControlName="question2" aria-label="Select an option"
-                            [ngClass] = "{ 'error' : isInvalid('question2')}">
-             <mat-radio-button value="yes">yes</mat-radio-button>
-             <mat-radio-button value="no">no</mat-radio-button>
-           </mat-radio-group>
-         </div>
-         <div class="form-group; question_border" style="margin-top: 50px;">
-           <h4>
-             question 3 here
-           </h4>
-           <p (click)="openHelpDialog('question3')">Help</p>
-           <mat-radio-group id="question3" name="question3"
-                            class="form-control" formControlName="question3" aria-label="Select an option"
-                            [ngClass] = "{ 'error' : isInvalid('question3')}">
-             <mat-radio-button value="yes">yes</mat-radio-button>
-             <mat-radio-button value="no">no</mat-radio-button>
-           </mat-radio-group>
-         </div>
-         <div class="form-group; question_border" style="margin-top: 50px;">
-           <h4>
-             Question 4
-           </h4>
-           <p (click)="openHelpDialog('question4')">Help</p>
            <p>
-             your text
+           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
+           imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
+           venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
+           venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
+           tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
+           imperdiet quis.
            </p>
-           <mat-radio-group id="question4" name="question4"
-                            class="form-control" formControlName="question4" aria-label="Select an option"
-                            [ngClass] = "{ 'error' : isInvalid('question4')}">
-             <mat-radio-button value="yes">yes</mat-radio-button>
-             <mat-radio-button value="no">no</mat-radio-button>
-           </mat-radio-group>
+           <div class="row">
+             <div class="justify-content-lg-around" style="padding-left: 15px">
+               <mat-radio-group id="question2" name="question2"
+                                class="form-control" formControlName="question2"
+                                aria-label="Select an option"
+                                [ngClass] = "{ 'error' : isInvalid('question2')}">
+                 <mat-radio-button value="yes">yes</mat-radio-button>
+                 <mat-radio-button value="no">no</mat-radio-button>
+               </mat-radio-group>
+             </div>
+             <div class="col">
+               <mat-icon aria-hidden="false" aria-label="Example info icon"
+                         (click)="openHelpDialog('question2')"
+                         style="cursor: pointer">info
+               </mat-icon>
+             </div>
+           </div>
+         </div>
+         <div class="form-group; question_border" style="margin-top: 50px;">
+           <h4>
+             Question 3 title
+           </h4>
+           <p>
+           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
+           imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
+           venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
+           venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
+           tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
+           imperdiet quis.
+           </p>
+           <div class="row">
+             <div class="justify-content-lg-around" style="padding-left: 15px">
+               <mat-radio-group id="question3" name="question3"
+                                class="form-control" formControlName="question3"
+                                aria-label="Select an option"
+                                [ngClass] = "{ 'error' : isInvalid('question3')}">
+                 <mat-radio-button value="yes">yes</mat-radio-button>
+                 <mat-radio-button value="no">no</mat-radio-button>
+               </mat-radio-group>
+             </div>
+             <div class="col">
+               <mat-icon aria-hidden="false" aria-label="Example info icon"
+                         (click)="openHelpDialog('question3')"
+                         style="cursor: pointer">info
+               </mat-icon>
+             </div>
+           </div>
+         </div>
+         <div class="form-group; question_border" style="margin-top: 50px;">
+           <h4>
+             Question 4 title
+           </h4>
+           <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
+             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
+             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
+             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
+             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
+             imperdiet quis.
+           </p>
+           <div class="row">
+             <div class="justify-content-lg-around" style="padding-left: 15px">
+               <mat-radio-group id="question4" name="question4"
+                                class="form-control" formControlName="question4"
+                                aria-label="Select an option"
+                                [ngClass] = "{ 'error' : isInvalid('question4')}">
+                 <mat-radio-button value="yes">yes</mat-radio-button>
+                 <mat-radio-button value="no">no</mat-radio-button>
+               </mat-radio-group>
+             </div>
+             <div class="col">
+               <mat-icon aria-hidden="false" aria-label="Example info icon"
+                         (click)="openHelpDialog('question4')"
+                         style="cursor: pointer">info
+               </mat-icon>
+             </div>
+           </div>
+         </div>
+         <div class="form-group; question_border" style="margin-top: 50px">
+           <h4>
+             Question 5 title
+           </h4>
+           <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
+             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
+             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
+             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
+             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
+             imperdiet quis.
+           </p>
+           <div class="row">
+             <div class="justify-content-lg-around" style="padding-left: 15px">
+               <mat-radio-group id="question5" name="question5"
+                                class="form-control" formControlName="question5"
+                                aria-label="Select an option"
+                                [ngClass] = "{ 'error' : isInvalid('question5')}">
+                 <mat-radio-button value="yes">yes</mat-radio-button>
+                 <mat-radio-button value="no">no</mat-radio-button>
+               </mat-radio-group>
+             </div>
+             <div class="col">
+               <mat-icon aria-hidden="false" aria-label="Example info icon"
+                         (click)="openHelpDialog('question5')"
+                         style="cursor: pointer">info
+               </mat-icon>
+             </div>
+           </div>
+         </div>
+         <div class="form-group; question_border" style="margin-top: 50px">
+           <h4>
+             Question 6 title
+           </h4>
+           <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
+             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
+             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
+             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
+             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
+             imperdiet quis.
+           </p>
+           <div class="row">
+             <div class="justify-content-lg-around" style="padding-left: 15px">
+               <mat-radio-group id="question6" name="question6"
+                                class="form-control" formControlName="question6"
+                                aria-label="Select an option"
+                                [ngClass] = "{ 'error' : isInvalid('question6')}">
+                 <mat-radio-button value="yes">yes</mat-radio-button>
+                 <mat-radio-button value="no">no</mat-radio-button>
+               </mat-radio-group>
+             </div>
+             <div class="col">
+               <mat-icon aria-hidden="false" aria-label="Example info icon"
+                         (click)="openHelpDialog('question6')"
+                         style="cursor: pointer">info
+               </mat-icon>
+             </div>
+           </div>
+         </div>
+         <div class="form-group; question_border" style="margin-top: 50px">
+           <h4>
+             Question 7 title
+           </h4>
+           <p>
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at iaculis nisl. Mauris porttitor
+             imperdiet volutpat. Praesent eget vestibulum mauris. Etiam non sollicitudin felis. Donec vel ante a ante
+             venenatis condimentum. Praesent ac nisl et dui rhoncus sodales vel eget neque. Vivamus varius urna
+             venenatis elementum tincidunt. Nunc porttitor, purus sit amet molestie bibendum, lacus risus fermentum
+             tellus, et mollis purus massa laoreet justo. Sed bibendum quis urna nec tincidunt. Vivamus orci ipsum,
+             imperdiet quis.
+           </p>
+           <div class="row">
+             <div class="justify-content-lg-around" style="padding-left: 15px">
+               <mat-radio-group id="question7" name="question7"
+                                class="form-control" formControlName="question7"
+                                aria-label="Select an option"
+                                [ngClass] = "{ 'error' : isInvalid('question7')}">
+                 <mat-radio-button value="yes">yes</mat-radio-button>
+                 <mat-radio-button value="no">no</mat-radio-button>
+               </mat-radio-group>
+             </div>
+             <div class="col">
+               <mat-icon aria-hidden="false" aria-label="Example info icon"
+                         (click)="openHelpDialog('question7')"
+                         style="cursor: pointer">info
+               </mat-icon>
+             </div>
+           </div>
          </div>
          <div style="margin-top: 30px">
            <span *ngIf="isIncomplete()">

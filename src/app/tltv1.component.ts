@@ -28,7 +28,10 @@ export class Tltv1ComponentComponent
         question1: ['', Validators.required],
         question2: ['', Validators.required],
         question3: ['', Validators.required],
-        question4: ['', Validators.required]
+        question4: ['', Validators.required],
+        question5: ['', Validators.required],
+        question6: ['', Validators.required],
+        question7: ['', Validators.required]
       });
   }
 
@@ -39,7 +42,8 @@ export class Tltv1ComponentComponent
     const response = new Array();
 
     const test = response.push(this.trafficLightForm.value.question1, this.trafficLightForm.value.question2,
-      this.trafficLightForm.value.question3, this.trafficLightForm.value.question4);
+      this.trafficLightForm.value.question3, this.trafficLightForm.value.question4, this.trafficLightForm.value.question5,
+      this.trafficLightForm.value.question6, this.trafficLightForm.value.question7);
 
     // console.log(response[0]);
 
@@ -49,7 +53,7 @@ export class Tltv1ComponentComponent
       console.log(i);
       if (response[i] === 'yes')
       {
-        if (i === '3')
+        if (i === '6')
         {
           this.router.navigate(['../success'], {relativeTo: this.route});
         }
@@ -65,46 +69,6 @@ export class Tltv1ComponentComponent
     }
 
     console.log(response);
-
-    // const dialogRef = this.dialog.open(FailureDialog,
-    //   {
-    //     data: response
-    //   });
-
-    // if (this.trafficLightForm.value.question1 === 'yes')
-    // {
-    //   if (this.trafficLightForm.value.question2 === 'yes')
-    //   {
-    //     if (this.trafficLightForm.value.question3 === 'yes')
-    //     {
-    //       if (this.trafficLightForm.value.question4 === 'yes')
-    //       {
-    //         console.log('green');
-    //         this.router.navigate(['../success'], {relativeTo: this.route});
-    //       }
-    //       else
-    //       {
-    //         console.log('red');
-    //         this.router.navigate(['../failure'], {relativeTo: this.route});
-    //       }
-    //     }
-    //     else
-    //     {
-    //       console.log('red');
-    //       this.router.navigate(['../failure'], {relativeTo: this.route});
-    //     }
-    //   }
-    //   else
-    //   {
-    //     console.log('red');
-    //     this.router.navigate(['../failure'], {relativeTo: this.route});
-    //   }
-    // }
-    // else
-    // {
-    //   console.log('red');
-    //   this.router.navigate(['../failure'], {relativeTo: this.route});
-    // }
   }
 
   isInvalid(control): any
@@ -118,7 +82,10 @@ export class Tltv1ComponentComponent
     return this.trafficLightForm.controls.question1.pristine ||
       this.trafficLightForm.controls.question2.pristine ||
       this.trafficLightForm.controls.question3.pristine ||
-      this.trafficLightForm.controls.question4.pristine;
+      this.trafficLightForm.controls.question4.pristine ||
+      this.trafficLightForm.controls.question5.pristine ||
+      this.trafficLightForm.controls.question6.pristine ||
+      this.trafficLightForm.controls.question7.pristine;
   }
 
   isIncomplete(): any
@@ -127,6 +94,9 @@ export class Tltv1ComponentComponent
       this.isInvalid('question2') ||
       this.isInvalid('question3') ||
       this.isInvalid('question4') ||
+      this.isInvalid('question5') ||
+      this.isInvalid('question6') ||
+      this.isInvalid('question7') ||
       this.isUntouched();
   }
 
