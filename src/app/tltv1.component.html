@@ -109,17 +109,16 @@
              </div>
            </div>
          </div>
-         <div class="form-group; question_border" style="margin-top: 50px">
+         <div class="form-group; question_border" style="margin-top: 50px" *ngIf="displayQ5()">
            <h6 style="margin-left: 3px">
              If not, are you trying to adapt, modify or reinvent a new product or process?
            </h6>
-           <p> test {{question5Enable}} </p>
            <div class="row">
              <div class="justify-content-lg-around" style="padding-left: 15px">
                <mat-radio-group id="question5" name="question5"
                                 class="form-control" formControlName="question5"
                                 aria-label="Select an option"
-                                *ngIf="displayQ5()"
+
                                 [ngClass] = "{ 'error' : isInvalid('question5')}">
                  <mat-radio-button value="yes">yes</mat-radio-button>
                  <mat-radio-button value="no">no</mat-radio-button>
