@@ -2,7 +2,6 @@ import {Component, Inject} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {delay} from 'rxjs/operators';
 
 export interface DialogData
 {
@@ -11,6 +10,7 @@ export interface DialogData
 
 @Component
 ({
+  // tslint:disable-next-line:component-selector
   selector: 'tltv1',
   templateUrl: './tltv1.component.html',
   styleUrls: ['./tltv1.component.css']
@@ -34,7 +34,7 @@ export class Tltv1ComponentComponent
         question2: ['', Validators.required],
         question3: ['', Validators.required],
         question4: ['', Validators.required],
-        question5: ['no', Validators.required],
+        question5: '',
         question6: ['', Validators.required],
         question7: ['', Validators.required]
       });
@@ -46,7 +46,7 @@ export class Tltv1ComponentComponent
   {
     console.log(this.trafficLightForm.value);
 
-    const response = new Array();
+    const response = [];
 
     const test = response.push(this.trafficLightForm.value.question1, this.trafficLightForm.value.question2,
       this.trafficLightForm.value.question3, this.trafficLightForm.value.question4, this.trafficLightForm.value.question5,
@@ -57,7 +57,6 @@ export class Tltv1ComponentComponent
 
     for (const i in response)
     {
-      console.log(i);
       if (response[i] === 'yes' || response[3] === 'yes' || response[4] === 'yes')
       {
         if (i === '6')
@@ -100,19 +99,27 @@ export class Tltv1ComponentComponent
       this.isInvalid('question2') ||
       this.isInvalid('question3') ||
       this.isInvalid('question4') ||
-      this.isInvalid('question5') ||
       this.isInvalid('question6') ||
       this.isInvalid('question7') ||
+      this.isQ5Invalid() ||
       this.isUntouched();
   }
 
   isQ5Invalid(): boolean
   {
-    if (this.displayQ5() &&  this.isInvalid('question5'))
+    if (!this.displayQ5())
     {
-      return true;
+      return false;
     }
-    return false;
+    else
+    {
+      return !(this.displayQ5() && this.isQ5Valid());
+    }
+  }
+
+  isQ5Valid(): boolean
+  {
+    return this.trafficLightForm.value.question5 !== '';
   }
 
   openHelpDialog(control): void
@@ -161,16 +168,18 @@ export class Tltv1ComponentComponent
 
   async delay(ms: number): Promise<void>
   {
-    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
   }
 }
 
 @Component
 ({
+  // tslint:disable-next-line:component-selector
   selector: 'HelpDialog',
   templateUrl: 'helpDialog.html',
 })
 
+// tslint:disable-next-line:component-class-suffix
 export class HelpDialog
 {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData)
@@ -180,10 +189,12 @@ export class HelpDialog
 
 @Component
 ({
+  // tslint:disable-next-line:component-selector
   selector: 'FailureDialog',
   templateUrl: 'failureDialog.html',
 })
 
+// tslint:disable-next-line:component-class-suffix
 export class FailureDialog
 {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any)
@@ -192,10 +203,6 @@ export class FailureDialog
 
   displayMessage(index): boolean
   {
-    if (this.data[index] === 'no')
-    {
-      return true;
-    }
-    return false;
+    return this.data[index] === 'no';
   }
 }
