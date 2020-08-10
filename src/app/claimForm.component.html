@@ -1,0 +1,82 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--</body>-->
+<!--</html>-->
+
+<div class="container" style="margin-top: 100px; margin-bottom: 50px">
+  <div class="row">
+    <div class="col-sm-12">
+      <p>
+        Welcome to MaximumR&D’s Research and Design Tax claim form, please enter the following details to
+        create your claim form, potentially saving hundreds of thousands of pounds in tax!
+      </p>
+
+      <form [formGroup]="claimForm" (submit)="submitForm()">
+        <mat-form-field class="col-5 mb-2 mx-auto">
+          <mat-label>Your name</mat-label>
+          <input type="text" matInput formControlName="name"
+          placeholder="name">
+          <mat-error *ngIf="claimForm.get('name').hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-5 mb-2 mx-auto">
+          <mat-label>Your company’s name</mat-label>
+          <input type="text" matInput formControlName="compName"
+                 placeholder="Company's name">
+          <mat-error *ngIf="claimForm.get('compName').hasError('required')">
+            Company's name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-5 mb-2 mx-auto">
+          <mat-label>Your company’s number (UTR): </mat-label>
+          <input type="text" matInput formControlName="UTR"
+                 placeholder="Company's name" maxlength="10">
+          <mat-error *ngIf="claimForm.get('UTR').hasError('minlength') && !claimForm.get('UTR').hasError('required')">
+            Number should be <strong>10 numbers long</strong>
+          </mat-error>
+          <mat-error *ngIf="claimForm.get('UTR').hasError('required')">
+            Company's UTR is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <p>
+          See https://getaddress.io/ for thr address finder
+        </p>
+
+        <mat-form-field class="col-5 mb-2 mx-auto">
+          <mat-label>Start date</mat-label>
+          <input matInput [matDatepicker]="claimStartDatePicker" formControlName="claimStartDate"
+          (dateChange)="onClaimStartDateChange()" disabled>
+          <mat-datepicker-toggle matSuffix [for]="claimStartDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #claimStartDatePicker disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="col-5 mb-2 mx-auto">
+          <mat-label>End date</mat-label>
+          <input matInput [matDatepicker]="claimEndDatePicker" formControlName="claimEndDate"
+                 disabled [max]="maxClaimDate">
+          <mat-datepicker-toggle matSuffix [for]="claimEndDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #claimEndDatePicker [disabled]="claimEndDateDisabled"></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="col-5 mb-2 mx-auto">
+          <mat-label>HTML for text area</mat-label>
+          <textarea matInput rows="5" placeholder="sample place holder text..."></textarea>
+        </mat-form-field>
+
+      </form>
+      <p (click)="submitForm()" style="cursor: pointer">
+        test log
+      </p>
+    </div>
+  </div>
+</div>
