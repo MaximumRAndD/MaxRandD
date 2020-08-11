@@ -17,9 +17,11 @@ import { FailureComponent} from './failure.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CreatePDFComponent } from './createPDF.component';
 import { ClaimFormComponent } from './claimForm.component';
-import {MatInputModule} from '@angular/material/input';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { WebService } from './web.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes =
   [{
@@ -60,9 +62,9 @@ const routes =
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule, MatIconModule,
-    MatInputModule, MatDatepickerModule, MatNativeDateModule
+    MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule
   ],
-  providers: [],
+  providers: [WebService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

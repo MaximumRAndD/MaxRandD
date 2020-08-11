@@ -17,63 +17,143 @@
         create your claim form, potentially saving hundreds of thousands of pounds in tax!
       </p>
 
-      <form [formGroup]="claimForm" (submit)="submitForm()">
-        <mat-form-field class="col-5 mb-2 mx-auto">
-          <mat-label>Your name</mat-label>
-          <input type="text" matInput formControlName="name"
-          placeholder="name">
-          <mat-error *ngIf="claimForm.get('name').hasError('required')">
-            Name is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
+      <form [formGroup]="claimForm">
+        <div>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Your name</mat-label>
+            <input type="text" matInput formControlName="name"
+            placeholder="name">
+            <mat-error *ngIf="claimForm.get('name').hasError('required')">
+              Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="col-5 mb-2 mx-auto">
-          <mat-label>Your company’s name</mat-label>
-          <input type="text" matInput formControlName="compName"
-                 placeholder="Company's name">
-          <mat-error *ngIf="claimForm.get('compName').hasError('required')">
-            Company's name is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
+        <div>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Your company’s name</mat-label>
+            <input type="text" matInput formControlName="compName"
+                   placeholder="Company's name">
+            <mat-error *ngIf="claimForm.get('compName').hasError('required')">
+              Company's name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="col-5 mb-2 mx-auto">
-          <mat-label>Your company’s number (UTR): </mat-label>
-          <input type="text" matInput formControlName="UTR"
-                 placeholder="Company's name" maxlength="10">
-          <mat-error *ngIf="claimForm.get('UTR').hasError('minlength') && !claimForm.get('UTR').hasError('required')">
-            Number should be <strong>10 numbers long</strong>
-          </mat-error>
-          <mat-error *ngIf="claimForm.get('UTR').hasError('required')">
-            Company's UTR is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
+        <div>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Your company’s number (UTR): </mat-label>
+            <input type="text" matInput formControlName="UTR"
+                   placeholder="Company's UTR" maxlength="10">
+            <mat-error *ngIf="claimForm.get('UTR').hasError('minlength') && !claimForm.get('UTR').hasError('required')
+            && !claimForm.get('UTR').hasError('pattern')">
+              Number should be <strong>10 numbers long</strong>
+            </mat-error>
+            <mat-error *ngIf="claimForm.get('UTR').hasError('required')">
+              Company's UTR is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="!claimForm.get('UTR').hasError('minlength') && !claimForm.get('UTR').hasError('required')
+            && claimForm.get('UTR').hasError('pattern')">
+              Only <strong>numbers</strong> are accepted
+            </mat-error>
+            <mat-error *ngIf="claimForm.get('UTR').hasError('minlength') && !claimForm.get('UTR').hasError('required')
+            && claimForm.get('UTR').hasError('pattern')">
+              Only <strong>numbers</strong> are accepted
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-        <p>
-          See https://getaddress.io/ for thr address finder
-        </p>
+        <div class="container">
+            <mat-form-field class="address-input" appearance="outline">
+              <mat-label>Postcode</mat-label>
+              <input type="text" id="addressPostcode" matInput
+                     formControlName="addressPostcode">
+                <mat-icon (click)="onPostcodeSearch()" style="cursor: pointer">search</mat-icon>
+            </mat-form-field>
 
-        <mat-form-field class="col-5 mb-2 mx-auto">
-          <mat-label>Start date</mat-label>
-          <input matInput [matDatepicker]="claimStartDatePicker" formControlName="claimStartDate"
-          (dateChange)="onClaimStartDateChange()" disabled>
-          <mat-datepicker-toggle matSuffix [for]="claimStartDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #claimStartDatePicker disabled="false"></mat-datepicker>
-        </mat-form-field>
 
-        <mat-form-field class="col-5 mb-2 mx-auto">
-          <mat-label>End date</mat-label>
-          <input matInput [matDatepicker]="claimEndDatePicker" formControlName="claimEndDate"
-                 disabled [max]="maxClaimDate">
-          <mat-datepicker-toggle matSuffix [for]="claimEndDatePicker"></mat-datepicker-toggle>
-          <mat-datepicker #claimEndDatePicker [disabled]="claimEndDateDisabled"></mat-datepicker>
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Select address</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let test of testArray" value="test.line_1" (click)="findAddressArrayIndex(test.line_1)">{{test.line_1}}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-        <mat-form-field class="col-5 mb-2 mx-auto">
-          <mat-label>HTML for text area</mat-label>
-          <textarea matInput rows="5" placeholder="sample place holder text..."></textarea>
-        </mat-form-field>
+          <div>
+            <mat-form-field class="address-input" appearance="outline">
+              <mat-label>Address line 1</mat-label>
+              <input type="text" id="addressLine1" matInput
+                     formControlName="addressLine1" [(ngModel)]="addressLine1">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="address-input" appearance="outline">
+              <mat-label>Address line 2</mat-label>
+              <input type="text" id="addressLine2" matInput
+                     formControlName="addressLine2" [(ngModel)]="addressLine2">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="address-input" appearance="outline">
+              <mat-label>Address line 3</mat-label>
+              <input type="text" id="addressLine3" matInput
+                     formControlName="addressLine3" [(ngModel)]="addressLine3">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="address-input" appearance="outline">
+              <mat-label>Town</mat-label>
+              <input type="text" id="addressTown" matInput
+                     formControlName="addressTown" [(ngModel)]="addressTown">
+            </mat-form-field>
+          </div>
+          <div>
+            <mat-form-field class="address-input" appearance="outline">
+              <mat-label>County</mat-label>
+              <input type="text" id="addressCounty" matInput
+                     formControlName="addressCounty" [(ngModel)]="addressCounty">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Start date</mat-label>
+            <input matInput [matDatepicker]="claimStartDatePicker" formControlName="claimStartDate"
+            (dateChange)="onClaimStartDateChange()" disabled>
+            <mat-datepicker-toggle matSuffix [for]="claimStartDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #claimStartDatePicker disabled="false"></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>End date</mat-label>
+            <input matInput [matDatepicker]="claimEndDatePicker" formControlName="claimEndDate"
+                   disabled [max]="maxClaimDate">
+            <mat-datepicker-toggle matSuffix [for]="claimEndDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #claimEndDatePicker [disabled]="claimEndDateDisabled"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Provide a synopsis of your Project in 2 or 3 sentences</mat-label>
+            <textarea matInput formControlName="projectSynopsis" rows="5" placeholder="sample place holder text..."
+                      [(ngModel)]="projectSynopsisTemplate"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Use template</mat-label>
+            <mat-select>
+              <mat-option value="option1" (click)="useTemplateProjectSynopsis('option1')">Option 1</mat-option>
+              <mat-option value="option2" (click)="useTemplateProjectSynopsis('option2')">Option 2</mat-option>
+              <mat-option value="option3" (click)="useTemplateProjectSynopsis('option3')">Option 3</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
 
       </form>
+
       <p (click)="submitForm()" style="cursor: pointer">
         test log
       </p>
