@@ -1,14 +1,3 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--</body>-->
-<!--</html>-->
-
 <div class="container" style="margin-top: 100px; margin-bottom: 50px">
   <div class="row">
     <div class="col-sm-12">
@@ -18,7 +7,11 @@
       </p>
 
       <form [formGroup]="claimForm">
-        <div>
+<!--        Input for Name  - name -- required-->
+        <div class="form-group">
+          <h6>
+            Your name:
+          </h6>
           <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
             <mat-label>Your name</mat-label>
             <input type="text" matInput formControlName="name"
@@ -29,7 +22,11 @@
           </mat-form-field>
         </div>
 
-        <div>
+<!--        Input for company name - compName -- required-->
+        <div class="form-group">
+          <h6>
+            Your company’s name:
+          </h6>
           <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
             <mat-label>Your company’s name</mat-label>
             <input type="text" matInput formControlName="compName"
@@ -40,11 +37,15 @@
           </mat-form-field>
         </div>
 
-        <div>
+<!--        Input for UTR number - UTR - true - required, minlength, pattern-->
+        <div class="form-group">
+          <h6>
+            Your company’s number (UTR):
+          </h6>
           <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
-            <mat-label>Your company’s number (UTR): </mat-label>
+            <mat-label>UTR number: </mat-label>
             <input type="text" matInput formControlName="UTR"
-                   placeholder="Company's UTR" maxlength="10">
+                   placeholder="UTR number" maxlength="10">
             <mat-error *ngIf="claimForm.get('UTR').hasError('minlength') && !claimForm.get('UTR').hasError('required')
             && !claimForm.get('UTR').hasError('pattern')">
               Number should be <strong>10 numbers long</strong>
@@ -63,12 +64,13 @@
           </mat-form-field>
         </div>
 
+<!--        Input for postcode - addressPostcode - false - required-->
         <div class="container">
             <mat-form-field class="address-input" appearance="outline">
               <mat-label>Postcode</mat-label>
               <input type="text" id="addressPostcode" matInput
                      formControlName="addressPostcode">
-                <mat-icon (click)="onPostcodeSearch()" style="cursor: pointer">search</mat-icon>
+                <mat-icon matSuffix (click)="onPostcodeSearch()" style="cursor: pointer">search</mat-icon>
             </mat-form-field>
 
 
@@ -116,6 +118,7 @@
           </div>
         </div>
 
+<!--        Inputs for claim start and end dates - claimStartDate, claimStartDate - true - required-->
         <div>
           <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
             <mat-label>Start date</mat-label>
@@ -128,9 +131,12 @@
           <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
             <mat-label>End date</mat-label>
             <input matInput [matDatepicker]="claimEndDatePicker" formControlName="claimEndDate"
-                   disabled [max]="maxClaimDate">
+                   disabled [max]="maxClaimDate" (dateChange)="isClaimEndDateValid()">
             <mat-datepicker-toggle matSuffix [for]="claimEndDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #claimEndDatePicker [disabled]="claimEndDateDisabled"></mat-datepicker>
+            <mat-error *ngIf="claimDateValid === false">
+              Duration is over a year <strong>required</strong>
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -152,6 +158,215 @@
 
         </div>
 
+        <div class="form-group">
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Project name</mat-label>
+            <input type="text" matInput formControlName="projectName"
+                   placeholder="Project name">
+            <mat-error *ngIf="claimForm.get('projectName').hasError('required')">
+              Name is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+<!--        TODO is mat-form-field needed here?-->
+        <div class="form-group">
+          <h6>
+            Did your project run for the duration of the accounting year?
+          </h6>
+          <div class="row">
+            <div class="justify-content-lg-around" style="padding-left: 15px">
+              <mat-radio-group class="form-control" formControlName="projectDurationRadio"
+                               aria-label="Select an option">
+                <mat-radio-button value="yes">yes</mat-radio-button>
+                <mat-radio-button value="no">no</mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
+        </div>
+
+<!--        Inputs for project start and end date - projectStartDate, projectEndDate - false - -->
+        <div>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Start date</mat-label>
+            <input matInput [matDatepicker]="projectStartDatePicker" formControlName="projectStartDate"
+                   (dateChange)="onProjectStartDateChange()" disabled>
+            <mat-datepicker-toggle matSuffix [for]="projectStartDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #projectStartDatePicker disabled="false"></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>End date</mat-label>
+            <input matInput [matDatepicker]="projectEndDatePicker" formControlName="projectEndDate"
+                   disabled [max]="maxProjectDate">
+            <mat-datepicker-toggle matSuffix [for]="projectEndDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #projectEndDatePicker [disabled]="ProjectEndDateDisabled"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+<!--        Input for project R&D description - projectRAndDDescription - true - required-->
+        <div class="form-group">
+          <h6>
+            A qualifying R&D Project must involve creating something new or developing a new solution to
+            a technological problem. Describe how your Project fits this description in no more than 200 words:
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Project R&D Description</mat-label>
+            <textarea matInput (keydown)="projectRAndDDescriptionWordCounter()" #projectRAndDDescriptionText
+                      formControlName="projectRAndDDescription" rows="5" placeholder="sample text">
+            </textarea>
+            <mat-hint align="end">Word count: {{projectRAndDDescriptionWords}}</mat-hint>
+          </mat-form-field>
+        </div>
+
+<!--        Input for project research - projectResearch - true - required-->
+        <div class="form-group">
+          <h6>
+            Describe some of the research you have done which led you to develop your product:
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Project research</mat-label>
+            <textarea matInput formControlName="projectResearch" rows="5" placeholder="Project research">
+            </textarea>
+          </mat-form-field>
+        </div>
+
+<!--        Input for project aim - problemToSolve - true - required-->
+        <div class="form-group">
+          <h6>
+            What problem are you aiming to solve with your product?
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Project aim</mat-label>
+            <textarea matInput formControlName="problemToSolve" rows="5" placeholder="Project aim">
+            </textarea>
+            <mat-error *ngIf="claimForm.get('problemToSolve').hasError('required')">
+              Project aim is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+<!--        Input for project lead - projectLead - true - required-->
+        <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+          <mat-label>Project Manager/lead</mat-label>
+          <input type="text" matInput formControlName="projectLead"
+                 placeholder="Project Manager/lead">
+          <mat-error *ngIf="claimForm.get('projectLead').hasError('required')">
+            Project Manager/lead is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+<!--        Input for project lead experience - projectLeadExperience - true - required -->
+        <div class="form-group">
+          <h6>
+            Please give details about the experience and qualifications of the Project lead and other key
+            personnel which are directly relevant to the Project:
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Project lead experience</mat-label>
+            <textarea matInput formControlName="projectLeadExperience" rows="5" placeholder="Project lead experience">
+            </textarea>
+            <mat-error *ngIf="claimForm.get('projectLeadExperience').hasError('required')">
+              Input on project lead experience is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+<!--        Input for unique development - uniqueProjectDevelopment - true - required-->
+        <div class="form-group">
+          <h6>
+            What unique scientific or technological development is your Project seeking to achieve?
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Unique development</mat-label>
+            <textarea matInput formControlName="uniqueProjectDevelopment" rows="5" placeholder="Unique development">
+            </textarea>
+            <mat-error *ngIf="claimForm.get('uniqueProjectDevelopment').hasError('required')">
+              Input on unique development is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+<!--        Input for project problems - projectProblems - true - -->
+        <div class="form-group">
+          <h6>
+            What problems or obstacles has your Project run into in relation to these developments, if any?
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Project obstacles/ problems</mat-label>
+            <textarea matInput formControlName="projectProblems" rows="5" placeholder="Project obstacles/ problems">
+            </textarea>
+          </mat-form-field>
+        </div>
+
+<!--        Input for why they were problems - projectProblemsDifficulty - true - -->
+        <div class="form-group">
+          <h6>
+            Why were these problems not easily solved?
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label></mat-label>
+            <textarea matInput formControlName="projectProblemsDifficulty" rows="5" placeholder="">
+            </textarea>
+          </mat-form-field>
+        </div>
+
+<!--        Input on how problems were solved - projectProblemsSolved - true - -->
+        <div class="form-group">
+          <h6>
+            What steps did you take to solve these problems?
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Steps to solve problems</mat-label>
+            <textarea matInput formControlName="projectProblemsSolved" rows="5" placeholder="Steps to solve problems">
+            </textarea>
+          </mat-form-field>
+        </div>
+
+<!--        Input for project testing - projectTesting - true - required-->
+        <div class="form-group">
+          <h6>
+            What other testing have you done on your product?
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Project testing</mat-label>
+            <textarea matInput formControlName="projectTesting" rows="5" placeholder="Project testing">
+            </textarea>
+            <mat-error *ngIf="claimForm.get('projectTesting').hasError('required')">
+              Input on project testing is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+<!--        Input for software advance - softwareAdvance - true - required -->
+        <div class="form-group">
+          <h6>
+            Software advance?
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Software advance</mat-label>
+            <textarea matInput formControlName="softwareAdvance" rows="5" placeholder="Software advance">
+            </textarea>
+            <mat-error *ngIf="claimForm.get('softwareAdvance').hasError('required')">
+              Input on software advance is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+<!--        Input for State aid - stateAid - true - required-->
+        <div class="form-group">
+          <h6>
+            State aid? / De minimi.s state aid
+          </h6>
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>State aid</mat-label>
+            <textarea matInput formControlName="stateAid" rows="5" placeholder="State aid">
+            </textarea>
+            <mat-error *ngIf="claimForm.get('stateAid').hasError('required')">
+              Input on State aid is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
       </form>
 
       <p (click)="submitForm()" style="cursor: pointer">

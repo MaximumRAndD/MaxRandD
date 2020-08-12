@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WebService } from './web.service';
@@ -36,15 +36,37 @@ export class ClaimFormComponent
         addressTown: ['', Validators.required],
         addressCounty: ['', Validators.required],
         addressPostcode: ['', Validators.required],
-        projectSynopsis: ['', Validators.required]
+        projectSynopsis: ['', Validators.required],
+        projectName: ['', Validators.required],
+        projectDurationRadio: ['', Validators.required],
+        projectStartDate: ['', Validators.required],
+        projectEndDate: ['', Validators.required],
+        projectRAndDDescription: ['', Validators.required],
+        projectResearch: ['', Validators.required],
+        problemToSolve: ['', Validators.required],
+        projectLead: ['', Validators.required],
+        projectLeadExperience: ['', Validators.required],
+        uniqueProjectDevelopment: ['', Validators.required],
+        projectProblems: '',
+        projectProblemsDifficulty: '',
+        projectProblemsSolved: '',
+        projectTesting: ['', Validators.required],
+        softwareAdvance: ['', Validators.required],
+        stateAid: ['', Validators.required]
+
       }
     );
   }
 
   claimForm;
   claimEndDateDisabled = true;
-  maxClaimDate;
+  ProjectEndDateDisabled = true;
+  maxClaimDate: Date;
+  maxProjectDate: Date;
 
+  claimDateValid: boolean;
+
+  // TODO rename
   testArray;
 
   addressLine1;
@@ -53,6 +75,11 @@ export class ClaimFormComponent
   addressTown;
   addressCounty;
   projectSynopsisTemplate;
+  projectRAndDDescriptionWordCount;
+
+  @ViewChild('projectRAndDDescriptionText') text: ElementRef;
+
+  projectRAndDDescriptionWords: any;
 
   isInvalid(control): any
   {
@@ -76,28 +103,55 @@ export class ClaimFormComponent
     }
   }
 
-  // async onPostcodeSearch(): Promise<void>
-  // {
-  // tslint:disable-next-line:max-line-length
-  //   const response = '{"postcode":"BT39 0UB","latitude":54.754812,"longitude":-6.048338,"addresses":[{"formatted_address":["1 Cogry Manor","","","Doagh, Ballyclare","County Antrim"],"thoroughfare":"Cogry Manor","building_name":"","sub_building_name":"","sub_building_number":"","building_number":"1","line_1":"1 Cogry Manor","line_2":"","line_3":"","line_4":"","locality":"Doagh","town_or_city":"Ballyclare","county":"County Antrim","district":"Antrim And Newtownabbey","country":"Northern Ireland"},{"formatted_address":["2 Cogry Manor","","","Doagh, Ballyclare","County Antrim"],"thoroughfare":"Cogry Manor","building_name":"","sub_building_name":"","sub_building_number":"","building_number":"2","line_1":"2 Cogry Manor","line_2":"","line_3":"","line_4":"","locality":"Doagh","town_or_city":"Ballyclare","county":"County Antrim","district":"Antrim And Newtownabbey","country":"Northern Ireland"},{"formatted_address":["3 Cogry Manor","","","Doagh, Ballyclare","County Antrim"],"thoroughfare":"Cogry Manor","building_name":"","sub_building_name":"","sub_building_number":"","building_number":"3","line_1":"3 Cogry Manor","line_2":"","line_3":"","line_4":"","locality":"Doagh","town_or_city":"Ballyclare","county":"County Antrim","district":"Antrim And Newtownabbey","country":"Northern Ireland"},{"formatted_address":["4 Cogry Manor","","","Doagh, Ballyclare","County Antrim"],"thoroughfare":"Cogry Manor","building_name":"","sub_building_name":"","sub_building_number":"","building_number":"4","line_1":"4 Cogry Manor","line_2":"","line_3":"","line_4":"","locality":"Doagh","town_or_city":"Ballyclare","county":"County Antrim","district":"Antrim And Newtownabbey","country":"Northern Ireland"},{"formatted_address":["5 Cogry Manor","","","Doagh, Ballyclare","County Antrim"],"thoroughfare":"Cogry Manor","building_name":"","sub_building_name":"","sub_building_number":"","building_number":"5","line_1":"5 Cogry Manor","line_2":"","line_3":"","line_4":"","locality":"Doagh","town_or_city":"Ballyclare","county":"County Antrim","district":"Antrim And Newtownabbey","country":"Northern Ireland"}]}';
-  //
-  //   const jsonObject = JSON.parse(response);
-  //   this.testArray = jsonObject.addresses;
-  //
-  //   console.log(this.testArray[1]);
-  // }
+  onProjectStartDateChange(): void
+  {
+    if (this.claimForm.value.projectStartDate === null)
+    {
+      this.ProjectEndDateDisabled = true;
 
+      const currentYear = new Date().getFullYear();
+      const currentMonth = new Date().getMonth();
+      const currentDate = new Date().getDate();
+      this.maxProjectDate = new Date(currentYear + 0, currentMonth + 0, currentDate + 0);
+    }
+    else
+    {
+      this.ProjectEndDateDisabled = false;
+    }
+  }
+
+
+
+  isClaimEndDateValid(): void
+  {
+    if (this.claimForm.value.claimEndDate !== '')
+    {
+      const startDate = new Date (this.claimForm.value.claimStartDate);
+      const endDate = new Date (this.claimForm.value.claimEndDate);
+
+      const startDatePlusYear = new Date (startDate.getFullYear() + 1, startDate.getMonth(), startDate.getDate());
+
+      if (endDate <= startDatePlusYear)
+      {
+        this.claimDateValid = true;
+      }
+      else
+      {
+        this.claimDateValid = false;
+      }
+    }
+    else
+    {
+    }
+  }
 
   // TODO error handling
    async onPostcodeSearch(): Promise<void>
    {
-     console.log('onPostcodeSearch ran');
      const response = await this.webService.getAddresses(this.claimForm.value.addressPostcode);
-     console.log(response);
-
+     // console.log(response);
      this.testArray = response.addresses;
-
-     console.log(this.testArray[1]);
+     // console.log(this.testArray[1]);
    }
 
   findAddressArrayIndex(line1): void
@@ -113,32 +167,43 @@ export class ClaimFormComponent
   }
 
   fillAddressInput(index): void
-{
-  this.addressLine1 = this.testArray[index].line_1;
-  this.addressLine2 = this.testArray[index].line_2;
-  this.addressLine3 = this.testArray[index].line_3;
-  this.addressTown = this.testArray[index].town_or_city;
-  this.addressCounty = this.testArray[index].county;
-}
+  {
+    this.addressLine1 = this.testArray[index].line_1;
+    this.addressLine2 = this.testArray[index].line_2;
+    this.addressLine3 = this.testArray[index].line_3;
+    this.addressTown = this.testArray[index].town_or_city;
+    this.addressCounty = this.testArray[index].county;
+  }
 
   useTemplateProjectSynopsis(option): void
-{
-  if (option === 'option1')
   {
-    this.projectSynopsisTemplate = 'Template for option 1';
+    if (option === 'option1')
+    {
+      this.projectSynopsisTemplate = 'Template for option 1';
+    }
+    if (option === 'option2')
+    {
+      this.projectSynopsisTemplate = 'Template for option 2';
+    }
+    if (option === 'option3')
+    {
+      this.projectSynopsisTemplate = 'Template for option 3';
+    }
   }
-  if (option === 'option2')
+
+  projectRAndDDescriptionWordCounter(): void
   {
-    this.projectSynopsisTemplate = 'Template for option 2';
+    this.projectRAndDDescriptionWordCount = this.text ? this.text.nativeElement.value.split(/\s+/) : 0;
+    this.projectRAndDDescriptionWords = this.projectRAndDDescriptionWordCount ? this.projectRAndDDescriptionWordCount.length : 0;
   }
-  if (option === 'option3')
-  {
-    this.projectSynopsisTemplate = 'Template for option 3';
-  }
-}
 
   submitForm(): any
   {
     console.log(this.claimForm.value);
   }
+}
+
+function claimDateValidator(control: AbstractControl): {[key: string]: boolean | null}
+{
+  return null;
 }
