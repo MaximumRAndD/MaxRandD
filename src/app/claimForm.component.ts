@@ -3,6 +3,7 @@ import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WebService } from './web.service';
+import { dataLessThan , endDateMoreThanYear } from './date.validation';
 
 
 @Component
@@ -53,9 +54,14 @@ export class ClaimFormComponent
         projectTesting: ['', Validators.required],
         softwareAdvance: ['', Validators.required],
         stateAid: ['', Validators.required]
-
+      },
+      {
+        validators: [dataLessThan('claimStartDate', 'claimEndDate'),
+        endDateMoreThanYear('claimStartDate', 'claimEndDate')]
       }
     );
+
+    this.projectDurationShowDatePicker = false;
   }
 
   claimForm;
@@ -76,6 +82,7 @@ export class ClaimFormComponent
   addressCounty;
   projectSynopsisTemplate;
   projectRAndDDescriptionWordCount;
+  projectDurationShowDatePicker: boolean;
 
   @ViewChild('projectRAndDDescriptionText') text: ElementRef;
 
@@ -166,6 +173,7 @@ export class ClaimFormComponent
     }
   }
 
+  // TODO try this.claimForm.setValue instead
   fillAddressInput(index): void
   {
     this.addressLine1 = this.testArray[index].line_1;
@@ -195,6 +203,31 @@ export class ClaimFormComponent
   {
     this.projectRAndDDescriptionWordCount = this.text ? this.text.nativeElement.value.split(/\s+/) : 0;
     this.projectRAndDDescriptionWords = this.projectRAndDDescriptionWordCount ? this.projectRAndDDescriptionWordCount.length : 0;
+  }
+
+  async projectDurationRadioAnswered(): Promise<void>
+  {
+    await this.delay(100);
+
+    if (this.claimForm.value.projectDurationRadio === '')
+    {
+      this.projectDurationShowDatePicker = false;
+    }
+
+    if (this.claimForm.value.projectDurationRadio === 'no')
+    {
+      this.projectDurationShowDatePicker = true;
+    }
+
+    if (this.claimForm.value.projectDurationRadio === 'yes')
+    {
+      this.projectDurationShowDatePicker = false;
+    }
+  }
+
+  async delay(ms: number): Promise<void>
+  {
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
   }
 
   submitForm(): any

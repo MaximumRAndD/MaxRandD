@@ -134,8 +134,13 @@
                    disabled [max]="maxClaimDate" (dateChange)="isClaimEndDateValid()">
             <mat-datepicker-toggle matSuffix [for]="claimEndDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #claimEndDatePicker [disabled]="claimEndDateDisabled"></mat-datepicker>
-            <mat-error *ngIf="claimDateValid === false">
-              Duration is over a year <strong>required</strong>
+            <mat-error *ngIf="claimForm.get('claimEndDate').errors?.dateLessThan &&
+            !claimForm.get('claimEndDate').errors?.endDateMoreThanYear">
+              End date <strong>should not</strong> be before start date
+            </mat-error>
+            <mat-error *ngIf="!claimForm.get('claimEndDate').errors?.dateLessThan &&
+            claimForm.get('claimEndDate').errors?.endDateMoreThanYear">
+              End date <strong>should not</strong> more than 1 year after start date
             </mat-error>
           </mat-form-field>
         </div>
@@ -177,7 +182,7 @@
           <div class="row">
             <div class="justify-content-lg-around" style="padding-left: 15px">
               <mat-radio-group class="form-control" formControlName="projectDurationRadio"
-                               aria-label="Select an option">
+                               aria-label="Select an option" (click)="projectDurationRadioAnswered()">
                 <mat-radio-button value="yes">yes</mat-radio-button>
                 <mat-radio-button value="no">no</mat-radio-button>
               </mat-radio-group>
@@ -186,7 +191,7 @@
         </div>
 
 <!--        Inputs for project start and end date - projectStartDate, projectEndDate - false - -->
-        <div>
+        <div *ngIf="projectDurationShowDatePicker">
           <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
             <mat-label>Start date</mat-label>
             <input matInput [matDatepicker]="projectStartDatePicker" formControlName="projectStartDate"
