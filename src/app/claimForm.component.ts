@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WebService } from './web.service';
 import { dataLessThan , endDateMoreThanYear } from './date.validation';
+import { DataService } from './data.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 
 @Component
@@ -18,7 +21,8 @@ export class ClaimFormComponent
 {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
-              public dialog: MatDialog, private webService: WebService/*, private cd: ChangeDetectorRef*/)
+              public dialog: MatDialog, private webService: WebService, private dataService: DataService,
+              private db: AngularFirestore)
   {
     this.claimForm = this.formBuilder.group
     (
@@ -64,6 +68,8 @@ export class ClaimFormComponent
     this.projectDurationShowDatePicker = false;
   }
 
+
+
   claimForm;
   claimEndDateDisabled = true;
   ProjectEndDateDisabled = true;
@@ -87,6 +93,53 @@ export class ClaimFormComponent
   @ViewChild('projectRAndDDescriptionText') text: ElementRef;
 
   projectRAndDDescriptionWords: any;
+
+  // TODO make this into a service with all db activities
+  saveFormToDB()
+  {
+    this.db.collection('claimForm').doc('testUser').set
+    ({
+      name: this.claimForm.value.name,
+      compName: this.claimForm.value.compName,
+      UTR: this.claimForm.value.UTR,
+      compAdr: this.claimForm.value.compAdr,
+      claimStartDate: this.claimForm.value.claimStartDate,
+      claimEndDate: this.claimForm.value.claimEndDate,
+      addressLine1: this.claimForm.value.addressLine1,
+      addressLine2: this.claimForm.value.addressLine2,
+      addressLine3: this.claimForm.value.addressLine3,
+      addressTown: this.claimForm.value.addressTown,
+      addressCounty: this.claimForm.value.addressCounty,
+      addressPostcode: this.claimForm.value.addressPostcode,
+      projectSynopsis: this.claimForm.value.projectSynopsis,
+      projectName: this.claimForm.value.projectName,
+      projectDurationRadio: this.claimForm.value.projectDurationRadio,
+      projectStartDate: this.claimForm.value.projectStartDate,
+      projectEndDate: this.claimForm.value.projectEndDate,
+      projectRAndDDescription: this.claimForm.value.projectRAndDDescription,
+      projectResearch: this.claimForm.value.projectResearch,
+      problemToSolve: this.claimForm.value.problemToSolve,
+      projectLead: this.claimForm.value.projectLead,
+      projectLeadExperience: this.claimForm.value.projectLeadExperience,
+      uniqueProjectDevelopment: this.claimForm.value.uniqueProjectDevelopment,
+      projectProblems: this.claimForm.value.projectProblems,
+      projectProblemsDifficulty: this.claimForm.value.projectProblemsDifficulty,
+      projectProblemsSolved: this.claimForm.value.projectProblemsSolved,
+      projectTesting: this.claimForm.value.projectTesting,
+      softwareAdvance: this.claimForm.value.softwareAdvance,
+      stateAid: this.claimForm.value.stateAid
+    })
+      // tslint:disable-next-line:only-arrow-functions typedef
+      .then(function()
+      {
+        console.log('Document successfully written!');
+      })
+      // tslint:disable-next-line:only-arrow-functions typedef
+      .catch(function(error)
+      {
+        console.error('Error writing document: ', error);
+      });
+  }
 
   isInvalid(control): any
   {
@@ -230,13 +283,16 @@ export class ClaimFormComponent
     await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
   }
 
+  // submitForm(): any
+  // {
+  //   console.log(this.claimForm.value);
+  // }
+
   submitForm(): any
   {
     console.log(this.claimForm.value);
-  }
-}
+    this.dataService.formData(this.claimForm);
 
-function claimDateValidator(control: AbstractControl): {[key: string]: boolean | null}
-{
-  return null;
+    this.router.navigate(['../testPDF'], {relativeTo: this.route});
+  }
 }

@@ -6,6 +6,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule} from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome.component';
@@ -21,7 +24,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { WebService } from './web.service';
+import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
+import { TestComponent } from './test.component';
 
 const routes =
   [{
@@ -51,20 +56,25 @@ const routes =
   {
    path: 'claimForm',
    component: ClaimFormComponent
+  },
+  {
+    path: 'test',
+    component: TestComponent
   }];
 
 @NgModule({
   declarations: [
     AppComponent, WelcomeComponent, TrafficLightTestComponent, NavComponent,
     Tltv1ComponentComponent, SuccessComponent, FailureComponent, HelpDialog, FailureDialog,
-    CreatePDFComponent, ClaimFormComponent
+    CreatePDFComponent, ClaimFormComponent, TestComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule, MatIconModule,
-    MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule
+    MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
-  providers: [WebService],
+  providers: [WebService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

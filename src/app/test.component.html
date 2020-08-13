@@ -1,0 +1,15 @@
+<ul style="margin-top: 100px">
+  <li class="text" *ngFor="let item of items | async">
+    {{item.name}}
+  </li>
+</ul>
+
+<p>
+  {{form | async | json}}
+</p>
+<br>
+<h1 >
+  {{form}}
+</h1>
+
+<button class="btn btn-primary" (click)="pleaseJustRead()">log</button>

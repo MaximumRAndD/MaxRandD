@@ -1,47 +1,20 @@
-<!--<div  class="container" id="MyDIv" style="margin-top: 100px; width: 21cm">-->
-<!--  <div class="row">-->
-<!--    <div class="col-md-8" id="htmlData" #htmlData>-->
-<!--      <table class="table table-bordered">-->
-<!--        <tr class="table-primary">-->
-<!--          <th>Id</th>-->
-<!--          <th>Name</th>-->
-<!--          <th>Email</th>-->
-<!--          <th>Phone</th>-->
-<!--        </tr>-->
-<!--        <tr *ngFor="let user of USERS">-->
-<!--          <th>{{user.id}}</th>-->
-<!--          <td>{{user.name}}</td>-->
-<!--          <td>{{user.email}}</td>-->
-<!--          <td>{{user.phone}}</td>-->
-<!--        </tr>-->
-<!--      </table>-->
-<!--    </div>-->
+<p style="margin-top: 100px" (click)="testLog()">
+  test FireStore Read: {{item.UTR}}
+  test Read
+</p>
 
-<!--    <div class="col-md-4 text-right">-->
-<!--&lt;!&ndash;      <button class="btn btn-success btn-block" (click)="openPDF()">Open PDF</button>&ndash;&gt;-->
-<!--&lt;!&ndash;      <button class="btn btn-danger btn-block" (click)="downloadPDF()">Download PDF</button>&ndash;&gt;-->
-<!--&lt;!&ndash;      <button class="btn btn-danger btn-block" (click)="exportAsPDF()">Download PDF</button>&ndash;&gt;-->
-<!--&lt;!&ndash;      <button class="btn btn-danger btn-block" (click)="captureScreen()">Download PDF</button>&ndash;&gt;-->
-<!--&lt;!&ndash;      <button class="btn btn-danger btn-block" (click)="generatePDF()">Download PDF</button>&ndash;&gt;-->
-<!--&lt;!&ndash;      <button class="btn btn-danger btn-block" (click)="downloadPDFnew()">Download PDF</button>&ndash;&gt;-->
-<!--    </div>-->
 
-<!--  </div>-->
-<!--</div>-->
+<div class="container" style="margin-top: 100px">
+  <div id="content"  #content *ngIf="reportEnabled">
+    <h1 style="font-size: 24pt; font-family: arial, helvetica, sans-serif;">
+      Test PDF title
+    </h1>
+    <p>
+      Test content
+    </p>
+  </div>
 
-<!--&lt;!&ndash;Version 1&ndash;&gt;-->
-
-<!--<div class="container" style="margin-top: 100px">-->
-<!--  <div id="content"  #content *ngIf="reportEnabled">-->
-<!--    <h1 style="font-size: 24pt; font-family: arial, helvetica, sans-serif;">-->
-<!--      Test PDF title-->
-<!--    </h1>-->
-<!--    <p>-->
-<!--      Test content-->
-<!--    </p>-->
-<!--  </div>-->
-
-<!--  <div>-->
-<!--    <button (click)="createPDF()">create PDF</button>-->
-<!--  </div>-->
-<!--</div>-->
+  <div>
+    <button (click)="createPDF()">create PDF</button>
+  </div>
+</div>
