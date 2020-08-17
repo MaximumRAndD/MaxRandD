@@ -1,20 +1,104 @@
-<p style="margin-top: 100px" (click)="testLog()">
-  test FireStore Read: {{item.UTR}}
-  test Read
-</p>
-
-
 <div class="container" style="margin-top: 100px">
   <div id="content"  #content *ngIf="reportEnabled">
     <h1 style="font-size: 24pt; font-family: arial, helvetica, sans-serif;">
       Test PDF title
     </h1>
     <p>
-      Test content
+      name: {{claimForm.name}}
+    </p>
+    <p>
+      compName: {{claimForm.compName}}
+    </p>
+    <p>
+      UTR: {{claimForm.UTR}}
+    </p>
+    <p>
+      compAdr: {{claimForm.compAdr}}
+    </p>
+    <p>
+      claimStartDate: {{claimForm.claimStartDate}}
+    </p>
+    <p>
+      claimEndDate: {{claimForm.claimEndDate}}
+    </p>
+    <p>
+      addressLine1: {{claimForm.addressLine1}}
+    </p>
+    <p>
+      addressLine2: {{claimForm.addressLine2}}
+    </p>
+    <p>
+      addressLine3: {{claimForm.addressLine3}}
+    </p>
+    <p>
+      addressTown: {{claimForm.addressTown}}
+    </p>
+    <p>
+      addressCounty: {{claimForm.addressCounty}}
+    </p>
+    <p>
+      addressPostcode: {{claimForm.addressPostcode}}
+    </p>
+    <p>
+      projectSynopsis: {{claimForm.projectSynopsis}}
+    </p>
+    <p>
+      projectName: {{claimForm.projectName}}
+    </p>
+    <p>
+      projectDurationRadio: {{claimForm.projectDurationRadio}}
+    </p>
+    <p>
+      projectStartDate: {{claimForm.projectStartDate}}
+    </p>
+    <p>
+      projectEndDate: {{claimForm.projectEndDate}}
+    </p>
+    <p>
+      projectRAndDDescription: {{claimForm.projectRAndDDescription}}
+    </p>
+    <p>
+      projectResearch: {{claimForm.projectResearch}}
+    </p>
+    <p>
+      problemToSolve: {{claimForm.problemToSolve}}
+    </p>
+    <p>
+      projectLead: {{claimForm.projectLead}}
+    </p>
+    <p>
+      projectLeadExperience: {{claimForm.projectLeadExperience}}
+    </p>
+    <p>
+      uniqueProjectDevelopment: {{claimForm.uniqueProjectDevelopment}}
+    </p>
+    <p>
+      projectProblems: {{claimForm.projectProblems}}
+    </p>
+    <p>
+      projectProblemsDifficulty: {{claimForm.projectProblemsDifficulty}}
+    </p>
+    <p>
+      projectProblemsSolved: {{claimForm.projectProblemsSolved}}
+    </p>
+    <p>
+      projectTesting: {{claimForm.projectTesting}}
+    </p>
+    <p>
+      softwareAdvance: {{claimForm.softwareAdvance}}
+    </p>
+    <p>
+      stateAid: {{claimForm.stateAid}}
     </p>
   </div>
 
   <div>
     <button (click)="createPDF()">create PDF</button>
   </div>
+
+  <p (click)="testLog()" style="margin-top: 20px">
+    Test Log
+  </p>
+
 </div>
+

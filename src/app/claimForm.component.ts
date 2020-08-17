@@ -1,13 +1,11 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {AbstractControl, FormBuilder, Validators} from '@angular/forms';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WebService } from './web.service';
 import { dataLessThan , endDateMoreThanYear } from './date.validation';
 import { DataService } from './data.service';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-
+import { DatabaseService } from './database.service';
 
 @Component
 ({
@@ -22,7 +20,7 @@ export class ClaimFormComponent
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
               public dialog: MatDialog, private webService: WebService, private dataService: DataService,
-              private db: AngularFirestore)
+              /*private db: AngularFirestore,*/ private db: DatabaseService )
   {
     this.claimForm = this.formBuilder.group
     (
@@ -78,9 +76,10 @@ export class ClaimFormComponent
 
   claimDateValid: boolean;
 
-  // TODO rename
-  testArray;
+  addressArray;
 
+  postCodeFound: boolean;
+  postCodeSearched = false;
   addressLine1;
   addressLine2;
   addressLine3;
@@ -94,51 +93,17 @@ export class ClaimFormComponent
 
   projectRAndDDescriptionWords: any;
 
-  // TODO make this into a service with all db activities
-  saveFormToDB()
+  saveFormToDB(): void
   {
-    this.db.collection('claimForm').doc('testUser').set
-    ({
-      name: this.claimForm.value.name,
-      compName: this.claimForm.value.compName,
-      UTR: this.claimForm.value.UTR,
-      compAdr: this.claimForm.value.compAdr,
-      claimStartDate: this.claimForm.value.claimStartDate,
-      claimEndDate: this.claimForm.value.claimEndDate,
-      addressLine1: this.claimForm.value.addressLine1,
-      addressLine2: this.claimForm.value.addressLine2,
-      addressLine3: this.claimForm.value.addressLine3,
-      addressTown: this.claimForm.value.addressTown,
-      addressCounty: this.claimForm.value.addressCounty,
-      addressPostcode: this.claimForm.value.addressPostcode,
-      projectSynopsis: this.claimForm.value.projectSynopsis,
-      projectName: this.claimForm.value.projectName,
-      projectDurationRadio: this.claimForm.value.projectDurationRadio,
-      projectStartDate: this.claimForm.value.projectStartDate,
-      projectEndDate: this.claimForm.value.projectEndDate,
-      projectRAndDDescription: this.claimForm.value.projectRAndDDescription,
-      projectResearch: this.claimForm.value.projectResearch,
-      problemToSolve: this.claimForm.value.problemToSolve,
-      projectLead: this.claimForm.value.projectLead,
-      projectLeadExperience: this.claimForm.value.projectLeadExperience,
-      uniqueProjectDevelopment: this.claimForm.value.uniqueProjectDevelopment,
-      projectProblems: this.claimForm.value.projectProblems,
-      projectProblemsDifficulty: this.claimForm.value.projectProblemsDifficulty,
-      projectProblemsSolved: this.claimForm.value.projectProblemsSolved,
-      projectTesting: this.claimForm.value.projectTesting,
-      softwareAdvance: this.claimForm.value.softwareAdvance,
-      stateAid: this.claimForm.value.stateAid
-    })
-      // tslint:disable-next-line:only-arrow-functions typedef
-      .then(function()
-      {
-        console.log('Document successfully written!');
-      })
-      // tslint:disable-next-line:only-arrow-functions typedef
-      .catch(function(error)
-      {
-        console.error('Error writing document: ', error);
-      });
+
+    if (this.claimForm.value.projectDurationRadio === 'yes')
+    {
+      this.claimForm.value.projectStartDate = this.claimForm.value.claimStartDate;
+      this.claimForm.value.projectEndDate = this.claimForm.value.claimEndDate;
+    }
+
+    // TODO get return from write to find out if it worked
+    this.db.writeClaimFormToDB(this.claimForm);
   }
 
   isInvalid(control): any
@@ -205,21 +170,31 @@ export class ClaimFormComponent
     }
   }
 
-  // TODO error handling
    async onPostcodeSearch(): Promise<void>
    {
+     this.postCodeSearched = true;
+
      const response = await this.webService.getAddresses(this.claimForm.value.addressPostcode);
-     // console.log(response);
-     this.testArray = response.addresses;
-     // console.log(this.testArray[1]);
+     console.log(response);
+
+     if (response.Message !== undefined)
+     {
+       this.postCodeFound = false;
+       console.log('Error | ' + response.Message);
+     }
+     else
+     {
+       this.addressArray = response.addresses;
+       this.postCodeFound = true;
+     }
    }
 
   findAddressArrayIndex(line1): void
   {
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.testArray.length; i++)
+    for (let i = 0; i < this.addressArray.length; i++)
     {
-      if (this.testArray[i].line_1 === line1)
+      if (this.addressArray[i].line_1 === line1)
       {
         this.fillAddressInput(i);
       }
@@ -229,11 +204,11 @@ export class ClaimFormComponent
   // TODO try this.claimForm.setValue instead
   fillAddressInput(index): void
   {
-    this.addressLine1 = this.testArray[index].line_1;
-    this.addressLine2 = this.testArray[index].line_2;
-    this.addressLine3 = this.testArray[index].line_3;
-    this.addressTown = this.testArray[index].town_or_city;
-    this.addressCounty = this.testArray[index].county;
+    this.addressLine1 = this.addressArray[index].line_1;
+    this.addressLine2 = this.addressArray[index].line_2;
+    this.addressLine3 = this.addressArray[index].line_3;
+    this.addressTown = this.addressArray[index].town_or_city;
+    this.addressCounty = this.addressArray[index].county;
   }
 
   useTemplateProjectSynopsis(option): void
@@ -282,11 +257,6 @@ export class ClaimFormComponent
   {
     await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
   }
-
-  // submitForm(): any
-  // {
-  //   console.log(this.claimForm.value);
-  // }
 
   submitForm(): any
   {

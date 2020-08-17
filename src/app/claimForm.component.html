@@ -69,17 +69,21 @@
             <mat-form-field class="address-input" appearance="outline">
               <mat-label>Postcode</mat-label>
               <input type="text" id="addressPostcode" matInput
-                     formControlName="addressPostcode">
+                     formControlName="addressPostcode" maxlength="8">
                 <mat-icon matSuffix (click)="onPostcodeSearch()" style="cursor: pointer">search</mat-icon>
             </mat-form-field>
 
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" *ngIf="postCodeFound" style="margin-left: 20px">
             <mat-label>Select address</mat-label>
             <mat-select>
-              <mat-option *ngFor="let test of testArray" value="test.line_1" (click)="findAddressArrayIndex(test.line_1)">{{test.line_1}}</mat-option>
+              <mat-option *ngFor="let test of addressArray" value="test.line_1" (click)="findAddressArrayIndex(test.line_1)">{{test.line_1}}</mat-option>
             </mat-select>
           </mat-form-field>
+
+          <span *ngIf="!postCodeFound && postCodeSearched">
+            Error: Postcode not found
+          </span>
 
           <div>
             <mat-form-field class="address-input" appearance="outline">
@@ -374,7 +378,7 @@
         </div>
       </form>
 
-      <p (click)="saveFormToDB()" style="cursor: pointer">
+      <p (click)="submitForm()" style="cursor: pointer">
         test log
       </p>
     </div>

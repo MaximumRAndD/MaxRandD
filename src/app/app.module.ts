@@ -27,6 +27,7 @@ import { WebService } from './web.service';
 import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TestComponent } from './test.component';
+import { DatabaseService } from './database.service';
 
 const routes =
   [{
@@ -74,7 +75,7 @@ const routes =
     MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule
   ],
-  providers: [WebService, DataService],
+  providers: [WebService, DataService, DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
