@@ -9,9 +9,9 @@ export class DatabaseService
   }
 
   // TODO doc path should be user ID after authentication is added
-  writeClaimFormToDB(claimForm): void
+  writeClaimFormToDB(claimForm, uid): void
   {
-    this.db.collection('claimForm').doc('testUser').set
+    this.db.collection('users').doc(uid).collection('claimForm').doc('form').set
     ({
       name: claimForm.value.name,
       compName: claimForm.value.compName,

@@ -6,6 +6,7 @@ import { WebService } from './web.service';
 import { dataLessThan , endDateMoreThanYear } from './date.validation';
 import { DataService } from './data.service';
 import { DatabaseService } from './database.service';
+import { AuthService } from './auth.service';
 
 @Component
 ({
@@ -20,7 +21,7 @@ export class ClaimFormComponent
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
               public dialog: MatDialog, private webService: WebService, private dataService: DataService,
-              /*private db: AngularFirestore,*/ private db: DatabaseService )
+              /*private db: AngularFirestore,*/ private db: DatabaseService, private authService: AuthService )
   {
     this.claimForm = this.formBuilder.group
     (
@@ -103,7 +104,7 @@ export class ClaimFormComponent
     }
 
     // TODO get return from write to find out if it worked
-    this.db.writeClaimFormToDB(this.claimForm);
+    this.db.writeClaimFormToDB(this.claimForm, this.authService.userData.uid);
   }
 
   isInvalid(control): any
@@ -261,8 +262,18 @@ export class ClaimFormComponent
   submitForm(): any
   {
     console.log(this.claimForm.value);
-    this.dataService.formData(this.claimForm);
+    // this.dataService.formData(this.claimForm);
 
-    this.router.navigate(['../testPDF'], {relativeTo: this.route});
+    if (this.authService.isLoggedIn)
+    {
+      console.log(this.authService.userData.uid);
+      this.saveFormToDB();
+    }
+    else
+    {
+      console.log('value is null');
+    }
+
+    // this.router.navigate(['../testPDF'], {relativeTo: this.route});
   }
 }

@@ -17,4 +17,12 @@
           [routerLink]="['']">
     Home
   </button>
+  <button class="btn btn-primary"
+          [routerLink]="['/sign-in']">
+    Sign-in
+  </button>
+  <button class="btn btn-primary"
+          (click)="authService.signOut()">
+    Sign-out
+  </button>
 </div>

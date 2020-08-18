@@ -8,6 +8,7 @@ import { MatDialogModule} from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
@@ -28,54 +29,40 @@ import { DataService } from './data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TestComponent } from './test.component';
 import { DatabaseService } from './database.service';
+import { AuthService } from './auth.service';
+import { SignInComponent } from './components/sign-in.component';
+import { SignUpComponent } from './components/sign-up.component';
+import { ForgotPasswordComponent } from './components/forgot-password.component';
 
 const routes =
-  [{
-    path: '',
-    component: WelcomeComponent
-  },
-  {
-    path: 'trafficlighttest',
-    component: TrafficLightTestComponent
-  },
-  {
-    path: 'tltv1',
-    component: Tltv1ComponentComponent
-  },
-  {
-   path: 'success',
-   component: SuccessComponent
-  },
-  {
-    path: 'failure',
-    component: FailureComponent
-  },
-  {
-    path: 'testPDF',
-    component: CreatePDFComponent
-  },
-  {
-   path: 'claimForm',
-   component: ClaimFormComponent
-  },
-  {
-    path: 'test',
-    component: TestComponent
-  }];
+  [
+    {path: '', component: WelcomeComponent},
+    {path: 'trafficlighttest', component: TrafficLightTestComponent},
+    {path: 'tltv1', component: Tltv1ComponentComponent},
+    {path: 'success', component: SuccessComponent},
+    {path: 'failure', component: FailureComponent},
+    {path: 'testPDF', component: CreatePDFComponent},
+    {path: 'claimForm', component: ClaimFormComponent},
+    {path: 'test', component: TestComponent},
+    {path: 'sign-in', component: SignInComponent},
+    {path: 'register-user', component: SignUpComponent},
+    {path: 'forgot-password', component: ForgotPasswordComponent}
+    // { path: 'verify-email-address', component: VerifyEmailComponent }
+  ];
 
 @NgModule({
   declarations: [
     AppComponent, WelcomeComponent, TrafficLightTestComponent, NavComponent,
     Tltv1ComponentComponent, SuccessComponent, FailureComponent, HelpDialog, FailureDialog,
-    CreatePDFComponent, ClaimFormComponent, TestComponent
+    CreatePDFComponent, ClaimFormComponent, TestComponent, SignInComponent, SignUpComponent, ForgotPasswordComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule, MatIconModule,
     MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule, AngularFireAuthModule
   ],
-  providers: [WebService, DataService, DatabaseService],
+  providers: [WebService, DataService, DatabaseService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
