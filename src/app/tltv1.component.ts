@@ -57,7 +57,7 @@ export class Tltv1ComponentComponent
 
     for (const i in response)
     {
-      if (response[i] === 'yes' || response[3] === 'yes' || response[4] === 'yes')
+      if (response[i] === 'yes')
       {
         if (i === '6')
         {
@@ -66,14 +66,29 @@ export class Tltv1ComponentComponent
       }
       else
       {
-        const dialogRef = this.dialog.open(FailureDialog,
+        if (i === '3' || i === '4')
+        {
+          if (response[3] === 'yes' || response[4] === 'yes')
+          { }
+          else
           {
-            data: response
-          });
-        break;
+            const dialogRef = this.dialog.open(FailureDialog,
+              {
+                data: response
+              });
+            break;
+          }
+        }
+        else
+        {
+          const dialogRef = this.dialog.open(FailureDialog,
+            {
+              data: response
+            });
+          break;
+        }
       }
     }
-
     console.log(response);
   }
 

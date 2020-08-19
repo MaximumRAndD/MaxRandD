@@ -1,14 +1,16 @@
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class DatabaseService
 {
-  constructor(private db: AngularFirestore)
-  {
-  }
+  constructor(private db: AngularFirestore, public router: Router, public ngZone: NgZone)
+  { }
 
-  // TODO doc path should be user ID after authentication is added
+
+  // TODO if write fails do not change page
+  // @ts-ignore
   writeClaimFormToDB(claimForm, uid): void
   {
     this.db.collection('users').doc(uid).collection('claimForm').doc('form').set
@@ -45,6 +47,7 @@ export class DatabaseService
     })
       // tslint:disable-next-line:only-arrow-functions typedef
       .then(function()
+      // TODO GOOGLE => angular how to run method inside .then function
       {
         console.log('Document successfully written!');
       })
@@ -52,6 +55,13 @@ export class DatabaseService
       .catch(function(error)
       {
         console.error('Error writing document: ', error);
+        window.alert('Error writing document to database');
       });
+    this.navigateToPDFPage();
+  }
+
+  navigateToPDFPage(): void
+  {
+    this.router.navigate(['../testPDF']);
   }
 }

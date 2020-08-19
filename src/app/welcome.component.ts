@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from './auth.service';
 
 @Component
   ({
@@ -10,7 +9,7 @@ import { AuthService } from './auth.service';
 
 export class WelcomeComponent
 {
-  constructor(public authService: AuthService)
+  constructor()
   {
   }
 }

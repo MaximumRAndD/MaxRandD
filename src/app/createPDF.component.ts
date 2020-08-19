@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from './auth.service';
 
 @Component
 ({
@@ -17,16 +18,62 @@ export class CreatePDFComponent implements OnInit
   reportEnabled = true;
   claimForm;
 
-  constructor(private db: AngularFirestore)
+  // Booleans for showing if an UnRequired value is used
+  address2Used = false;
+  address3Used = false;
+  projectProblemsUsed = false;
+  projectProblemsDifficultyUsed = false;
+  projectProblemsSolvedUsed = false;
+
+  constructor(private db: AngularFirestore, private authService: AuthService)
   {
+    if (this.authService.isLoggedIn)
+    {
+      console.log('logged in');
+    }
   }
 
   ngOnInit(): any
   {
-    this.db.collection('claimForm').doc('testUser1').valueChanges().subscribe(value =>
+    console.log('ngOnInit called');
+    if (this.authService.isLoggedIn)
     {
-      this.claimForm = value;
-    });
+      console.log('ngOnInit is logged in');
+      console.log(JSON.parse(localStorage.getItem('user')).uid);
+      this.db.collection('users').doc(JSON.parse(localStorage.getItem('user')).uid)
+        .collection('claimForm').doc('form').valueChanges().subscribe(value =>
+      {
+        this.claimForm = value;
+      });
+    }
+    else
+    {
+      console.log('ngOnInit not logged in');
+    }
+  }
+
+  checkUnRequiredValues(): void
+  {
+    if (this.claimForm.addressLine2 === 'undefined_value')
+    {
+      this.address2Used = true;
+    }
+    if (this.claimForm.addressLine3 === 'undefined_value')
+    {
+      this.address3Used = true;
+    }
+    if (this.claimForm.projectProblems === 'undefined_value')
+    {
+      this.projectProblemsUsed = true;
+    }
+    if (this.claimForm.projectProblemsDifficulty === 'undefined_value')
+    {
+      this.projectProblemsDifficultyUsed = true;
+    }
+    if (this.claimForm.projectProblemsSolved === 'undefined_value')
+    {
+      this.projectProblemsSolvedUsed = true;
+    }
   }
 
   testLog(): void

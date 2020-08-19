@@ -3,6 +3,7 @@
     <h1 style="font-size: 24pt; font-family: arial, helvetica, sans-serif;">
       Test PDF title
     </h1>
+<!--    style="margin-left: 100px" works-->
     <p>
       name: {{claimForm.name}}
     </p>
@@ -16,18 +17,18 @@
       compAdr: {{claimForm.compAdr}}
     </p>
     <p>
-      claimStartDate: {{claimForm.claimStartDate}}
+      claimStartDate: {{claimForm.claimStartDate.seconds * 1000 | date:'dd-MM-yyyy'}}
     </p>
     <p>
-      claimEndDate: {{claimForm.claimEndDate}}
+      claimEndDate: {{claimForm.claimEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}
     </p>
     <p>
       addressLine1: {{claimForm.addressLine1}}
     </p>
-    <p>
+    <p *ngIf="address2Used">
       addressLine2: {{claimForm.addressLine2}}
     </p>
-    <p>
+    <p *ngIf="address3Used">
       addressLine3: {{claimForm.addressLine3}}
     </p>
     <p>
@@ -49,10 +50,10 @@
       projectDurationRadio: {{claimForm.projectDurationRadio}}
     </p>
     <p>
-      projectStartDate: {{claimForm.projectStartDate}}
+      projectStartDate: {{claimForm.projectStartDate.seconds * 1000 | date:'dd-MM-yyyy'}}
     </p>
     <p>
-      projectEndDate: {{claimForm.projectEndDate}}
+      projectEndDate: {{claimForm.projectEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}
     </p>
     <p>
       projectRAndDDescription: {{claimForm.projectRAndDDescription}}
@@ -72,13 +73,13 @@
     <p>
       uniqueProjectDevelopment: {{claimForm.uniqueProjectDevelopment}}
     </p>
-    <p>
+    <p *ngIf="projectProblemsUsed">
       projectProblems: {{claimForm.projectProblems}}
     </p>
-    <p>
+    <p *ngIf="projectProblemsDifficultyUsed">
       projectProblemsDifficulty: {{claimForm.projectProblemsDifficulty}}
     </p>
-    <p>
+    <p *ngIf="projectProblemsSolvedUsed">
       projectProblemsSolved: {{claimForm.projectProblemsSolved}}
     </p>
     <p>

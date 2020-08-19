@@ -21,7 +21,7 @@ export class ClaimFormComponent
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
               public dialog: MatDialog, private webService: WebService, private dataService: DataService,
-              /*private db: AngularFirestore,*/ private db: DatabaseService, private authService: AuthService )
+              private db: DatabaseService, private authService: AuthService )
   {
     this.claimForm = this.formBuilder.group
     (
@@ -103,8 +103,34 @@ export class ClaimFormComponent
       this.claimForm.value.projectEndDate = this.claimForm.value.claimEndDate;
     }
 
+    this.checkUnRequiredValues();
+
     // TODO get return from write to find out if it worked
-    this.db.writeClaimFormToDB(this.claimForm, this.authService.userData.uid);
+    this.db.writeClaimFormToDB(this.claimForm, JSON.parse(localStorage.getItem('user')).uid);
+  }
+
+  checkUnRequiredValues(): void
+  {
+    if (this.claimForm.value.addressLine2 === undefined)
+    {
+      this.claimForm.value.addressLine2 = 'undefined_value';
+    }
+    if (this.claimForm.value.addressLine3 === undefined)
+    {
+      this.claimForm.value.addressLine3 = 'undefined_value';
+    }
+    if (this.claimForm.value.projectProblems === undefined)
+    {
+      this.claimForm.value.projectProblems = 'undefined_value';
+    }
+    if (this.claimForm.value.projectProblemsDifficulty === undefined)
+    {
+      this.claimForm.value.projectProblemsDifficulty = 'undefined_value';
+    }
+    if (this.claimForm.value.projectProblemsSolved === undefined)
+    {
+      this.claimForm.value.projectProblemsSolved = 'undefined_value';
+    }
   }
 
   isInvalid(control): any
@@ -273,7 +299,5 @@ export class ClaimFormComponent
     {
       console.log('value is null');
     }
-
-    // this.router.navigate(['../testPDF'], {relativeTo: this.route});
   }
 }
