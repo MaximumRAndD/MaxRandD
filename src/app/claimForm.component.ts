@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WebService } from './web.service';
-import { dataLessThan , endDateMoreThanYear } from './date.validation';
+import {claimDataLessThan, DurationDataLessThan, endDateMoreThanYear} from './date.validation';
 import { DataService } from './data.service';
 import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
@@ -59,8 +59,9 @@ export class ClaimFormComponent
         stateAid: ['', Validators.required]
       },
       {
-        validators: [dataLessThan('claimStartDate', 'claimEndDate'),
-        endDateMoreThanYear('claimStartDate', 'claimEndDate')]
+        validators: [claimDataLessThan('claimStartDate', 'claimEndDate'),
+        endDateMoreThanYear('claimStartDate', 'claimEndDate'),
+          DurationDataLessThan('projectStartDate', 'projectEndDate')]
       }
     );
 
@@ -111,23 +112,23 @@ export class ClaimFormComponent
 
   checkUnRequiredValues(): void
   {
-    if (this.claimForm.value.addressLine2 === undefined)
+    if (this.claimForm.value.addressLine2 === undefined || '')
     {
       this.claimForm.value.addressLine2 = 'undefined_value';
     }
-    if (this.claimForm.value.addressLine3 === undefined)
+    if (this.claimForm.value.addressLine3 === undefined || '')
     {
       this.claimForm.value.addressLine3 = 'undefined_value';
     }
-    if (this.claimForm.value.projectProblems === undefined)
+    if (this.claimForm.value.projectProblems === undefined || '')
     {
       this.claimForm.value.projectProblems = 'undefined_value';
     }
-    if (this.claimForm.value.projectProblemsDifficulty === undefined)
+    if (this.claimForm.value.projectProblemsDifficulty === undefined || '')
     {
       this.claimForm.value.projectProblemsDifficulty = 'undefined_value';
     }
-    if (this.claimForm.value.projectProblemsSolved === undefined)
+    if (this.claimForm.value.projectProblemsSolved === undefined || '')
     {
       this.claimForm.value.projectProblemsSolved = 'undefined_value';
     }
@@ -137,6 +138,58 @@ export class ClaimFormComponent
   {
     return this.claimForm.controls[control].invalid &&
       this.claimForm.controls[control].touched;
+  }
+
+  isUntouched(): any
+  {
+    return this.claimForm.controls.name.pristine ||
+      this.claimForm.controls.compName.pristine ||
+      this.claimForm.controls.UTR.pristine ||
+      this.claimForm.controls.claimStartDate.pristine ||
+      this.claimForm.controls.claimEndDate.pristine ||
+      this.claimForm.controls.addressLine1.pristine ||
+      this.claimForm.controls.addressTown.pristine ||
+      this.claimForm.controls.addressCounty.pristine ||
+      this.claimForm.controls.addressPostcode.pristine ||
+      this.claimForm.controls.projectSynopsis.pristine ||
+      this.claimForm.controls.projectName.pristine ||
+      this.claimForm.controls.projectDurationRadio.pristine ||
+      this.claimForm.controls.projectRAndDDescription.pristine ||
+      this.claimForm.controls.projectResearch.pristine ||
+      this.claimForm.controls.problemToSolve.pristine ||
+      this.claimForm.controls.projectLead.pristine ||
+      this.claimForm.controls.projectLeadExperience.pristine ||
+      this.claimForm.controls.uniqueProjectDevelopment.pristine ||
+      this.claimForm.controls.projectTesting.pristine ||
+      this.claimForm.controls.softwareAdvance.pristine ||
+      this.claimForm.controls.stateAid.pristine;
+  }
+
+  // TODO check this: https://stackoverflow.com/questions/40793427/angular-2-form-is-invalid-when-browser-autofill
+  isIncomplete(): any
+  {
+    return this.isInvalid('name') ||
+      this.isInvalid('compName') ||
+      this.isInvalid('UTR') ||
+      this.isInvalid('claimStartDate') ||
+      this.isInvalid('claimEndDate') ||
+      this.isInvalid('addressLine1') ||
+      this.isInvalid('addressTown') ||
+      this.isInvalid('addressCounty') ||
+      this.isInvalid('addressPostcode') ||
+      this.isInvalid('projectSynopsis') ||
+      this.isInvalid('projectName') ||
+      this.isInvalid('projectDurationRadio') ||
+      this.isInvalid('projectRAndDDescription') ||
+      this.isInvalid('projectResearch') ||
+      this.isInvalid('problemToSolve') ||
+      this.isInvalid('projectLead') ||
+      this.isInvalid('projectLeadExperience') ||
+      this.isInvalid('uniqueProjectDevelopment') ||
+      this.isInvalid('projectTesting') ||
+      this.isInvalid('softwareAdvance') ||
+      this.isInvalid('stateAid') ||
+      this.isUntouched();
   }
 
   // Does not work - move on to next part and come back to this

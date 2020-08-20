@@ -71,6 +71,9 @@
               <input type="text" id="addressPostcode" matInput
                      formControlName="addressPostcode" maxlength="8">
                 <mat-icon matSuffix (click)="onPostcodeSearch()" style="cursor: pointer">search</mat-icon>
+              <mat-error *ngIf="claimForm.get('addressPostcode').hasError('required')">
+                Postcode is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
 
 
@@ -90,6 +93,9 @@
               <mat-label>Address line 1</mat-label>
               <input type="text" id="addressLine1" matInput
                      formControlName="addressLine1" [(ngModel)]="addressLine1">
+              <mat-error *ngIf="claimForm.get('addressLine1').hasError('required')">
+                Address line 1 is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
           <div>
@@ -111,6 +117,9 @@
               <mat-label>Town</mat-label>
               <input type="text" id="addressTown" matInput
                      formControlName="addressTown" [(ngModel)]="addressTown">
+              <mat-error *ngIf="claimForm.get('addressTown').hasError('required')">
+                Town is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
           <div>
@@ -118,6 +127,9 @@
               <mat-label>County</mat-label>
               <input type="text" id="addressCounty" matInput
                      formControlName="addressCounty" [(ngModel)]="addressCounty">
+              <mat-error *ngIf="claimForm.get('addressCounty').hasError('required')">
+                County is <strong>required</strong>
+              </mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -154,6 +166,9 @@
             <mat-label>Provide a synopsis of your Project in 2 or 3 sentences</mat-label>
             <textarea matInput formControlName="projectSynopsis" rows="5" placeholder="sample place holder text..."
                       [(ngModel)]="projectSynopsisTemplate"></textarea>
+            <mat-error *ngIf="claimForm.get('projectSynopsis').hasError('required')">
+              Project synopsis is <strong>required</strong>
+            </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -210,6 +225,9 @@
                    disabled [max]="maxProjectDate">
             <mat-datepicker-toggle matSuffix [for]="projectEndDatePicker"></mat-datepicker-toggle>
             <mat-datepicker #projectEndDatePicker [disabled]="ProjectEndDateDisabled"></mat-datepicker>
+            <mat-error *ngIf="claimForm.get('projectEndDate').errors?.DurDateLessThan">
+              End date <strong>should not</strong> be before start date
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -365,7 +383,7 @@
 <!--        Input for State aid - stateAid - true - required-->
         <div class="form-group">
           <h6>
-            State aid? / De minimi.s state aid
+            State aid? / De minimis state aid
           </h6>
           <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
             <mat-label>State aid</mat-label>
@@ -378,9 +396,17 @@
         </div>
       </form>
 
+      <button class="btn btn-primary" (click)="submitForm()" *ngIf="!isIncomplete()">
+        Submit
+      </button>
+
       <p (click)="submitForm()" style="cursor: pointer">
-        test log
+        if fail btn
       </p>
+      <span *ngIf="isIncomplete()">
+             Please select an answer for required each question
+      </span>
+
     </div>
   </div>
 </div>

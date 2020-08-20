@@ -46,10 +46,11 @@ export class DatabaseService
       stateAid: claimForm.value.stateAid
     })
       // tslint:disable-next-line:only-arrow-functions typedef
-      .then(function()
+      .then(() =>
       // TODO GOOGLE => angular how to run method inside .then function
       {
         console.log('Document successfully written!');
+        this.navigateToPDFPage();
       })
       // tslint:disable-next-line:only-arrow-functions typedef
       .catch(function(error)
@@ -57,7 +58,7 @@ export class DatabaseService
         console.error('Error writing document: ', error);
         window.alert('Error writing document to database');
       });
-    this.navigateToPDFPage();
+    // this.navigateToPDFPage();
   }
 
   navigateToPDFPage(): void
