@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
@@ -10,7 +10,8 @@ export class WebService
   {
   }
 
-  APIKey = 'cKB4Ai3P_UeipP67DtRt4g27635';
+  getAddressAPIKey = 'cKB4Ai3P_UeipP67DtRt4g27635';
+  companiesHouseAPIKey = '5q094ebNYXEFiwJowmKj44MoVf59nj4IyLc9pB4Z:';
 
   getAddresses(postcode): any
   {
@@ -23,6 +24,16 @@ export class WebService
     // const response = '{"Message": "Bad Request: Invalid postcode."}';
     const jsonObject = JSON.parse(response);
     return jsonObject;
+  }
+
+  getCompanyInformation(compNum): any
+  {
+    const url = 'https://api.companieshouse.gov.uk/company/' + compNum;
+
+    return this.http.get
+    (
+      url, {headers: {Authorization: 'Basic ' + btoa(this.companiesHouseAPIKey)}}
+    ).toPromise();
   }
 
   /*

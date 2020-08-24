@@ -7,6 +7,20 @@
       </p>
 
       <form [formGroup]="claimForm">
+
+<!--        Input for companies House API-->
+        <div class="form-group">
+          <h6>
+            Enter and search your company number to auto-fill some details
+          </h6>
+          <mat-form-field class="address-input" appearance="outline">
+            <mat-label>Company number</mat-label>
+            <input type="text" id="companiesHouseInput" matInput
+                   formControlName="companiesHouseInput" >
+            <mat-icon matSuffix (click)="fillFormFromCH()" style="cursor: pointer">search</mat-icon>
+          </mat-form-field>
+        </div>
+
 <!--        Input for Name  - name -- required-->
         <div class="form-group">
           <h6>
@@ -406,7 +420,6 @@
       <span *ngIf="isIncomplete()">
              Please select an answer for required each question
       </span>
-
     </div>
   </div>
 </div>

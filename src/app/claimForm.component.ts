@@ -56,7 +56,8 @@ export class ClaimFormComponent
         projectProblemsSolved: '',
         projectTesting: ['', Validators.required],
         softwareAdvance: ['', Validators.required],
-        stateAid: ['', Validators.required]
+        stateAid: ['', Validators.required],
+        companiesHouseInput: ''
       },
       {
         validators: [claimDataLessThan('claimStartDate', 'claimEndDate'),
@@ -281,14 +282,33 @@ export class ClaimFormComponent
     }
   }
 
-  // TODO try this.claimForm.setValue instead
+  // TODO look into using the format address instead of the current address use
   fillAddressInput(index): void
   {
-    this.addressLine1 = this.addressArray[index].line_1;
-    this.addressLine2 = this.addressArray[index].line_2;
-    this.addressLine3 = this.addressArray[index].line_3;
-    this.addressTown = this.addressArray[index].town_or_city;
-    this.addressCounty = this.addressArray[index].county;
+    this.claimForm.patchValue
+    ({
+      addressLine1: this.addressArray[index].line_1,
+      addressLine2: this.addressArray[index].line_2,
+      addressLine3: this.addressArray[index].line_3,
+      addressTown: this.addressArray[index].town_or_city,
+      addressCounty: this.addressArray[index].county
+    });
+  }
+
+  // TODO get Hilly to check if any more of the values are usable
+  async fillFormFromCH(): Promise<void>
+  {
+    const response = await this.webService.getCompanyInformation(this.claimForm.value.companiesHouseInput);
+
+    this.claimForm.patchValue
+    ({
+      name: response.company_name,
+      addressLine1: response.registered_office_address.address_line_1,
+      addressLine2: response.registered_office_address.address_line_2,
+      addressTown: response.registered_office_address.locality,
+      addressCounty : response.registered_office_address.region,
+      addressPostcode: response.registered_office_address.postal_code
+    });
   }
 
   useTemplateProjectSynopsis(option): void

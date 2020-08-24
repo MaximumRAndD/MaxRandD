@@ -26,7 +26,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { WebService } from './web.service';
 import { DataService } from './data.service';
-import { HttpClientModule } from '@angular/common/http';
+import {HttpClientModule, HttpHeaders} from '@angular/common/http';
 import { TestComponent } from './test.component';
 import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
