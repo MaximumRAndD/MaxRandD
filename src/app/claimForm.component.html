@@ -13,12 +13,16 @@
           <h6>
             Enter and search your company number to auto-fill some details
           </h6>
-          <mat-form-field class="address-input" appearance="outline">
+          <mat-form-field class="small-width" appearance="outline">
             <mat-label>Company number</mat-label>
             <input type="text" id="companiesHouseInput" matInput
-                   formControlName="companiesHouseInput" >
+                   formControlName="companiesHouseInput" maxlength="10">
             <mat-icon matSuffix (click)="fillFormFromCH()" style="cursor: pointer">search</mat-icon>
           </mat-form-field>
+          <mat-icon aria-hidden="false" aria-label="Example info icon"
+                    (click)="openHelpDialog('question1')"
+                    style="cursor: pointer">help_outline
+          </mat-icon>
         </div>
 
 <!--        Input for Name  - name -- required-->
@@ -80,7 +84,7 @@
 
 <!--        Input for postcode - addressPostcode - false - required-->
         <div class="container">
-            <mat-form-field class="address-input" appearance="outline">
+            <mat-form-field class="small-width" appearance="outline">
               <mat-label>Postcode</mat-label>
               <input type="text" id="addressPostcode" matInput
                      formControlName="addressPostcode" maxlength="8">
@@ -149,8 +153,8 @@
         </div>
 
 <!--        Inputs for claim start and end dates - claimStartDate, claimStartDate - true - required-->
-        <div>
-          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+        <div class="form-group">
+          <mat-form-field class="small-width" appearance="outline">
             <mat-label>Start date</mat-label>
             <input matInput [matDatepicker]="claimStartDatePicker" formControlName="claimStartDate"
             (dateChange)="onClaimStartDateChange()" disabled>
@@ -158,7 +162,7 @@
             <mat-datepicker #claimStartDatePicker disabled="false"></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+          <mat-form-field class="small-width" appearance="outline" style="margin-left: 25px">
             <mat-label>End date</mat-label>
             <input matInput [matDatepicker]="claimEndDatePicker" formControlName="claimEndDate"
                    disabled [max]="maxClaimDate" (dateChange)="isClaimEndDateValid()">
@@ -414,8 +418,8 @@
         Submit
       </button>
 
-      <p (click)="submitForm()" style="cursor: pointer">
-        if fail btn
+      <p (click)="openHelpDialog('question1')" style="cursor: pointer">
+        Test button - used to run methods
       </p>
       <span *ngIf="isIncomplete()">
              Please select an answer for required each question

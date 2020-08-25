@@ -7,6 +7,8 @@ import {claimDataLessThan, DurationDataLessThan, endDateMoreThanYear} from './da
 import { DataService } from './data.service';
 import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
+import {HelpDialog} from './tltv1.component';
+import {ClaimFormHelpDialogComponent} from './dialogs/claim-form-help-dialog/claim-form-help-dialog.component';
 
 @Component
 ({
@@ -251,23 +253,32 @@ export class ClaimFormComponent
     }
   }
 
-   async onPostcodeSearch(): Promise<void>
+  async onPostcodeSearch(): Promise<void>
    {
      this.postCodeSearched = true;
+     this.postCodeFound = false;
 
      const response = await this.webService.getAddresses(this.claimForm.value.addressPostcode);
-     console.log(response);
+
+     // this.webService.getAddresses(this.claimForm.value.addressPostcode);
+
+     console.log('response = ');
+     console.log(this.webService.response);
+
 
      if (response.Message !== undefined)
      {
        this.postCodeFound = false;
        console.log('Error | ' + response.Message);
+       console.log('postcodeFound = false');
      }
      else
      {
        this.addressArray = response.addresses;
        this.postCodeFound = true;
+       console.log('postcodeFound = true');
      }
+     console.log('postCodeFound = ' + this.postCodeFound + ' | postCodeSearched = ' + this.postCodeSearched);
    }
 
   findAddressArrayIndex(line1): void
@@ -282,20 +293,19 @@ export class ClaimFormComponent
     }
   }
 
-  // TODO look into using the format address instead of the current address use
   fillAddressInput(index): void
   {
+    console.log(this.addressArray);
     this.claimForm.patchValue
     ({
-      addressLine1: this.addressArray[index].line_1,
-      addressLine2: this.addressArray[index].line_2,
-      addressLine3: this.addressArray[index].line_3,
-      addressTown: this.addressArray[index].town_or_city,
-      addressCounty: this.addressArray[index].county
+      addressLine1: this.addressArray[index].formatted_address[0],
+      addressLine2: this.addressArray[index].formatted_address[1],
+      addressLine3: this.addressArray[index].formatted_address[2],
+      addressTown: this.addressArray[index].formatted_address[3],
+      addressCounty: this.addressArray[index].formatted_address[4]
     });
   }
 
-  // TODO get Hilly to check if any more of the values are usable
   async fillFormFromCH(): Promise<void>
   {
     const response = await this.webService.getCompanyInformation(this.claimForm.value.companiesHouseInput);
@@ -351,6 +361,17 @@ export class ClaimFormComponent
     {
       this.projectDurationShowDatePicker = false;
     }
+  }
+
+  openHelpDialog(control): void
+  {
+    this.dialog.open(ClaimFormHelpDialogComponent,
+      {
+        data:
+          {
+            question: control
+          }
+      });
   }
 
   async delay(ms: number): Promise<void>

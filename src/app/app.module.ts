@@ -26,13 +26,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { WebService } from './web.service';
 import { DataService } from './data.service';
-import {HttpClientModule, HttpHeaders} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { TestComponent } from './test.component';
 import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
 import { SignInComponent } from './components/sign-in.component';
 import { SignUpComponent } from './components/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password.component';
+import { FooterComponent } from './components/footer/footer.component';
+import {ClaimFormHelpDialogComponent} from './dialogs/claim-form-help-dialog/claim-form-help-dialog.component';
 
 const routes =
   [
@@ -54,7 +56,8 @@ const routes =
   declarations: [
     AppComponent, WelcomeComponent, TrafficLightTestComponent, NavComponent,
     Tltv1ComponentComponent, SuccessComponent, FailureComponent, HelpDialog, FailureDialog,
-    CreatePDFComponent, ClaimFormComponent, TestComponent, SignInComponent, SignUpComponent, ForgotPasswordComponent
+    CreatePDFComponent, ClaimFormComponent, TestComponent, SignInComponent, SignUpComponent, ForgotPasswordComponent, FooterComponent,
+    ClaimFormHelpDialogComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
