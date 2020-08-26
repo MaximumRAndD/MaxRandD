@@ -1,11 +1,16 @@
 <h1 mat-dialog-title>Help dialog</h1>
 <div mat-dialog-content>
   <span *ngIf="data.question === 'question1'">Only Limited Companies are eligible for UK tax relief</span>
-  <span *ngIf="data.question === 'question2'">question 2 was pressed</span>
-  <span *ngIf="data.question === 'question3'">You will not be eligible for R&D tax relief if the last day of your
-    Accounting Period is over 24 months before today’s date</span>
-  <span *ngIf="data.question === 'question4'">question 4 was pressed</span>
-  <span *ngIf="data.question === 'question5'">question 5 was pressed</span>
+  <span *ngIf="data.question === 'question2'">Only Companies within the UK are eligible for R&D tax relief </span>
+  <span *ngIf="data.question === 'question3'">You will not be eligible for R&D tax relief if the last
+    day of your Accounting Period is over 24 months before today’s date</span>
+  <span *ngIf="data.question === 'question4'">A new product or process could be anything from a new website,
+    a new car engine or even a new sandwich! To find out exactly what qualifies please check out the HMRC’s
+    guidelines listed at : </span>
+  <a href="https://www.gov.uk/guidance/corporation-tax-research-and-development-rd-relief"
+     *ngIf="data.question === 'question4'" target="_blank">Claiming Research and Development tax reliefs</a>
+  <span *ngIf="data.question === 'question5'">Don’t worry! Your company will not be disqualified if your R&D
+    has been focused on adapting or reinventing an existing product instead of creating something new.</span>
   <span *ngIf="data.question === 'question6'">question 6 was pressed</span>
   <span *ngIf="data.question === 'question7'">question 7 was pressed</span>
 </div>

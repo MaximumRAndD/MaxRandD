@@ -14,3 +14,12 @@
 {
   margin-left: 16px;
 }
+
+div.question_border
+{
+  border-style: solid;
+  border-width: 2px;
+  border-color: #CCCCCC;
+  border-radius: 5px;
+  padding: 5px;
+}

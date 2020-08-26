@@ -4,13 +4,44 @@
 <div mat-dialog-content>
   <span *ngIf="data.question === 'question1'">First dialog opened; assign each new dialog to a new number
     to get correct value</span>
-  <span *ngIf="data.question === 'question2'"></span>
-  <span *ngIf="data.question === 'question3'"></span>
-  <span *ngIf="data.question === 'question4'"></span>
-  <span *ngIf="data.question === 'question5'"></span>
-  <span *ngIf="data.question === 'question6'"></span>
-  <span *ngIf="data.question === 'question7'"></span>
+  <span *ngIf="data.question === 'UTR'">A company Unique Taxpayer Reference, or UTR is a unique ten-digit
+    number given by the HMRC to all limited companies and is used to identify that company in any tax-related
+    matter. If you are unsure were to find your company’s UTR you can request it from the HMRC online at:</span>
+  <a href="https://www.tax.service.gov.uk/ask-for-copy-of-your-corporation-tax-utr"
+     *ngIf="data.question === 'UTR'" target="_blank">
+    UK gov - Copy of your corporation tax UTR
+  </a>
+  <span *ngIf="data.question === 'start_end_date'">If your company’s accounting period extends longer than a
+    12-month period, your claim will need to be split across 2 separate claim forms as they are completed in
+    12-month segments. If this is the case please list the first 12 months of your accounting period, and you
+    will need to complete the form again, to create a separate claim for the rest of the time throughout which
+    your accounting period ran. </span>
+  <span *ngIf="data.question === 'synopsis'">A short explanation of your project will allow the HMRC to understand
+    what it is you have been working on more easily. We have provided some templates which can be selected and
+    edited in order to help you complete this short synopsis, as the HMRC can be particular about the language
+    used to outline projects.</span>
+  <span *ngIf="data.question === 'r_and_d_description'">A brief outline on what your company has been working on will
+    allow the HMRC to see how wonderful you are and be much more receptive to giving you lots of money!</span>
+  <span *ngIf="data.question === 'project_research'">How did you find out about the problem which you are trying to
+    solve? What did you and your company to try and solve the problem before developing your product? If you found
+    any other products that attempted to solve your problem how did, they fall short of actually solving it?
+    Explaining the answers of these questions to the HMRC will allow them to see how talented and unique your
+    company is, and how they need to grant you tax reliefs to help with the revolutionary work your company
+    is undertaking.</span>
+  <span *ngIf="data.question === 'project_aim'">What is your end goal? If everything goes well and you complete the
+    project you are undertaking, what will you have created and what problem will that thing solve? </span>
+  <span *ngIf="data.question === 'project_lead'">Naming the Project lead and outlining their experience allows
+    us to highlight them to the HMRC as a “Competent Professional” which may sound patronising but is the
+    phase that they want used to highlight an expert in their field!</span>
+  <span *ngIf="data.question === 'project_lead_experience'">Job experience, qualifications such as Degrees or
+    HNDs and the project lead’s position within your company are all relevant for this part</span>
+  <span *ngIf="data.question === 'state_aid'">To find out about state aid and if your company has received
+    any please read the government mandated information here: </span>
+  <a href="https://www.gov.uk/guidance/state-aid" *ngIf="data.question === 'state_aid'" target="_blank">
+    Uk gov - state aid
+  </a>
 </div>
+
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Close</button>
+  <button mat-stroked-button mat-dialog-close>Close</button>
 </div>

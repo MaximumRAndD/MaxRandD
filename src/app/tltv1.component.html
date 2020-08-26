@@ -16,7 +16,13 @@
          Traffic light questions
        </h2>
        <p>
-         Text about the traffic light test
+         Our quick test below allows us to determine if your company qualifies for R&D tax relief.
+         Please answer the questions to the best of your knowledge, as it will help
+         us to create the perfect claim for you!
+       </p>
+       <p>
+         None of your information will be stored at this point, and you are welcome to back out of
+         the test at any time
        </p>
        <form  [formGroup]='trafficLightForm' (ngSubmit)="onSubmit()">
          <div class="form-group; question_border" style="margin-top: 20px">
@@ -176,12 +182,25 @@
            </div>
          </div>
          <div style="margin-top: 30px">
-           <span *ngIf="isIncomplete()">
-             Please select an answer for each question
-           </span>
-           <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">
-             Submit
+<!--           <span *ngIf="isIncomplete()">-->
+<!--             Please select an answer for each question-->
+<!--           </span>-->
+<!--           <button *ngIf="!isIncomplete()" type="submit" class="btn btn-primary">-->
+<!--             Submit-->
+<!--           </button>-->
+
+           <button mat-stroked-button *ngIf="!isIncomplete()">
+             Submit form
            </button>
+           <div class="row">
+             <button mat-stroked-button disabled
+                      *ngIf="isIncomplete()">
+               Submit form
+             </button>
+             <span *ngIf="isIncomplete()" style="margin-left: 10px">
+              - Please answer all questions
+           </span>
+           </div>
          </div>
        </form>
      </div>

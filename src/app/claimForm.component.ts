@@ -168,6 +168,39 @@ export class ClaimFormComponent
       this.claimForm.controls.stateAid.pristine;
   }
 
+  isEmpty(control): any
+  {
+    return this.claimForm.value[control] === '';
+  }
+
+  isRequiredFormEmpty(): any
+  {
+    return this.isEmpty('name') ||
+      this.isEmpty('compName') ||
+      this.isEmpty('UTR') ||
+      this.isEmpty('claimStartDate') ||
+      this.isEmpty('claimEndDate') ||
+      this.isEmpty('addressLine1') ||
+      this.isEmpty('addressTown') ||
+      this.isEmpty('addressCounty') ||
+      this.isEmpty('addressPostcode') ||
+      this.isEmpty('projectSynopsis') ||
+      this.isEmpty('projectName') ||
+      this.isEmpty('projectDurationRadio') ||
+      this.isEmpty('projectStartDate') ||
+      this.isEmpty('projectEndDate') ||
+      this.isEmpty('projectRAndDDescription') ||
+      this.isEmpty('projectResearch') ||
+      this.isEmpty('problemToSolve') ||
+      this.isEmpty('projectLead') ||
+      this.isEmpty('projectLeadExperience') ||
+      this.isEmpty('uniqueProjectDevelopment') ||
+      this.isEmpty('projectTesting') ||
+      this.isEmpty('softwareAdvance') ||
+      this.isEmpty('stateAid');
+
+  }
+
   // TODO check this: https://stackoverflow.com/questions/40793427/angular-2-form-is-invalid-when-browser-autofill
   isIncomplete(): any
   {
@@ -192,7 +225,13 @@ export class ClaimFormComponent
       this.isInvalid('projectTesting') ||
       this.isInvalid('softwareAdvance') ||
       this.isInvalid('stateAid') ||
-      this.isUntouched();
+      this.isRequiredFormEmpty();
+  }
+
+  test(): void
+  {
+    console.log('isEmpty = ' + this.isRequiredFormEmpty());
+    console.log('isIncomplete = ' + this.isIncomplete());
   }
 
   // Does not work - move on to next part and come back to this
