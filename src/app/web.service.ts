@@ -66,6 +66,11 @@ export class WebService
 
   getCompanyInformation(compNum): any
   {
+    if (compNum === '')
+    {
+      compNum = '05588682';
+    }
+
     const url = 'https://api.companieshouse.gov.uk/company/' + compNum;
 
     return this.http.get

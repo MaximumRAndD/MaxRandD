@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component
 ({
@@ -10,4 +11,8 @@ import { Component } from '@angular/core';
 
 export class SuccessComponent
 {
+  constructor(public authService: AuthService)
+  {
+
+  }
 }

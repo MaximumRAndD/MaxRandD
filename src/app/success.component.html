@@ -13,7 +13,11 @@
   <h2>
     Excellent! It looks like your business could qualify for generous HMRC tax reliefs
   </h2>
-  <button class="btn btn-primary" [routerLink]="['../claimForm']">
+  <button class="btn btn-primary" [routerLink]="['../claimForm']"
+  *ngIf="authService.isLoggedIn">
     Click to proceed with claim
   </button>
+  <p *ngIf="!authService.isLoggedIn">
+    Please login to continue
+  </p>
 </div>

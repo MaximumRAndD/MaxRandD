@@ -187,8 +187,8 @@ export class ClaimFormComponent
       this.isEmpty('projectSynopsis') ||
       this.isEmpty('projectName') ||
       this.isEmpty('projectDurationRadio') ||
-      this.isEmpty('projectStartDate') ||
-      this.isEmpty('projectEndDate') ||
+      // this.isEmpty('projectStartDate') ||
+      // this.isEmpty('projectEndDate') ||
       this.isEmpty('projectRAndDDescription') ||
       this.isEmpty('projectResearch') ||
       this.isEmpty('problemToSolve') ||
@@ -198,7 +198,6 @@ export class ClaimFormComponent
       this.isEmpty('projectTesting') ||
       this.isEmpty('softwareAdvance') ||
       this.isEmpty('stateAid');
-
   }
 
   // TODO check this: https://stackoverflow.com/questions/40793427/angular-2-form-is-invalid-when-browser-autofill
