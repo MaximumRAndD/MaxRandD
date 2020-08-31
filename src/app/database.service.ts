@@ -11,9 +11,9 @@ export class DatabaseService
 
   // TODO if write fails do not change page
   // @ts-ignore
-  writeClaimFormToDB(claimForm, uid): void
+  writeClaimFormToDB(claimForm, uid, docID): void
   {
-    this.db.collection('users').doc(uid).collection('claimForm').doc('form').set
+    this.db.collection('users').doc(uid).collection('claimForm').doc(docID).set
     ({
       name: claimForm.value.name,
       compName: claimForm.value.compName,
@@ -59,6 +59,56 @@ export class DatabaseService
         window.alert('Error writing document to database');
       });
     // this.navigateToPDFPage();
+  }
+
+  writeNewEmptyClaimForm(uid, name, startDate, endDate): void
+  {
+    const curDate = Date.now();
+    this.db.collection('users').doc(uid).collection('claimForm').doc(curDate.toString()).set
+    ({
+      name: '',
+      compName: '',
+      UTR: '',
+      compAdr: '',
+      claimStartDate: startDate,
+      claimEndDate: endDate,
+      addressLine1: '',
+      addressLine2: '',
+      addressLine3: '',
+      addressTown: '',
+      addressCounty: '',
+      addressPostcode: '',
+      projectSynopsis: '',
+      projectName: name,
+      projectDurationRadio: '',
+      projectStartDate: '',
+      projectEndDate: '',
+      projectRAndDDescription: '',
+      projectResearch: '',
+      problemToSolve: '',
+      projectLead: '',
+      projectLeadExperience: '',
+      uniqueProjectDevelopment: '',
+      projectProblems: '',
+      projectProblemsDifficulty: '',
+      projectProblemsSolved: '',
+      projectTesting: '',
+      softwareAdvance: '',
+      stateAid: ''
+    })
+      // tslint:disable-next-line:only-arrow-functions typedef
+      .then(() =>
+        // TODO GOOGLE => angular how to run method inside .then function
+      {
+        console.log('Document successfully written!');
+        // this.navigateToPDFPage();
+      })
+      // tslint:disable-next-line:only-arrow-functions typedef
+      .catch(function(error)
+      {
+        console.error('Error writing document: ', error);
+        window.alert('Error writing document to database');
+      });
   }
 
   navigateToPDFPage(): void

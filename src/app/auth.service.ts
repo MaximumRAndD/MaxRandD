@@ -43,7 +43,7 @@ export class AuthService
       {
         this.ngZone.run(() =>
         {
-          this.router.navigate(['']);
+          this.router.navigate(['/members']);
         });
         this.setUserData(result.user);
       }).catch((error) =>
@@ -145,7 +145,7 @@ export class AuthService
     return this.afAuth.signOut().then(() =>
     {
       localStorage.removeItem('user');
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['']);
     });
   }
 }

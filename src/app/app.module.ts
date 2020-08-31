@@ -35,6 +35,10 @@ import { SignUpComponent } from './components/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {ClaimFormHelpDialogComponent} from './dialogs/claim-form-help-dialog/claim-form-help-dialog.component';
+import { MemberComponent } from './components/member/member.component';
+import {MatDividerModule} from '@angular/material/divider';
+import { NewClaimDialogComponent } from './dialogs/new-claim-dialog/new-claim-dialog.component';
+import { LoggedInRouteGuard } from './guard/logged-in-route.guard';
 
 const routes =
   [
@@ -44,11 +48,12 @@ const routes =
     {path: 'success', component: SuccessComponent},
     {path: 'failure', component: FailureComponent},
     {path: 'testPDF', component: CreatePDFComponent},
-    {path: 'claimForm', component: ClaimFormComponent},
+    {path: 'claimForm/:id', component: ClaimFormComponent},
     {path: 'test', component: TestComponent},
     {path: 'sign-in', component: SignInComponent},
     {path: 'register-user', component: SignUpComponent},
-    {path: 'forgot-password', component: ForgotPasswordComponent}
+    {path: 'forgot-password', component: ForgotPasswordComponent},
+    {path: 'members', component: MemberComponent, canActivate: [LoggedInRouteGuard]}
     // { path: 'verify-email-address', component: VerifyEmailComponent }
   ];
 
@@ -57,15 +62,15 @@ const routes =
     AppComponent, WelcomeComponent, TrafficLightTestComponent, NavComponent,
     Tltv1ComponentComponent, SuccessComponent, FailureComponent, HelpDialog, FailureDialog,
     CreatePDFComponent, ClaimFormComponent, TestComponent, SignInComponent, SignUpComponent, ForgotPasswordComponent, FooterComponent,
-    ClaimFormHelpDialogComponent
+    ClaimFormHelpDialogComponent, MemberComponent, NewClaimDialogComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule, MatIconModule,
     MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule, AngularFireAuthModule
+    AngularFirestoreModule, AngularFireAuthModule, MatDividerModule
   ],
-  providers: [WebService, DataService, DatabaseService, AuthService],
+  providers: [WebService, DataService, DatabaseService, AuthService, LoggedInRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

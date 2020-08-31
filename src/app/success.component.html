@@ -1,23 +1,24 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--  <meta charset="UTF-8">-->
-<!--  <title>Title</title>-->
-<!--</head>-->
-<!--<body>-->
-
-<!--</body>-->
-<!--</html>-->
-
 <div class="container" style="margin-top: 100px">
   <h2>
     Excellent! It looks like your business could qualify for generous HMRC tax reliefs
   </h2>
-  <button class="btn btn-primary" [routerLink]="['../claimForm']"
+
+  <p *ngIf="authService.isLoggedIn">
+    You can create or edit an existing claim from the members dashboard
+  </p>
+  <button class="btn btn-primary" [routerLink]="['../members']"
   *ngIf="authService.isLoggedIn">
-    Click to proceed with claim
+    Users dashboard
   </button>
   <p *ngIf="!authService.isLoggedIn">
-    Please login to continue
+    Please login or create an account to start a claim.
   </p>
+  <div class="row" *ngIf="!authService.isLoggedIn">
+    <button class="btn btn-primary" [routerLink]="['../sign-in']">
+      Login
+    </button>
+    <button class="btn btn-primary" [routerLink]="['../register-user']" style="margin-left: 20px">
+      Sign up
+    </button>
+  </div>
 </div>

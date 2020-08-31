@@ -1,0 +1,35 @@
+<div class="container" style="margin-top: 100px;">
+  <div class="col-sm-12 text-left">
+    <h2>
+      Members page
+    </h2>
+
+    <div *ngFor="let claim of claimFormArray">
+      <p>
+        Project name: {{claim.projectName}}
+        <br>
+        Claim start/end date: {{claim.claimStartDate.seconds * 1000 | date:'dd-MM-yyyy'}} -
+        {{claim.claimEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}
+      </p>
+
+      <button mat-stroked-button [routerLink]="['/claimForm', claim.claimID]">
+        Edit claim
+      </button>
+
+      <button mat-stroked-button [routerLink]="['/testPDF']">
+        View claim
+      </button>
+      <mat-divider style="margin-top: 20px"></mat-divider>
+    </div>
+
+    <button mat-stroked-button (click)="newClaim()" style="margin-top: 20px">
+      New claim
+    </button>
+
+
+    <p (click)="test()" style="cursor: pointer">
+      test
+    </p>
+
+  </div>
+</div>

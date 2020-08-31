@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,8 +7,8 @@ import {claimDataLessThan, DurationDataLessThan, endDateMoreThanYear} from './da
 import { DataService } from './data.service';
 import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
-import {HelpDialog} from './tltv1.component';
 import {ClaimFormHelpDialogComponent} from './dialogs/claim-form-help-dialog/claim-form-help-dialog.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component
 ({
@@ -18,12 +18,12 @@ import {ClaimFormHelpDialogComponent} from './dialogs/claim-form-help-dialog/cla
   styleUrls: ['./claimForm.component.css']
 })
 
-export class ClaimFormComponent
+export class ClaimFormComponent implements OnInit
 {
 
   constructor(private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute,
               public dialog: MatDialog, private webService: WebService, private dataService: DataService,
-              private db: DatabaseService, private authService: AuthService )
+              private db: DatabaseService, private authService: AuthService, private fsdb: AngularFirestore )
   {
     this.claimForm = this.formBuilder.group
     (
@@ -35,7 +35,7 @@ export class ClaimFormComponent
         compAdr: ['', Validators.required],
         claimStartDate: ['', Validators.required],
         claimEndDate: ['', Validators.required],
-        // claimEndDate: [{value: '', disabled: true}, Validators.required]
+        // claimEndDate: [{value: '', disabled: true}, Validators.required] - try to use this in future instead of disable in HTML
         addressLine1: ['', Validators.required],
         addressLine2: [''],
         addressLine3: [''],
@@ -71,9 +71,8 @@ export class ClaimFormComponent
     this.projectDurationShowDatePicker = false;
   }
 
-
-
   claimForm;
+  claimFormValues;
   claimEndDateDisabled = true;
   ProjectEndDateDisabled = true;
   maxClaimDate: Date;
@@ -98,6 +97,67 @@ export class ClaimFormComponent
 
   projectRAndDDescriptionWords: any;
 
+  ngOnInit(): any
+  {
+    console.log('ngOnInit called');
+    if (this.authService.isLoggedIn)
+    {
+      console.log('ngOnInit is logged in');
+      console.log(JSON.parse(localStorage.getItem('user')).uid);
+      this.fsdb.collection('users').doc(JSON.parse(localStorage.getItem('user')).uid)
+        .collection('claimForm').doc(this.route.snapshot.params.id).valueChanges().subscribe(value =>
+      {
+        this.claimFormValues = value;
+        this.addEditValues();
+      });
+    }
+    else
+    {
+      console.log('ngOnInit not logged in');
+    }
+
+    const id = this.route.snapshot.params.id;
+
+    console.log(id);
+
+  }
+
+  addEditValues(): void
+  {
+    this.claimForm.patchValue
+    ({
+      name: this.claimFormValues.name,
+      UTR: this.claimFormValues.UTR,
+      compName: this.claimFormValues.compName,
+      compAdr: this.claimFormValues.compAdr,
+      claimStartDate: new Date(this.claimFormValues.claimStartDate.seconds * 1000),
+      claimEndDate: new Date(this.claimFormValues.claimEndDate.seconds * 1000),
+      addressLine1: this.claimFormValues.addressLine1,
+      addressLine2: this.claimFormValues.addressLine2,
+      addressLine3: this.claimFormValues.addressLine3,
+      addressTown: this.claimFormValues.addressTown,
+      addressCounty: this.claimFormValues.addressCounty,
+      addressPostcode: this.claimFormValues.addressPostcode,
+      projectSynopsis: this.claimFormValues.projectSynopsis,
+      projectName: this.claimFormValues.projectName,
+      projectDurationRadio: this.claimFormValues.projectDurationRadio,
+      projectStartDate: new Date(this.claimFormValues.projectStartDate.seconds * 1000),
+      projectEndDate: new Date(this.claimFormValues.projectEndDate.seconds * 1000),
+      projectRAndDDescription: this.claimFormValues.projectRAndDDescription,
+      projectResearch: this.claimFormValues.projectResearch,
+      problemToSolve: this.claimFormValues.problemToSolve,
+      projectLead: this.claimFormValues.projectLead,
+      projectLeadExperience: this.claimFormValues.projectLeadExperience,
+      uniqueProjectDevelopment: this.claimFormValues.uniqueProjectDevelopment,
+      projectProblems: this.claimFormValues.projectProblems,
+      projectProblemsDifficulty: this.claimFormValues.projectProblemsDifficulty,
+      projectProblemsSolved: this.claimFormValues.projectProblemsSolved,
+      projectTesting: this.claimFormValues.projectTesting,
+      softwareAdvance: this.claimFormValues.softwareAdvance,
+      stateAid: this.claimFormValues.stateAid
+    });
+  }
+
   saveFormToDB(): void
   {
 
@@ -110,7 +170,7 @@ export class ClaimFormComponent
     this.checkUnRequiredValues();
 
     // TODO get return from write to find out if it worked
-    this.db.writeClaimFormToDB(this.claimForm, JSON.parse(localStorage.getItem('user')).uid);
+    this.db.writeClaimFormToDB(this.claimForm, JSON.parse(localStorage.getItem('user')).uid, this.route.snapshot.params.id);
   }
 
   checkUnRequiredValues(): void
@@ -225,12 +285,6 @@ export class ClaimFormComponent
       this.isInvalid('softwareAdvance') ||
       this.isInvalid('stateAid') ||
       this.isRequiredFormEmpty();
-  }
-
-  test(): void
-  {
-    console.log('isEmpty = ' + this.isRequiredFormEmpty());
-    console.log('isIncomplete = ' + this.isIncomplete());
   }
 
   // Does not work - move on to next part and come back to this
@@ -417,6 +471,11 @@ export class ClaimFormComponent
     await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
   }
 
+  test(): any
+  {
+    this.addEditValues();
+  }
+
   submitForm(): any
   {
     console.log(this.claimForm.value);
@@ -424,7 +483,7 @@ export class ClaimFormComponent
 
     if (this.authService.isLoggedIn)
     {
-      console.log(this.authService.userData.uid);
+      // console.log(this.authService.userData.uid);
       this.saveFormToDB();
     }
     else
