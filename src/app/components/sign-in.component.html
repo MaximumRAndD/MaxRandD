@@ -1,41 +1,101 @@
-<div class="container" style="margin-top: 100px">
-  <div class="displayTableCell">
+<!--<div class="container" style="margin-top: 100px">-->
+<!--  <div class="displayTableCell">-->
 
-    <div class="authBlock">
-      <h3>Sign In</h3>
-      <div class="formGroup">
-        <input type="text" class="formControl" placeholder="Username" #userName required>
-      </div>
-
-      <div class="formGroup">
-        <input type="password" class="formControl" placeholder="Password" #userPassword required>
-      </div>
-
-      <!-- Calling SignIn Api from AuthService -->
-      <div class="formGroup">
-        <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.signIn(userName.value, userPassword.value)">
-      </div>
-
-      <div class="formGroup">
-        <span class="or"><span class="orInner">Or</span></span>
-      </div>
-
-<!--      &lt;!&ndash; Calling GoogleAuth Api from AuthService &ndash;&gt;-->
+<!--    <div class="authBlock">-->
+<!--      <h3>Sign In</h3>-->
 <!--      <div class="formGroup">-->
-<!--        <button type="button" class="btn googleBtn" (click)="authService.googleAuth()">-->
-<!--          <i class="fab fa-google-plus-g"></i>-->
-<!--          Log in with Google-->
-<!--        </button>-->
+<!--        <input type="text" class="formControl" placeholder="Username" #userName required>-->
 <!--      </div>-->
 
-      <div class="forgotPassword">
-        <span routerLink="/forgot-password">Forgot Password?</span>
-      </div>
+<!--      <div class="formGroup">-->
+<!--        <input type="password" class="formControl" placeholder="Password" #userPassword required>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Calling SignIn Api from AuthService &ndash;&gt;-->
+<!--      <div class="formGroup">-->
+<!--        <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.signIn(userName.value, userPassword.value)">-->
+<!--      </div>-->
+
+<!--      <div class="formGroup">-->
+<!--        <span class="or"><span class="orInner">Or</span></span>-->
+<!--      </div>-->
+
+<!--&lt;!&ndash;      &lt;!&ndash; Calling GoogleAuth Api from AuthService &ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;      <div class="formGroup">&ndash;&gt;-->
+<!--&lt;!&ndash;        <button type="button" class="btn googleBtn" (click)="authService.googleAuth()">&ndash;&gt;-->
+<!--&lt;!&ndash;          <i class="fab fa-google-plus-g"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;          Log in with Google&ndash;&gt;-->
+<!--&lt;!&ndash;        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+
+<!--      <div class="forgotPassword">-->
+<!--        <span routerLink="/forgot-password">Forgot Password?</span>-->
+<!--      </div>-->
+<!--    </div>-->
+
+<!--    <div class="redirectToLogin">-->
+<!--      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="container" style="margin-top: 100px">
+  <form [formGroup]="loginForm">
+    <h3 style="margin-bottom: 20px">
+      Sign In
+    </h3>
+
+    <div class="form-group">
+      <h6>
+        Email address
+      </h6>
+      <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email"
+               placeholder="Email">
+        <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email').hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
 
-    <div class="redirectToLogin">
-      <span>Don't have an account?<span class="redirect" routerLink="/register-user"> Sign Up</span></span>
+    <div class="form-group">
+      <h6>
+        Password
+      </h6>
+      <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password"
+               placeholder="Password">
+        <mat-error *ngIf="loginForm.get('password').hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
     </div>
 
+  </form>
+
+  <div class="row" *ngIf="isIncomplete()">
+    <button mat-stroked-button disabled>
+      Sign-up
+    </button>
   </div>
+
+  <div class="row" *ngIf="!isIncomplete()">
+    <button mat-stroked-button (click)="signIn()">
+      Sign-in
+    </button>
+  </div>
+
+  <div>
+    <span routerLink="/forgot-password" style="cursor: pointer">Forgot Password?</span>
+    <br>
+    <span>Don't have an account?<span class="redirect" routerLink="/register-user" style="cursor: pointer"> Sign Up</span></span>
+  </div>
+
 </div>

@@ -18,21 +18,20 @@
     </mat-form-field>
   </div>
 
+  // TODO fix this
   <div class="form-group">
     <mat-form-field class="small-width" appearance="outline">
       <mat-label>Start date</mat-label>
-      <input matInput [matDatepicker]="claimStartDatePicker" formControlName="claimStartDate"
-             (dateChange)="onClaimStartDateChange()" disabled>
+      <input matInput [matDatepicker]="claimStartDatePicker" formControlName="claimStartDate" disabled>
       <mat-datepicker-toggle matSuffix [for]="claimStartDatePicker"></mat-datepicker-toggle>
       <mat-datepicker #claimStartDatePicker disabled="false"></mat-datepicker>
     </mat-form-field>
 
     <mat-form-field class="small-width" appearance="outline" style="margin-left: 25px">
       <mat-label>End date</mat-label>
-      <input matInput [matDatepicker]="claimEndDatePicker" formControlName="claimEndDate"
-             disabled [max]="maxClaimDate" (dateChange)="isClaimEndDateValid()">
+      <input matInput [matDatepicker]="claimEndDatePicker" formControlName="claimEndDate" disabled>
       <mat-datepicker-toggle matSuffix [for]="claimEndDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #claimEndDatePicker [disabled]="claimEndDateDisabled"></mat-datepicker>
+      <mat-datepicker #claimEndDatePicker></mat-datepicker>
       <mat-error *ngIf="claimDetails.get('claimEndDate').errors?.dateLessThan &&
               !claimDetails.get('claimEndDate').errors?.endDateMoreThanYear">
         End date <strong>should not</strong> be before start date

@@ -1,10 +1,10 @@
-<div class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top">
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top">
   <a class="navbar-brand" href="#">
     <img src="assets/img/Placeholder_logo_TEMPORARY.png" height="30" alt="">
   </a>
-  <button class="btn btn-primary"
-          [routerLink]="['']">
-    Home
+  <button class="btn btn-primary" *ngIf="authService.isLoggedIn"
+          [routerLink]="['/members']">
+    Dashboard
   </button>
   <button class="btn btn-primary" *ngIf="!authService.isLoggedIn"
           [routerLink]="['/sign-in']">
@@ -14,4 +14,4 @@
           (click)="authService.signOut()">
     Sign-out
   </button>
-</div>
+</nav>

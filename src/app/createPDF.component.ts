@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import * as jsPDF from 'jspdf';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from './auth.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component
 ({
@@ -25,7 +26,7 @@ export class CreatePDFComponent implements OnInit
   projectProblemsDifficultyUsed = false;
   projectProblemsSolvedUsed = false;
 
-  constructor(private db: AngularFirestore, private authService: AuthService)
+  constructor(private db: AngularFirestore, private authService: AuthService, private route: ActivatedRoute)
   {
     if (this.authService.isLoggedIn)
     {
@@ -41,7 +42,7 @@ export class CreatePDFComponent implements OnInit
       console.log('ngOnInit is logged in');
       console.log(JSON.parse(localStorage.getItem('user')).uid);
       this.db.collection('users').doc(JSON.parse(localStorage.getItem('user')).uid)
-        .collection('claimForm').doc('form').valueChanges().subscribe(value =>
+        .collection('claimForm').doc(this.route.snapshot.params.id).valueChanges().subscribe(value =>
       {
         this.claimForm = value;
       });

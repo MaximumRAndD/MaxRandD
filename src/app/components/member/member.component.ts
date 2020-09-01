@@ -46,14 +46,6 @@ export class MemberComponent implements OnInit
 
   newClaim(): void
   {
-    // if (this.authService.isLoggedIn)
-    // {
-    //   this.dbs.writeNewEmptyClaimForm(JSON.parse(localStorage.getItem('user')).uid);
-    // }
-    // else
-    // {
-    //   console.log('not logged in');
-    // }
     this.openHelpDialog();
   }
 

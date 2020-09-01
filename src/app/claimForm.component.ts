@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WebService } from './web.service';
-import {claimDataLessThan, DurationDataLessThan, endDateMoreThanYear} from './date.validation';
+import {claimDataLessThan, DurationDataLessThan, endDateMoreThanYear} from './validation/date.validation';
 import { DataService } from './data.service';
 import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';

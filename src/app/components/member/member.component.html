@@ -5,8 +5,9 @@
     </h2>
 
     <div *ngFor="let claim of claimFormArray">
+
       <p>
-        Project name: {{claim.projectName}}
+        Project name: {{claim?.projectName || 'Project name of new claim'}}
         <br>
         Claim start/end date: {{claim.claimStartDate.seconds * 1000 | date:'dd-MM-yyyy'}} -
         {{claim.claimEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}
@@ -16,7 +17,7 @@
         Edit claim
       </button>
 
-      <button mat-stroked-button [routerLink]="['/testPDF']">
+      <button mat-stroked-button [routerLink]="['/testPDF', claim.claimID]">
         View claim
       </button>
       <mat-divider style="margin-top: 20px"></mat-divider>

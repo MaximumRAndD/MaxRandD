@@ -4,6 +4,7 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
+import { DatabaseService } from './database.service';
 
 @Injectable
 ({
@@ -17,7 +18,7 @@ export class AuthService
   userData: any;
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, public router: Router,
-              public ngZone: NgZone)
+              public ngZone: NgZone, private db: DatabaseService)
   {
     this.afAuth.authState.subscribe(user =>
     {
@@ -41,11 +42,11 @@ export class AuthService
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) =>
       {
+        this.setUserData(result.user);
         this.ngZone.run(() =>
         {
-          this.router.navigate(['/members']);
+          this.router.navigate(['']);
         });
-        this.setUserData(result.user);
       }).catch((error) =>
       {
         window.alert(error.message);
@@ -60,6 +61,7 @@ export class AuthService
       {
         // this.sendVerificationMail();
         this.setUserData(result.user);
+        this.db.writeNewEmptyClaimForm(result.user.uid, '', '', '');
       }).catch((error) => {
         window.alert(error.message);
       });

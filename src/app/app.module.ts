@@ -10,6 +10,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { MatButtonModule  } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome.component';
@@ -34,11 +35,12 @@ import { SignInComponent } from './components/sign-in.component';
 import { SignUpComponent } from './components/sign-up.component';
 import { ForgotPasswordComponent } from './components/forgot-password.component';
 import { FooterComponent } from './components/footer/footer.component';
-import {ClaimFormHelpDialogComponent} from './dialogs/claim-form-help-dialog/claim-form-help-dialog.component';
+import { ClaimFormHelpDialogComponent } from './dialogs/claim-form-help-dialog/claim-form-help-dialog.component';
 import { MemberComponent } from './components/member/member.component';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { NewClaimDialogComponent } from './dialogs/new-claim-dialog/new-claim-dialog.component';
 import { LoggedInRouteGuard } from './guard/logged-in-route.guard';
+import { LoggedInPageRouteGuard } from './guard/logged-in-page-route.guard';
 
 const routes =
   [
@@ -47,12 +49,12 @@ const routes =
     {path: 'tltv1', component: Tltv1ComponentComponent},
     {path: 'success', component: SuccessComponent},
     {path: 'failure', component: FailureComponent},
-    {path: 'testPDF', component: CreatePDFComponent},
-    {path: 'claimForm/:id', component: ClaimFormComponent},
+    {path: 'testPDF/:id', component: CreatePDFComponent, canActivate: [LoggedInRouteGuard]},
+    {path: 'claimForm/:id', component: ClaimFormComponent, canActivate: [LoggedInRouteGuard]},
     {path: 'test', component: TestComponent},
-    {path: 'sign-in', component: SignInComponent},
-    {path: 'register-user', component: SignUpComponent},
-    {path: 'forgot-password', component: ForgotPasswordComponent},
+    {path: 'sign-in', component: SignInComponent, canActivate: [LoggedInPageRouteGuard]},
+    {path: 'register-user', component: SignUpComponent, canActivate: [LoggedInPageRouteGuard]},
+    {path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [LoggedInPageRouteGuard]},
     {path: 'members', component: MemberComponent, canActivate: [LoggedInRouteGuard]}
     // { path: 'verify-email-address', component: VerifyEmailComponent }
   ];
@@ -68,9 +70,11 @@ const routes =
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule, MatIconModule,
     MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule, AngularFireAuthModule, MatDividerModule
+    AngularFirestoreModule, AngularFireAuthModule, MatDividerModule, MatButtonModule
   ],
-  providers: [WebService, DataService, DatabaseService, AuthService, LoggedInRouteGuard],
+  providers: [WebService, DataService, DatabaseService, AuthService, LoggedInRouteGuard, LoggedInPageRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// TODO https://www.youtube.com/watch?v=_lZc2O2oUJk

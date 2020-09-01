@@ -2,7 +2,7 @@ import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {ClaimFormDialogDataModel} from '../../model/claim-form-dialog-data.model';
 import { FormBuilder, Validators } from '@angular/forms';
-import {claimDataLessThan, endDateMoreThanYear} from '../../date.validation';
+import { claimDataLessThan, endDateMoreThanYear } from '../../validation/date.validation';
 import {AuthService} from '../../auth.service';
 import {DatabaseService} from '../../database.service';
 

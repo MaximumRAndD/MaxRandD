@@ -50,7 +50,7 @@ export class DatabaseService
       // TODO GOOGLE => angular how to run method inside .then function
       {
         console.log('Document successfully written!');
-        this.navigateToPDFPage();
+        this.navigateToPDFPage(docID);
       })
       // tslint:disable-next-line:only-arrow-functions typedef
       .catch(function(error)
@@ -111,8 +111,8 @@ export class DatabaseService
       });
   }
 
-  navigateToPDFPage(): void
+  navigateToPDFPage(docID): void
   {
-    this.router.navigate(['../testPDF']);
+    this.router.navigate(['../testPDF', docID]);
   }
 }
