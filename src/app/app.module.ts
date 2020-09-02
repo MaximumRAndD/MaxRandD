@@ -41,6 +41,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NewClaimDialogComponent } from './dialogs/new-claim-dialog/new-claim-dialog.component';
 import { LoggedInRouteGuard } from './guard/logged-in-route.guard';
 import { LoggedInPageRouteGuard } from './guard/logged-in-page-route.guard';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const routes =
   [
@@ -70,11 +71,19 @@ const routes =
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
     FormsModule, ReactiveFormsModule, BrowserAnimationsModule, MatRadioModule, MatSelectModule, MatDialogModule, MatIconModule,
     MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule, AngularFireAuthModule, MatDividerModule, MatButtonModule
+    AngularFirestoreModule, AngularFireAuthModule, MatDividerModule, MatButtonModule, MatAutocompleteModule
   ],
   providers: [WebService, DataService, DatabaseService, AuthService, LoggedInRouteGuard, LoggedInPageRouteGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
-// TODO https://www.youtube.com/watch?v=_lZc2O2oUJk
+// TODO for the addition of payments
+// https://stripe.com/docs/payments/integration-builder
+// https://dashboard.stripe.com/test/dashboard
+// https://medium.com/better-programming/payments-simplified-stripe-angular-express-4a88bf69f82e
+// https://fireship.io/courses/stripe-js/
+// https://fireship.io/lessons/stripe-elements-angular/
+
+
+// https://www.youtube.com/watch?v=_lZc2O2oUJk

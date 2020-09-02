@@ -471,9 +471,20 @@
               </mat-icon>
             </div>
           </div>
+
+          <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
+            <mat-label>Testing filter autofill</mat-label>
+            <textarea matInput formControlName="test" rows="5" placeholder="Type to filter"
+                      [matAutocomplete]="auto"></textarea>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
         </div>
       </form>
-
 
       <p>
         Click here to complete your claim form!

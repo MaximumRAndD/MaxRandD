@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { WebService } from './web.service';
@@ -9,6 +9,8 @@ import { DatabaseService } from './database.service';
 import { AuthService } from './auth.service';
 import {ClaimFormHelpDialogComponent} from './dialogs/claim-form-help-dialog/claim-form-help-dialog.component';
 import { AngularFirestore } from '@angular/fire/firestore';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
 
 @Component
 ({
@@ -59,7 +61,8 @@ export class ClaimFormComponent implements OnInit
         projectTesting: ['', Validators.required],
         softwareAdvance: ['', Validators.required],
         stateAid: ['', Validators.required],
-        companiesHouseInput: ''
+        companiesHouseInput: '',
+        test: ''
       },
       {
         validators: [claimDataLessThan('claimStartDate', 'claimEndDate'),
@@ -97,6 +100,11 @@ export class ClaimFormComponent implements OnInit
 
   projectRAndDDescriptionWords: any;
 
+  // test filter options
+  options: string[] = ['test', 'One', 'Two', 'Three', 'two words', 'abc', 'Then I ___ over to the [YOUR VALUE]'];
+  filteredOptions: Observable<string[]>;
+
+
   ngOnInit(): any
   {
     console.log('ngOnInit called');
@@ -120,6 +128,22 @@ export class ClaimFormComponent implements OnInit
 
     console.log(id);
 
+    // test filter options
+    this.filteredOptions = this.claimForm.controls.test.valueChanges
+      .pipe(
+        startWith(''),
+        // @ts-ignore
+        map(value => this._filter(value))
+      );
+
+  }
+
+  // test filter options
+  private _filter(value: string): string[]
+  {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   addEditValues(): void
