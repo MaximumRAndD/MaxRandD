@@ -3,7 +3,6 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'test',
@@ -17,37 +16,28 @@ export class TestComponent implements OnInit
   {
   }
 
-  testArray;
-  test;
 
   ngOnInit(): any
   {
-    this.db.collection('claimForm').doc('testUser1').valueChanges().subscribe(value =>
-    {
-      // @ts-ignore
-      // console.log(value);
-      this.testArray = value;
-    });
-    console.log(this.testArray);
   }
 
-  pleaseJustRead(): any
-  {
+  // not working
 
-    this.db.collection('claimForm').doc('testUser1').valueChanges().subscribe( value =>
-    {
-      // console.log(value);
-      this.test = value;
+  // checkout(): any
+  // {
+  //   const dialogRef = this.dialog.open(StripePaymentComponent, {
+  //     // opening dialog here which will give us back stripeToken
+  //     data: {totalAmount: this.getTotal()},
+  //   });
+  //   dialogRef.afterClosed()
+  //     // waiting for stripe token that will be given back
+  //     .subscribe((result: any) =>
+  //     {
+  //       if (result) {
+  //         this.createOrder(result.token.id);
+  //       }
+  //     });
+  // }
 
-      console.log('read the below');
-      console.log(this.test);
-      console.log('read the above');
-      console.log(this.test.name);
-    });
-    // console.log('read the below');
-    // console.log(this.testArray);
-    // console.log(this.testArray.name);
-    // console.log('read the above');
-  }
 
 }

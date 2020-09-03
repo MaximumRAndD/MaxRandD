@@ -32,6 +32,7 @@ export class NewClaimDialogComponent
   }
 
   claimDetails;
+  claimEndDateDisabled = true;
 
   createClaim(): void
   {
@@ -43,6 +44,18 @@ export class NewClaimDialogComponent
     else
     {
       console.log('not logged in');
+    }
+  }
+
+  onClaimStartDateChange(): void
+  {
+    if (this.claimDetails.value.claimStartDate === null)
+    {
+      this.claimEndDateDisabled = true;
+    }
+    else
+    {
+      this.claimEndDateDisabled = false;
     }
   }
 

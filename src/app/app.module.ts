@@ -43,6 +43,8 @@ import { LoggedInRouteGuard } from './guard/logged-in-route.guard';
 import { LoggedInPageRouteGuard } from './guard/logged-in-page-route.guard';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
+import { StripeCheckoutComponent } from './components/stripe-checkout/stripe-checkout.component';
+
 const routes =
   [
     {path: '', component: WelcomeComponent},
@@ -52,7 +54,7 @@ const routes =
     {path: 'failure', component: FailureComponent},
     {path: 'testPDF/:id', component: CreatePDFComponent, canActivate: [LoggedInRouteGuard]},
     {path: 'claimForm/:id', component: ClaimFormComponent, canActivate: [LoggedInRouteGuard]},
-    {path: 'test', component: TestComponent},
+    {path: 'test', component: StripeCheckoutComponent},
     {path: 'sign-in', component: SignInComponent, canActivate: [LoggedInPageRouteGuard]},
     {path: 'register-user', component: SignUpComponent, canActivate: [LoggedInPageRouteGuard]},
     {path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [LoggedInPageRouteGuard]},
@@ -65,7 +67,7 @@ const routes =
     AppComponent, WelcomeComponent, TrafficLightTestComponent, NavComponent,
     Tltv1ComponentComponent, SuccessComponent, FailureComponent, HelpDialog, FailureDialog,
     CreatePDFComponent, ClaimFormComponent, TestComponent, SignInComponent, SignUpComponent, ForgotPasswordComponent, FooterComponent,
-    ClaimFormHelpDialogComponent, MemberComponent, NewClaimDialogComponent
+    ClaimFormHelpDialogComponent, MemberComponent, NewClaimDialogComponent, StripeCheckoutComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
@@ -84,6 +86,9 @@ export class AppModule { }
 // https://medium.com/better-programming/payments-simplified-stripe-angular-express-4a88bf69f82e
 // https://fireship.io/courses/stripe-js/
 // https://fireship.io/lessons/stripe-elements-angular/
+
+// for typings.d.ts:
+// https://stackoverflow.com/questions/54795295/how-do-i-add-a-typings-d-ts-file-to-an-angular-7-project
 
 
 // https://www.youtube.com/watch?v=_lZc2O2oUJk
