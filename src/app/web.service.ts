@@ -79,6 +79,15 @@ export class WebService
     ).toPromise();
   }
 
+  getStripeSessionKey(): any
+  {
+    console.log('called');
+    return this.http.post
+    (
+      'http://localhost:4242/create-checkout-session', ''
+    ).toPromise();
+  }
+
   /*
       Better more secure way, but cant get working
    */
