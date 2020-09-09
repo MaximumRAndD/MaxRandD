@@ -4,6 +4,7 @@ import { AuthService } from '../../auth.service';
 import { DatabaseService } from '../../database.service';
 import {MatDialog} from '@angular/material/dialog';
 import {NewClaimDialogComponent} from '../../dialogs/new-claim-dialog/new-claim-dialog.component';
+import { StripeCheckoutComponent } from '../stripe-checkout/stripe-checkout.component';
 
 @Component(
   {
@@ -14,7 +15,7 @@ import {NewClaimDialogComponent} from '../../dialogs/new-claim-dialog/new-claim-
 export class MemberComponent implements OnInit
 {
   constructor(private db: AngularFirestore, private authService: AuthService, private dbs: DatabaseService,
-              public dialog: MatDialog)
+              public dialog: MatDialog, private stripe: StripeCheckoutComponent)
   {
     if (this.authService.isLoggedIn)
     {
@@ -46,7 +47,8 @@ export class MemberComponent implements OnInit
 
   newClaim(): void
   {
-    this.openHelpDialog();
+    this.stripe.checkout().then();
+    // this.openHelpDialog();
   }
 
   openHelpDialog(): void

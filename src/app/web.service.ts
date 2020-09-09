@@ -82,9 +82,32 @@ export class WebService
   getStripeSessionKey(): any
   {
     console.log('called');
+
+    // URLs
+    const url = 'https://europe-west2-maximumrandd-49bd0.cloudfunctions.net/app/create-checkout-session';
+    const testUrl = 'http://localhost:5001/maximumrandd-49bd0/europe-west2/app/create-checkout-session';
+
+    const body = {user: JSON.parse(localStorage.getItem('user')).uid};
+
     return this.http.post
     (
-      'http://localhost:4242/create-checkout-session', ''
+      url, body
+    ).toPromise();
+  }
+
+  getStripeSessionKeyPassInUID(userID): any
+  {
+    console.log('called');
+
+    // URLs
+    const url = 'https://europe-west2-maximumrandd-49bd0.cloudfunctions.net/app/create-checkout-session';
+    const testUrl = 'http://localhost:5001/maximumrandd-49bd0/europe-west2/app/create-checkout-session';
+
+    const body = {user: userID};
+
+    return this.http.post
+    (
+      url, body
     ).toPromise();
   }
 

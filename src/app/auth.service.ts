@@ -5,6 +5,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { DatabaseService } from './database.service';
+import { StripeCheckoutComponent } from './components/stripe-checkout/stripe-checkout.component';
 
 @Injectable
 ({
@@ -18,7 +19,7 @@ export class AuthService
   userData: any;
 
   constructor(public afAuth: AngularFireAuth, public afs: AngularFirestore, public router: Router,
-              public ngZone: NgZone, private db: DatabaseService)
+              public ngZone: NgZone, private db: DatabaseService, private stripe: StripeCheckoutComponent)
   {
     this.afAuth.authState.subscribe(user =>
     {
@@ -61,7 +62,12 @@ export class AuthService
       {
         // this.sendVerificationMail();
         this.setUserData(result.user);
-        this.db.writeNewEmptyClaimForm(result.user.uid, '', '', '');
+        // this.db.writeNewEmptyClaimForm(result.user.uid, '', '', '');
+        this.stripe.checkoutPassUid(result.user.uid).then(r => {});
+        this.ngZone.run(() =>
+        {
+          this.router.navigate(['members']);
+        });
       }).catch((error) => {
         window.alert(error.message);
       });

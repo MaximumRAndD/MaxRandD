@@ -54,7 +54,7 @@ const routes =
     {path: 'failure', component: FailureComponent},
     {path: 'testPDF/:id', component: CreatePDFComponent, canActivate: [LoggedInRouteGuard]},
     {path: 'claimForm/:id', component: ClaimFormComponent, canActivate: [LoggedInRouteGuard]},
-    {path: 'test', component: StripeCheckoutComponent},
+    // {path: 'test', component: StripeCheckoutComponent},
     {path: 'sign-in', component: SignInComponent, canActivate: [LoggedInPageRouteGuard]},
     {path: 'register-user', component: SignUpComponent, canActivate: [LoggedInPageRouteGuard]},
     {path: 'forgot-password', component: ForgotPasswordComponent, canActivate: [LoggedInPageRouteGuard]},
@@ -67,7 +67,7 @@ const routes =
     AppComponent, WelcomeComponent, TrafficLightTestComponent, NavComponent,
     Tltv1ComponentComponent, SuccessComponent, FailureComponent, HelpDialog, FailureDialog,
     CreatePDFComponent, ClaimFormComponent, TestComponent, SignInComponent, SignUpComponent, ForgotPasswordComponent, FooterComponent,
-    ClaimFormHelpDialogComponent, MemberComponent, NewClaimDialogComponent, StripeCheckoutComponent
+    ClaimFormHelpDialogComponent, MemberComponent, NewClaimDialogComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),
@@ -75,7 +75,7 @@ const routes =
     MatInputModule, MatDatepickerModule, MatNativeDateModule, HttpClientModule, AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule, AngularFireAuthModule, MatDividerModule, MatButtonModule, MatAutocompleteModule
   ],
-  providers: [WebService, DataService, DatabaseService, AuthService, LoggedInRouteGuard, LoggedInPageRouteGuard],
+  providers: [WebService, DataService, DatabaseService, AuthService, LoggedInRouteGuard, LoggedInPageRouteGuard, StripeCheckoutComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
