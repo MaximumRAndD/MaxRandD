@@ -96,14 +96,26 @@ export class CreatePDFComponent implements OnInit
         }
       };
 
+    const margins =
+      {
+      top: 15,
+      bottom: 20,
+      left: 15,
+      right: 15,
+      width: 180
+    };
+
     const content = this.content.nativeElement;
 
     doc.fromHTML(content.innerHTML, 15, 15,
       {
-        width: 190,
+        width: 180,
         elementHandlers: specialElementHandlers
-      });
-
-    doc.save('test.pdf');
+      },
+      // tslint:disable-next-line:only-arrow-functions
+      function(dispose)
+      {
+        doc.save('test.pdf');
+      }, margins);
   }
 }

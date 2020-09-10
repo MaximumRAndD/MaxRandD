@@ -3,7 +3,113 @@
     <h1 style="font-size: 24pt; font-family: arial, helvetica, sans-serif;">
       Test PDF title
     </h1>
+
+    <img src="assets/img/Placeholder_logo_TEMPORARY.png" height="30" alt="">
+
 <!--    style="margin-left: 100px" works-->
+    <p style="font-family: arial, helvetica, sans-serif;">
+      Testing a longer paragraph with var inserted into the text | name = {{claimForm.name}} |. More below this.
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ac arcu felis. Aenean blandit eget dui sit amet posuere. Ut eget mi libero. Suspendisse potenti. Donec at turpis lacinia, finibus odio ut, molestie magna. Mauris odio dolor, maximus eu augue ut, tristique venenatis velit. Fusce fringilla risus ante, sed scelerisque tortor ullamcorper eu. Aenean suscipit nulla sem, at tincidunt odio porta in. Donec eget erat facilisis justo aliquet porttitor et in ligula. In imperdiet massa vitae sapien accumsan, sed pellentesque odio ornare. Suspendisse rhoncus sapien id tincidunt commodo.
+
+      Donec gravida sed ex et vulputate. Morbi aliquet nisi non semper viverra. In ac pharetra mi. Morbi dapibus massa massa, vel dapibus lectus feugiat ut. Pellentesque ut magna non orci elementum dignissim. In eros velit, rutrum id consectetur in, aliquet in lorem. Phasellus sem est, dapibus in sapien nec, malesuada blandit odio. Mauris porttitor arcu eget porttitor tristique. Nunc hendrerit enim vel auctor varius. Sed mattis malesuada aliquet. Quisque accumsan, nunc sed blandit sodales, ante turpis porta eros, sed posuere eros sem vitae metus.
+
+      Morbi non sapien non leo pellentesque pharetra eget lobortis est. Nulla lorem sem, facilisis sit amet ornare non, semper non nisl. Nullam tempor arcu vitae risus commodo malesuada. Suspendisse tellus augue, eleifend sed volutpat a, tincidunt et mauris. Ut quis lacinia neque, eget viverra elit. Aenean felis diam, fermentum eu consequat et, vulputate a nulla. Nam auctor eu nulla sit amet tristique. Donec ipsum libero, consectetur sit amet ultricies non, commodo at elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque eleifend viverra mi, ut ornare ante aliquam elementum. Aenean tincidunt egestas elementum. Sed euismod leo quis lectus luctus tincidunt. Aliquam at auctor sapien. Vestibulum ut bibendum lorem. Quisque vulputate quis odio et convallis. Vestibulum sagittis fringilla velit, eget malesuada orci dapibus et.
+
+      In tristique felis pretium libero egestas, in mollis neque tempus. Nulla ut enim justo. Sed volutpat porta nisi sed accumsan. In in faucibus quam, at sagittis dolor. In non risus ut dui porttitor feugiat eu ut sapien. Morbi consectetur, est id scelerisque varius, urna erat pharetra ligula, quis rutrum justo lacus ut odio. Nullam dignissim mauris urna, vitae porta leo ultricies eu. Phasellus non orci a libero laoreet vulputate ut quis urna. In tincidunt felis molestie dolor tempus finibus. Fusce sed posuere sapien. Proin ac eros velit. Cras sed tempor nulla, ut tincidunt est. Nullam accumsan dignissim aliquam. Mauris pulvinar dapibus justo eget vestibulum.
+
+      Ut porttitor tempus mi, non consequat neque luctus a. Donec vehicula vitae lectus vitae vestibulum. Aenean et orci pulvinar, iaculis dui vestibulum, vestibulum mi. Donec est neque, mattis vel facilisis vel, luctus sed risus. In et elit vitae metus finibus consequat sit amet quis metus. Suspendisse venenatis venenatis tristique. Nulla facilisi. Curabitur sodales imperdiet leo eget porta. Mauris eu risus at justo ornare pulvinar. Vestibulum ac feugiat risus. Donec lobortis ipsum vel mi faucibus malesuada. Ut nulla lorem, bibendum ac purus vitae, ornare porta dolor. Vestibulum pulvinar facilisis dolor. Sed quis elit eu nisi convallis vehicula vel sed magna. Phasellus elit nisl, pharetra quis fringilla quis, vehicula ac dui. Nunc molestie sodales metus, non laoreet turpis porta sed.
+    </p>
+
+    <p style="font-family: arial, helvetica, sans-serif;">
+      name: {{claimForm.name}}
+    </p>
+    <p style="font-family: arial, helvetica, sans-serif;">
+      compName: {{claimForm.compName}}
+    </p>
+    <p style="font-family: arial, helvetica, sans-serif;">
+      UTR: {{claimForm.UTR}}
+    </p>
+    <p>
+      compAdr: {{claimForm.compAdr}}
+    </p>
+    <p style="margin-left: 50px">
+      claimStartDate: {{claimForm.claimStartDate.seconds * 1000 | date:'dd-MM-yyyy'}}
+    </p>
+    <p>
+      claimEndDate: {{claimForm.claimEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}
+    </p>
+    <p>
+      addressLine1: {{claimForm.addressLine1}}
+    </p>
+    <p *ngIf="address2Used">
+      addressLine2: {{claimForm.addressLine2}}
+    </p>
+    <p *ngIf="address3Used">
+      addressLine3: {{claimForm.addressLine3}}
+    </p>
+    <p style="margin-left: 100px">
+      addressTown: {{claimForm.addressTown}}
+    </p>
+    <p>
+      addressCounty: {{claimForm.addressCounty}}
+    </p>
+    <p>
+      addressPostcode: {{claimForm.addressPostcode}}
+    </p>
+    <p>
+      projectSynopsis: {{claimForm.projectSynopsis}}
+    </p>
+    <p>
+      projectName: {{claimForm.projectName}}
+    </p>
+    <p>
+      projectDurationRadio: {{claimForm.projectDurationRadio}}
+    </p>
+    <p>
+      projectStartDate: {{claimForm.projectStartDate.seconds * 1000 | date:'dd-MM-yyyy'}}
+    </p>
+    <p>
+      projectEndDate: {{claimForm.projectEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}
+    </p>
+    <p>
+      projectRAndDDescription: {{claimForm.projectRAndDDescription}}
+    </p>
+    <p>
+      projectResearch: {{claimForm.projectResearch}}
+    </p>
+    <p>
+      problemToSolve: {{claimForm.problemToSolve}}
+    </p>
+    <p>
+      projectLead: {{claimForm.projectLead}}
+    </p>
+    <p>
+      projectLeadExperience: {{claimForm.projectLeadExperience}}
+    </p>
+    <p>
+      uniqueProjectDevelopment: {{claimForm.uniqueProjectDevelopment}}
+    </p>
+    <p *ngIf="projectProblemsUsed">
+      projectProblems: {{claimForm.projectProblems}}
+    </p>
+    <p *ngIf="projectProblemsDifficultyUsed">
+      projectProblemsDifficulty: {{claimForm.projectProblemsDifficulty}}
+    </p>
+    <p *ngIf="projectProblemsSolvedUsed">
+      projectProblemsSolved: {{claimForm.projectProblemsSolved}}
+    </p>
+    <p>
+      projectTesting: {{claimForm.projectTesting}}
+    </p>
+    <p>
+      softwareAdvance: {{claimForm.softwareAdvance}}
+    </p>
+    <p>
+      stateAid: {{claimForm.stateAid}}
+    </p>
+
+<!--    test-->
+
     <p>
       name: {{claimForm.name}}
     </p>
