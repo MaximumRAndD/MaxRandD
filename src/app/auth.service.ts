@@ -46,8 +46,9 @@ export class AuthService
         this.setUserData(result.user);
         this.ngZone.run(() =>
         {
-          this.router.navigate(['']);
+          this.router.navigate(['members']).then(r => {});
         });
+        console.log('signed in');
       }).catch((error) =>
       {
         window.alert(error.message);
@@ -64,10 +65,10 @@ export class AuthService
         this.setUserData(result.user);
         // this.db.writeNewEmptyClaimForm(result.user.uid, '', '', '');
         this.stripe.checkoutPassUid(result.user.uid).then(r => {});
-        this.ngZone.run(() =>
-        {
-          this.router.navigate(['members']);
-        });
+        // this.ngZone.run(() =>
+        // {
+        //   this.router.navigate(['members']);
+        // });
       }).catch((error) => {
         window.alert(error.message);
       });

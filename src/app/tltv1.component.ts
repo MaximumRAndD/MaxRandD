@@ -52,9 +52,6 @@ export class Tltv1ComponentComponent
       this.trafficLightForm.value.question3, this.trafficLightForm.value.question4, this.trafficLightForm.value.question5,
       this.trafficLightForm.value.question6, this.trafficLightForm.value.question7);
 
-    // console.log(response[0]);
-
-
     for (const i in response)
     {
       if (response[i] === 'yes')

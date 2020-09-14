@@ -10,8 +10,6 @@ import { Observable } from 'rxjs';
   }
 )
 
-// TODO watch https://www.youtube.com/watch?v=WveRq-tlb6I
-
 export class LoggedInRouteGuard implements CanActivate
 {
   constructor(private auth: AuthService, public router: Router)
@@ -25,7 +23,7 @@ export class LoggedInRouteGuard implements CanActivate
     if (this.auth.isLoggedIn !== true)
     {
       // return false;
-      this.router.navigate(['sign-in']);
+      this.router.navigate(['']);
     }
     return true;
   }

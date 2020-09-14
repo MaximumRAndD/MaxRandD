@@ -24,9 +24,13 @@ export class MemberComponent implements OnInit
   }
 
   claimFormArray;
+  loading = false;
+  noClaims = false;
 
   ngOnInit(): any
   {
+    this.loading = true;
+
     console.log('ngOnInit called');
     if (this.authService.isLoggedIn)
     {
@@ -36,7 +40,13 @@ export class MemberComponent implements OnInit
         .collection('claimForm').valueChanges({idField: 'claimID'}).subscribe(value =>
       {
         console.log(value);
+        this.loading = false;
         this.claimFormArray = value;
+
+        if (this.claimFormArray.length === 0)
+        {
+          this.noClaims = true;
+        }
       });
     }
     else

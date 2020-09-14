@@ -1,36 +1,53 @@
 <div class="container" style="margin-top: 100px;">
   <div class="col-sm-12 text-left">
     <h2>
-      Members page
+      User Dashboard
     </h2>
 
-    <div *ngFor="let claim of claimFormArray">
-
-      <p>
-        Project name: {{claim?.projectName || 'Project name of new claim'}}
-        <br>
-        Claim start/end date: {{claim.claimStartDate.seconds * 1000 | date:'dd-MM-yyyy'}} -
-        {{claim.claimEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}
-      </p>
-
-      <button mat-stroked-button [routerLink]="['/claimForm', claim.claimID]">
-        Edit claim
-      </button>
-
-      <button mat-stroked-button [routerLink]="['/testPDF', claim.claimID]">
-        View claim
-      </button>
-      <mat-divider style="margin-top: 20px"></mat-divider>
-    </div>
-
-    <button mat-stroked-button (click)="newClaim()" style="margin-top: 20px">
+    <p><br>Add an addition claim</p>
+    <button mat-stroked-button (click)="newClaim()" style="margin-top: 10px;
+      margin-bottom: 20px">
       New claim
     </button>
 
+    <h6>Your existing claims</h6>
 
-    <p (click)="test()" style="cursor: pointer">
-      test
-    </p>
+    <div *ngIf="loading" class="center">
+      <div class="loader"></div>
+    </div>
+
+    <div *ngFor="let claim of claimFormArray">
+      <div class="card" style="width: 30em">
+        <div class="card-body">
+          <h5>
+            R&D Claim Form
+          </h5>
+          <p>
+            Project attached to claim: <strong>{{claim?.projectName || 'Project name of new claim'}}</strong>
+            <br>
+            Claim start/end date: <strong>{{claim.claimStartDate.seconds * 1000 | date:'dd-MM-yyyy'}} -
+            {{claim.claimEndDate.seconds * 1000 | date:'dd-MM-yyyy'}}</strong>
+          </p>
+          <button mat-stroked-button [routerLink]="['/claimForm', claim.claimID]" style="margin-right: 25px">
+            Edit claim
+          </button>
+
+          <button mat-stroked-button [routerLink]="['/testPDF', claim.claimID]">
+            View claim
+          </button>
+        </div>
+      </div>
+      <mat-divider style="margin-top: 20px; margin-bottom: 20px"></mat-divider>
+    </div>
+
+    <div *ngIf="noClaims">
+      <p>
+        You do not currently have any claims. A claim can be added by pressing the button above.
+      </p>
+    </div>
+<!--    <p (click)="test()" style="cursor: pointer">-->
+<!--      test-->
+<!--    </p>-->
 
   </div>
 </div>
