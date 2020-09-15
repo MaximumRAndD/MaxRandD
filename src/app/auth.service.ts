@@ -6,6 +6,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 import { DatabaseService } from './database.service';
 import { StripeCheckoutComponent } from './components/stripe-checkout/stripe-checkout.component';
+import { first } from 'rxjs/operators';
 
 @Injectable
 ({
@@ -25,13 +26,20 @@ export class AuthService
     {
       if (user)
       {
+        console.log('auth called');
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
+        localStorage.setItem('authSignedIn', 'true');
+        localStorage.setItem('backUpKey', this.userData.uid);
         JSON.parse(localStorage.getItem('user'));
       }
       else
       {
+        console.log('auth called - logged out');
+        this.userData = null;
         localStorage.setItem('user', null);
+        localStorage.setItem('authSignedIn', null);
+        localStorage.setItem('backUpKey', null);
         JSON.parse(localStorage.getItem('user'));
       }
     });
@@ -102,6 +110,15 @@ export class AuthService
   {
     const user = JSON.parse(localStorage.getItem('user'));
     return (user !== null && user.emailVerified !== true /*this true should be false when email verification is working*/) ? true : false;
+  }
+
+  getCurrentUserUid(): any
+  {
+    if (this.userData !== undefined)
+    {
+      return this.userData.uid;
+    }
+    return null;
   }
 
   // // Sign in using Google

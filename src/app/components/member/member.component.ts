@@ -17,10 +17,6 @@ export class MemberComponent implements OnInit
   constructor(private db: AngularFirestore, private authService: AuthService, private dbs: DatabaseService,
               public dialog: MatDialog, private stripe: StripeCheckoutComponent)
   {
-    if (this.authService.isLoggedIn)
-    {
-      console.log('logged in');
-    }
   }
 
   claimFormArray;
@@ -31,28 +27,42 @@ export class MemberComponent implements OnInit
   {
     this.loading = true;
 
-    console.log('ngOnInit called');
     if (this.authService.isLoggedIn)
     {
-      console.log('ngOnInit is logged in');
-      console.log(JSON.parse(localStorage.getItem('user')).uid);
-      this.db.collection('users').doc(JSON.parse(localStorage.getItem('user')).uid)
-        .collection('claimForm').valueChanges({idField: 'claimID'}).subscribe(value =>
-      {
-        console.log(value);
-        this.loading = false;
-        this.claimFormArray = value;
+      const uid = this.authService.getCurrentUserUid();
 
-        if (this.claimFormArray.length === 0)
-        {
-          this.noClaims = true;
-        }
-      });
+      if (uid !== null)
+      {
+        console.log('ngOnInit is logged in');
+        this.readDb(uid);
+      }
+      else
+      {
+        console.log('ngOnInit uid is null');
+        this.tryReloadUid();
+      }
     }
     else
     {
       console.log('ngOnInit not logged in');
     }
+  }
+
+  readDb(uid): any
+  {
+    console.log('readDB is called');
+    this.db.collection('users').doc(uid)
+      .collection('claimForm').valueChanges({idField: 'claimID'}).subscribe(value =>
+    {
+      console.log(value);
+      this.loading = false;
+      this.claimFormArray = value;
+
+      if (this.claimFormArray.length === 0)
+      {
+        this.noClaims = true;
+      }
+    });
   }
 
   newClaim(): void
@@ -66,8 +76,31 @@ export class MemberComponent implements OnInit
     this.dialog.open(NewClaimDialogComponent);
   }
 
+  async tryReloadUid(): Promise<any>
+  {
+    console.log('tryReloadUid called');
+
+    await this.delay(100);
+
+    console.log('after delay');
+
+    const uid = this.authService.getCurrentUserUid();
+
+    if (uid !== null)
+    {
+      console.log('uid not ull called');
+      this.readDb(uid);
+    }
+  }
+
   test(): any
   {
-    console.log(this.claimFormArray);
+    const test =  this.authService.getCurrentUserUid();
+    console.log(test);
+  }
+
+  async delay(ms: number): Promise<void>
+  {
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
   }
 }
