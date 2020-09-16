@@ -22,25 +22,21 @@ export class MemberComponent implements OnInit
   claimFormArray;
   loading = false;
   noClaims = false;
+  user;
 
-  ngOnInit(): any
+  async ngOnInit(): Promise<any>
   {
     this.loading = true;
 
     if (this.authService.isLoggedIn)
     {
-      const uid = this.authService.getCurrentUserUid();
+      console.log('ngOnInit is logged in');
+      this.user = await this.authService.getCurrentUserUid();
+      const userUid = this.user.uid;
 
-      if (uid !== null)
-      {
-        console.log('ngOnInit is logged in');
-        this.readDb(uid);
-      }
-      else
-      {
-        console.log('ngOnInit uid is null');
-        this.tryReloadUid();
-      }
+      console.log('User Uid = ' + userUid);
+
+      this.readDb(userUid);
     }
     else
     {
@@ -48,10 +44,10 @@ export class MemberComponent implements OnInit
     }
   }
 
-  readDb(uid): any
+  readDb(user): any
   {
     console.log('readDB is called');
-    this.db.collection('users').doc(uid)
+    this.db.collection('users').doc(user)
       .collection('claimForm').valueChanges({idField: 'claimID'}).subscribe(value =>
     {
       console.log(value);
@@ -67,7 +63,7 @@ export class MemberComponent implements OnInit
 
   newClaim(): void
   {
-    this.stripe.checkout().then();
+    this.stripe.checkoutPassUid(this.user.uid).then();
     // this.openHelpDialog();
   }
 
@@ -76,31 +72,30 @@ export class MemberComponent implements OnInit
     this.dialog.open(NewClaimDialogComponent);
   }
 
-  async tryReloadUid(): Promise<any>
+  // async tryReloadUid(): Promise<any>
+  // {
+  //   console.log('tryReloadUid called');
+  //
+  //   await this.delay(100);
+  //
+  //   console.log('after delay');
+  //
+  //   const uid = this.authService.getCurrentUserUid();
+  //
+  //   if (uid !== null)
+  //   {
+  //     console.log('uid not ull called');
+  //     this.readDb(uid);
+  //   }
+  // }
+
+  async test(): Promise<any>
   {
-    console.log('tryReloadUid called');
-
-    await this.delay(100);
-
-    console.log('after delay');
-
-    const uid = this.authService.getCurrentUserUid();
-
-    if (uid !== null)
-    {
-      console.log('uid not ull called');
-      this.readDb(uid);
-    }
+    console.log('test method is currently empty');
   }
 
-  test(): any
-  {
-    const test =  this.authService.getCurrentUserUid();
-    console.log(test);
-  }
-
-  async delay(ms: number): Promise<void>
-  {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
-  }
+  // async delay(ms: number): Promise<void>
+  // {
+  //   await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
+  // }
 }

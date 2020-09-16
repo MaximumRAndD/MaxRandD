@@ -103,17 +103,21 @@ export class ClaimFormComponent implements OnInit
   // test filter options
   options: string[] = ['test', 'One', 'Two', 'Three', 'two words', 'abc', 'Then I ___ over to the [YOUR VALUE]'];
   filteredOptions: Observable<string[]>;
+  user;
 
 
-  ngOnInit(): any
+  async ngOnInit(): Promise<any>
   {
     console.log('ngOnInit called');
     if (this.authService.isLoggedIn)
     {
+      this.user = await this.authService.getCurrentUserUid();
+      const userUid = this.user.uid;
+
       console.log('ngOnInit is logged in');
-      console.log(JSON.parse(localStorage.getItem('user')).uid);
-      this.fsdb.collection('users').doc(JSON.parse(localStorage.getItem('user')).uid)
-        .collection('claimForm').doc(this.route.snapshot.params.id).valueChanges().subscribe(value =>
+      console.log(userUid);
+      this.fsdb.collection('users').doc(userUid).collection('claimForm')
+        .doc(this.route.snapshot.params.id).valueChanges().subscribe(value =>
       {
         this.claimFormValues = value;
         this.addEditValues();
@@ -194,7 +198,7 @@ export class ClaimFormComponent implements OnInit
     this.checkUnRequiredValues();
 
     // TODO get return from write to find out if it worked
-    this.db.writeClaimFormToDB(this.claimForm, JSON.parse(localStorage.getItem('user')).uid, this.route.snapshot.params.id);
+    this.db.writeClaimFormToDB(this.claimForm, this.user.uid, this.route.snapshot.params.id);
   }
 
   checkUnRequiredValues(): void
@@ -379,7 +383,7 @@ export class ClaimFormComponent implements OnInit
      // this.webService.getAddresses(this.claimForm.value.addressPostcode);
 
      console.log('response = ');
-     console.log(this.webService.response);
+     console.log(this.webService);
 
 
      if (response.Message !== undefined)

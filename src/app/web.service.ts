@@ -1,6 +1,5 @@
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 
 @Injectable()
 export class WebService
@@ -79,21 +78,26 @@ export class WebService
     ).toPromise();
   }
 
-  getStripeSessionKey(): any
-  {
-    console.log('called');
-
-    // URLs
-    const url = 'https://europe-west2-maximumrandd-49bd0.cloudfunctions.net/app/create-checkout-session';
-    const testUrl = 'http://localhost:5001/maximumrandd-49bd0/europe-west2/app/create-checkout-session';
-
-    const body = {user: JSON.parse(localStorage.getItem('user')).uid};
-
-    return this.http.post
-    (
-      url, body
-    ).toPromise();
-  }
+  // async getStripeSessionKey(): Promise<any>
+  // {
+  //   console.log('called');
+  //
+  //   // URLs
+  //   const url = 'https://europe-west2-maximumrandd-49bd0.cloudfunctions.net/app/create-checkout-session';
+  //   const testUrl = 'http://localhost:5001/maximumrandd-49bd0/europe-west2/app/create-checkout-session';
+  //
+  //   const user = await this.authService.getCurrentUserUid();
+  //   const userUid = user.uid;
+  //
+  //   console.log('Webservice' + userUid);
+  //
+  //   const body = {user: userUid};
+  //
+  //   return this.http.post
+  //   (
+  //     url, body
+  //   ).toPromise();
+  // }
 
   getStripeSessionKeyPassInUID(userID): any
   {

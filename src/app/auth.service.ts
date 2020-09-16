@@ -112,13 +112,18 @@ export class AuthService
     return (user !== null && user.emailVerified !== true /*this true should be false when email verification is working*/) ? true : false;
   }
 
-  getCurrentUserUid(): any
+  getCurrentUserUidTest(): any
   {
     if (this.userData !== undefined)
     {
       return this.userData.uid;
     }
     return null;
+  }
+
+  async getCurrentUserUid(): Promise<any>
+  {
+    return this.afAuth.authState.pipe(first()).toPromise();
   }
 
   // // Sign in using Google
