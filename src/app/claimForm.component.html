@@ -25,6 +25,11 @@
                       style="cursor: pointer">help_outline
             </mat-icon>
           </div>
+
+          <span *ngIf="displayCHError">
+              Error: company not found
+            </span>
+
         </div>
 
         <div class="question_border" style="margin-top: 20px">
@@ -95,15 +100,15 @@
 
   <!--        Input for postcode - addressPostcode - false - required-->
           <div class="container">
-              <mat-form-field class="small-width" appearance="outline">
-                <mat-label>Postcode</mat-label>
-                <input type="text" id="addressPostcode" matInput
-                       formControlName="addressPostcode" maxlength="8">
-                  <mat-icon matSuffix (click)="onPostcodeSearch()" style="cursor: pointer">search</mat-icon>
-                <mat-error *ngIf="claimForm.get('addressPostcode').hasError('required')">
-                  Postcode is <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
+            <mat-form-field class="small-width" appearance="outline">
+              <mat-label>Postcode</mat-label>
+              <input type="text" id="addressPostcode" matInput
+                     formControlName="addressPostcode" maxlength="8">
+                <mat-icon matSuffix (click)="onPostcodeSearch()" style="cursor: pointer">search</mat-icon>
+              <mat-error *ngIf="claimForm.get('addressPostcode').hasError('required')">
+                Postcode is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
 
 
             <mat-form-field appearance="outline" *ngIf="postCodeFound" style="margin-left: 20px">
@@ -113,7 +118,7 @@
               </mat-select>
             </mat-form-field>
 
-            <span *ngIf="!postCodeFound && postCodeSearched">
+            <span *ngIf="displayAddressError">
               Error: Postcode not found
             </span>
 

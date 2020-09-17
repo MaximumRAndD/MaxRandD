@@ -80,13 +80,14 @@ export class ClaimFormComponent implements OnInit
   ProjectEndDateDisabled = true;
   maxClaimDate: Date;
   maxProjectDate: Date;
+  displayCHError = false;
 
   claimDateValid: boolean;
 
   addressArray;
 
   postCodeFound: boolean;
-  postCodeSearched = false;
+  displayAddressError = false;
   addressLine1;
   addressLine2;
   addressLine3;
@@ -375,30 +376,25 @@ export class ClaimFormComponent implements OnInit
 
   async onPostcodeSearch(): Promise<void>
    {
-     this.postCodeSearched = true;
+     this.webService.getAddresses(this.claimForm.value.addressPostcode).subscribe
+     (
+       data => this.fillAddressData(data),
+       error => this.getAddressError(error)
+     );
+   }
+
+   fillAddressData(data): void
+   {
+     this.displayAddressError = false;
+     this.addressArray = data.addresses;
+     this.postCodeFound = true;
+   }
+
+   getAddressError(error): void
+   {
+     this.displayAddressError = true;
      this.postCodeFound = false;
-
-     const response = await this.webService.getAddresses(this.claimForm.value.addressPostcode);
-
-     // this.webService.getAddresses(this.claimForm.value.addressPostcode);
-
-     console.log('response = ');
-     console.log(this.webService);
-
-
-     if (response.Message !== undefined)
-     {
-       this.postCodeFound = false;
-       console.log('Error | ' + response.Message);
-       console.log('postcodeFound = false');
-     }
-     else
-     {
-       this.addressArray = response.addresses;
-       this.postCodeFound = true;
-       console.log('postcodeFound = true');
-     }
-     console.log('postCodeFound = ' + this.postCodeFound + ' | postCodeSearched = ' + this.postCodeSearched);
+     console.log('There was an error in getting the address', error);
    }
 
   findAddressArrayIndex(line1): void
@@ -428,18 +424,47 @@ export class ClaimFormComponent implements OnInit
 
   async fillFormFromCH(): Promise<void>
   {
-    const response = await this.webService.getCompanyInformation(this.claimForm.value.companiesHouseInput);
+    this.webService.getCompanyInformation(this.claimForm.value.companiesHouseInput).subscribe
+    (
+      data => this.fillCompanyDetails(data),
+      error => this.getCHError(error)
+    );
+  }
 
+  fillCompanyDetails(data): void
+  {
+    this.displayCHError = false;
     this.claimForm.patchValue
     ({
-      name: response.company_name,
-      addressLine1: response.registered_office_address.address_line_1,
-      addressLine2: response.registered_office_address.address_line_2,
-      addressTown: response.registered_office_address.locality,
-      addressCounty : response.registered_office_address.region,
-      addressPostcode: response.registered_office_address.postal_code
+      name: data.company_name,
+      addressLine1: data.registered_office_address.address_line_1,
+      addressLine2: data.registered_office_address.address_line_2,
+      addressTown: data.registered_office_address.locality,
+      addressCounty : data.registered_office_address.region,
+      addressPostcode: data.registered_office_address.postal_code
     });
   }
+
+  getCHError(error): void
+  {
+    this.displayCHError = true;
+    console.log('There was an error in getting details from company house', error);
+  }
+
+  // async fillFormFromCH(): Promise<void>
+  // {
+  //   const response = await this.webService.getCompanyInformation(this.claimForm.value.companiesHouseInput);
+  //
+  //   this.claimForm.patchValue
+  //   ({
+  //     name: response.company_name,
+  //     addressLine1: response.registered_office_address.address_line_1,
+  //     addressLine2: response.registered_office_address.address_line_2,
+  //     addressTown: response.registered_office_address.locality,
+  //     addressCounty : response.registered_office_address.region,
+  //     addressPostcode: response.registered_office_address.postal_code
+  //   });
+  // }
 
   useTemplateProjectSynopsis(option): void
   {
