@@ -6,9 +6,13 @@
 
     <p><br>Add an addition claim</p>
     <button mat-stroked-button (click)="newClaim()" style="margin-top: 10px;
-      margin-bottom: 20px">
+      margin-bottom: 20px" *ngIf="!loadingPayment">
       New claim
     </button>
+
+    <div *ngIf="loadingPayment" class="center">
+      <div class="loader"></div>
+    </div>
 
     <h6>Your existing claims</h6>
 

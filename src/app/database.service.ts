@@ -43,7 +43,10 @@ export class DatabaseService
       projectProblemsSolved: claimForm.value.projectProblemsSolved,
       projectTesting: claimForm.value.projectTesting,
       softwareAdvance: claimForm.value.softwareAdvance,
-      stateAid: claimForm.value.stateAid
+      stateAid: claimForm.value.stateAid,
+      staff: claimForm.value.staff,
+      turnover: claimForm.value.turnover,
+      developmentOfSoftware: claimForm.value.developmentOfSoftware
     })
       // tslint:disable-next-line:only-arrow-functions typedef
       .then(() =>

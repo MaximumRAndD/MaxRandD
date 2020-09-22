@@ -28,19 +28,19 @@ export class AuthService
       {
         console.log('auth called');
         this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
+        // localStorage.setItem('user', JSON.stringify(this.userData));
         localStorage.setItem('authSignedIn', 'true');
-        localStorage.setItem('backUpKey', this.userData.uid);
-        JSON.parse(localStorage.getItem('user'));
+        // localStorage.setItem('backUpKey', this.userData.uid);
+        // JSON.parse(localStorage.getItem('user'));
       }
       else
       {
         console.log('auth called - logged out');
         this.userData = null;
-        localStorage.setItem('user', null);
+        // localStorage.setItem('user', null);
         localStorage.setItem('authSignedIn', null);
-        localStorage.setItem('backUpKey', null);
-        JSON.parse(localStorage.getItem('user'));
+        // localStorage.setItem('backUpKey', null);
+        // JSON.parse(localStorage.getItem('user'));
       }
     });
   }
@@ -108,45 +108,14 @@ export class AuthService
   // Returns true when user is logged in and email is verified
   get isLoggedIn(): boolean
   {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('authSignedIn'));
     return (user !== null && user.emailVerified !== true /*this true should be false when email verification is working*/) ? true : false;
-  }
-
-  getCurrentUserUidTest(): any
-  {
-    if (this.userData !== undefined)
-    {
-      return this.userData.uid;
-    }
-    return null;
   }
 
   async getCurrentUserUid(): Promise<any>
   {
     return this.afAuth.authState.pipe(first()).toPromise();
   }
-
-  // // Sign in using Google
-  // googleAuth(): any
-  // {
-  //   return this.authLogin(new auth.GoogleAuthProvider());
-  // }
-
-  // Auth logic to run auth providers
-  // authLogin(provider): any
-  // {
-  //   return this.afAuth.signInWithPopup(provider)
-  //     .then((result) =>
-  //     {
-  //       this.ngZone.run(() =>
-  //       {
-  //         this.router.navigate(['']);
-  //       });
-  //       this.setUserData(result.user);
-  //     }).catch((error) => {
-  //       window.alert(error);
-  //     });
-  // }
 
   /*
   Setting up user data when sign in with username/password,

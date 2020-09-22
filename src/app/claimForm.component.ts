@@ -62,7 +62,10 @@ export class ClaimFormComponent implements OnInit
         softwareAdvance: ['', Validators.required],
         stateAid: ['', Validators.required],
         companiesHouseInput: '',
-        test: ''
+        test: '',
+        staff: ['', Validators.required],
+        turnover: ['', Validators.required],
+        developmentOfSoftware: ['', Validators.required]
       },
       {
         validators: [claimDataLessThan('claimStartDate', 'claimEndDate'),
@@ -183,7 +186,12 @@ export class ClaimFormComponent implements OnInit
       projectProblemsSolved: this.claimFormValues.projectProblemsSolved,
       projectTesting: this.claimFormValues.projectTesting,
       softwareAdvance: this.claimFormValues.softwareAdvance,
-      stateAid: this.claimFormValues.stateAid
+      stateAid: this.claimFormValues.stateAid,
+      staff: this.claimFormValues.staff,
+      turnover: this.claimFormValues.turnover,
+      developmentOfSoftware: this.claimFormValues.developmentOfSoftware
+
+
     });
   }
 
@@ -254,7 +262,10 @@ export class ClaimFormComponent implements OnInit
       this.claimForm.controls.uniqueProjectDevelopment.pristine ||
       this.claimForm.controls.projectTesting.pristine ||
       this.claimForm.controls.softwareAdvance.pristine ||
-      this.claimForm.controls.stateAid.pristine;
+      this.claimForm.controls.stateAid.pristine ||
+      this.claimForm.controls.staff.pristine ||
+      this.claimForm.controls.turnover.pristine ||
+      this.claimForm.controls.developmentOfSoftware.pristine;
   }
 
   isEmpty(control): any
@@ -286,7 +297,10 @@ export class ClaimFormComponent implements OnInit
       this.isEmpty('uniqueProjectDevelopment') ||
       this.isEmpty('projectTesting') ||
       this.isEmpty('softwareAdvance') ||
-      this.isEmpty('stateAid');
+      this.isEmpty('stateAid') ||
+      this.isEmpty('staff') ||
+      this.isEmpty('turnover') ||
+      this.isEmpty('developmentOfSoftware');
   }
 
   // TODO check this: https://stackoverflow.com/questions/40793427/angular-2-form-is-invalid-when-browser-autofill
@@ -313,6 +327,9 @@ export class ClaimFormComponent implements OnInit
       this.isInvalid('projectTesting') ||
       this.isInvalid('softwareAdvance') ||
       this.isInvalid('stateAid') ||
+      this.isInvalid('staff') ||
+      this.isInvalid('turnover') ||
+      this.isInvalid('developmentOfSoftware') ||
       this.isRequiredFormEmpty();
   }
 
@@ -526,7 +543,18 @@ export class ClaimFormComponent implements OnInit
 
   test(): any
   {
-    this.addEditValues();
+    console.log(this.isInvalid('stateAid'));
+    console.log(this.isInvalid('staff'));
+    console.log(this.isInvalid('turnover'));
+    console.log(this.isInvalid('developmentOfSoftware'));
+    console.log('all empty?' + this.isRequiredFormEmpty());
+    console.log('is Empty? | stateAid = ' + this.isEmpty('stateAid'));
+    console.log('is Empty? | staff = ' + this.isEmpty('staff'));
+    console.log('is Empty? | turnover = ' + this.isEmpty('turnover'));
+    console.log('is Empty? | developmentOfSoftware = ' + this.isEmpty('developmentOfSoftware'));
+
+    console.log(this.claimForm.value.stateAid);
+    console.log(this.claimForm.value.staff);
   }
 
   submitForm(): any

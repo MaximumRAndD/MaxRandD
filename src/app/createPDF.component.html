@@ -98,6 +98,15 @@
       product or process, but represents an advancement in technology.
     </p>
 
+    <p style="font-size: 12pt; font-family: arial, helvetica, sans-serif;" *ngIf="claimForm.stateAid !== 'yes'">
+      No Notified State Aid or de minimis State Aid has been received, or has been offered, in relation to this project.
+      The full amount of qualifying expenditure on R&D is available for claim.
+      No capital expenditure has been included in the claim.
+    </p>
+
+    <p style="font-size: 12pt; font-family: arial, helvetica, sans-serif;" *ngIf="claimForm.stateAid === 'yes'">
+      State Aid/De Minimis/Capital Expenditure has been included
+    </p>
 
 <!--    TODO the tick box stuff-->
 

@@ -21,6 +21,7 @@ export class MemberComponent implements OnInit
 
   claimFormArray;
   loading = false;
+  loadingPayment = false;
   noClaims = false;
   user;
 
@@ -63,6 +64,7 @@ export class MemberComponent implements OnInit
 
   newClaim(): void
   {
+    this.loadingPayment = true;
     this.stripe.checkoutPassUid(this.user.uid).then();
     // this.openHelpDialog();
   }
