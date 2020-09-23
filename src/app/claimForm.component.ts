@@ -270,7 +270,7 @@ export class ClaimFormComponent implements OnInit
 
   isEmpty(control): any
   {
-    return this.claimForm.value[control] === '';
+    return this.claimForm.value[control] === '' || this.claimForm.value[control] === undefined;
   }
 
   isRequiredFormEmpty(): any

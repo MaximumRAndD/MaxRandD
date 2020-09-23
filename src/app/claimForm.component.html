@@ -18,11 +18,12 @@
               <mat-label>Company number</mat-label>
               <input type="text" id="companiesHouseInput" matInput
                      formControlName="companiesHouseInput" maxlength="10">
+              <mat-hint>optional</mat-hint>
               <mat-icon matSuffix (click)="fillFormFromCH()" style="cursor: pointer">search</mat-icon>
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('question1')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
@@ -94,12 +95,15 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('UTR')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
   <!--        Input for postcode - addressPostcode - false - required-->
           <div class="container">
+            <h6>
+              Company's address
+            </h6>
             <mat-form-field class="small-width" appearance="outline">
               <mat-label>Postcode</mat-label>
               <input type="text" id="addressPostcode" matInput
@@ -137,6 +141,7 @@
                 <mat-label>Address line 2</mat-label>
                 <input type="text" id="addressLine2" matInput
                        formControlName="addressLine2" [(ngModel)]="addressLine2">
+                <mat-hint>optional</mat-hint>
               </mat-form-field>
             </div>
             <div>
@@ -144,6 +149,7 @@
                 <mat-label>Address line 3</mat-label>
                 <input type="text" id="addressLine3" matInput
                        formControlName="addressLine3" [(ngModel)]="addressLine3">
+                <mat-hint>optional</mat-hint>
               </mat-form-field>
             </div>
             <div>
@@ -176,6 +182,9 @@
 
   <!--        Inputs for claim start and end dates - claimStartDate, claimStartDate - true - required-->
           <div class="form-group">
+            <h6>
+              Date range being claimed for
+            </h6>
             <mat-form-field class="small-width" appearance="outline">
               <mat-label>Start date</mat-label>
               <input matInput [matDatepicker]="claimStartDatePicker" formControlName="claimStartDate"
@@ -201,14 +210,17 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('start_end_date')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
           <div>
+            <h6>
+              Provide a synopsis of your Project in 2 or 3 sentences
+            </h6>
             <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
-              <mat-label>Provide a synopsis of your Project in 2 or 3 sentences</mat-label>
-              <textarea matInput formControlName="projectSynopsis" rows="5" placeholder="sample place holder text..."
+              <mat-label>Project synopsis</mat-label>
+              <textarea matInput formControlName="projectSynopsis" rows="5" placeholder="Project synopsis"
                         [(ngModel)]="projectSynopsisTemplate"></textarea>
               <mat-error *ngIf="claimForm.get('projectSynopsis').hasError('required')">
                 Project synopsis is <strong>required</strong>
@@ -225,11 +237,14 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('synopsis')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
           <div class="form-group">
+            <h6>
+              Project name
+            </h6>
             <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
               <mat-label>Project name</mat-label>
               <input type="text" matInput formControlName="projectName"
@@ -293,7 +308,7 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('r_and_d_description')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
@@ -312,7 +327,7 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('project_aim')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
@@ -328,12 +343,15 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('project_research')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
   <!--        Input for project lead - projectLead - true - required-->
           <div class="form-group">
+            <h6>
+              Name of Project Manager/lead
+            </h6>
             <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
               <mat-label>Project Manager/lead</mat-label>
               <input type="text" matInput formControlName="projectLead"
@@ -344,7 +362,7 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('project_lead')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
@@ -364,7 +382,7 @@
             </mat-form-field>
             <mat-icon aria-hidden="false" aria-label="Example info icon"
                       (click)="openHelpDialog('project_lead_experience')"
-                      style="cursor: pointer">help_outline
+                      style="cursor: pointer">info
             </mat-icon>
           </div>
 
@@ -392,6 +410,7 @@
               <mat-label>Project obstacles/ problems</mat-label>
               <textarea matInput formControlName="projectProblems" rows="5" placeholder="Project obstacles/ problems">
               </textarea>
+              <mat-hint>optional</mat-hint>
             </mat-form-field>
           </div>
 
@@ -401,9 +420,10 @@
               Why were these problems not easily solved?
             </h6>
             <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
-              <mat-label></mat-label>
-              <textarea matInput formControlName="projectProblemsDifficulty" rows="5" placeholder="">
+              <mat-label>Why were these problems?</mat-label>
+              <textarea matInput formControlName="projectProblemsDifficulty" rows="5" placeholder="Why were these problems?">
               </textarea>
+              <mat-hint>optional</mat-hint>
             </mat-form-field>
           </div>
 
@@ -416,6 +436,7 @@
               <mat-label>Steps to solve problems</mat-label>
               <textarea matInput formControlName="projectProblemsSolved" rows="5" placeholder="Steps to solve problems">
               </textarea>
+              <mat-hint>optional</mat-hint>
             </mat-form-field>
           </div>
 
@@ -472,7 +493,7 @@
               </div>
               <mat-icon aria-hidden="false" aria-label="Example info icon"
                         (click)="openHelpDialog('state_aid')"
-                        style="cursor: pointer">help_outline
+                        style="cursor: pointer">info
               </mat-icon>
             </div>
           </div>
@@ -502,7 +523,7 @@
             </div>
 <!--            <mat-icon aria-hidden="false" aria-label="Example info icon"-->
 <!--                      (click)="openHelpDialog('state_aid')"-->
-<!--                      style="cursor: pointer">help_outline-->
+<!--                      style="cursor: pointer">info-->
 <!--            </mat-icon>-->
           </div>
         </div>
@@ -522,7 +543,7 @@
             </div>
 <!--            <mat-icon aria-hidden="false" aria-label="Example info icon"-->
 <!--                      (click)="openHelpDialog('state_aid')"-->
-<!--                      style="cursor: pointer">help_outline-->
+<!--                      style="cursor: pointer">info-->
 <!--            </mat-icon>-->
           </div>
         </div>
@@ -541,7 +562,7 @@
               </div>
 <!--              <mat-icon aria-hidden="false" aria-label="Example info icon"-->
 <!--                        (click)="openHelpDialog('state_aid')"-->
-<!--                        style="cursor: pointer">help_outline-->
+<!--                        style="cursor: pointer">info-->
 <!--              </mat-icon>-->
             </div>
           </div>

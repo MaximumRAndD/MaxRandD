@@ -59,7 +59,8 @@ export class AuthService
         console.log('signed in');
       }).catch((error) =>
       {
-        window.alert(error.message);
+        console.log(error.code);
+        this.displayAuthErrorMessage(error);
       });
   }
 
@@ -78,8 +79,32 @@ export class AuthService
         //   this.router.navigate(['members']);
         // });
       }).catch((error) => {
-        window.alert(error.message);
+        console.log(error.code);
+        this.displayAuthErrorMessage(error);
       });
+  }
+
+  displayAuthErrorMessage(error): void
+  {
+    console.log('called');
+    switch (error.code)
+    {
+      case 'auth/wrong-password':
+        window.alert('An incorrect email and/or password has been entered, please try again');
+        break;
+      case 'auth/user-not-found':
+        window.alert('An incorrect email and/or password has been entered, please try again');
+        break;
+      case 'auth/email-already-in-use':
+        window.alert('An account already exists with this email address');
+        break;
+      case 'auth/weak-password':
+        window.alert('Weak password: A password should be at least 6 characters long');
+        break;
+      default:
+        window.alert('Note the auth/[ERROR_CODE] from the log' + error.message);
+        break;
+    }
   }
 
   // Send email Verification on Sign up
