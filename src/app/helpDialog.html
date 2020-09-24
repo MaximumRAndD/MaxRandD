@@ -1,7 +1,7 @@
 <!--<h1 mat-dialog-title>Help dialog</h1>-->
 <div mat-dialog-content>
   <span *ngIf="data.question === 'question1'">Only Limited Companies are eligible for UK tax relief</span>
-  <span *ngIf="data.question === 'question2'">Only Companies within the UK are eligible for R&D tax relief </span>
+  <span *ngIf="data.question === 'question2'">Only Companies with a UK Permanent Establishment may be eligible for R&D Tax Relief</span>
   <span *ngIf="data.question === 'question3'">You will not be eligible for R&D tax relief if the last
     day of your Accounting Period is over 24 months before today’s date</span>
   <span *ngIf="data.question === 'question4'">A new product or process could be anything from a new website,
@@ -11,8 +11,12 @@
      *ngIf="data.question === 'question4'" target="_blank">Claiming Research and Development tax reliefs</a>
   <span *ngIf="data.question === 'question5'">Don’t worry! Your company will not be disqualified if your R&D
     has been focused on adapting or reinventing an existing product instead of creating something new.</span>
-  <span *ngIf="data.question === 'question6'">question 6 was pressed</span>
-  <span *ngIf="data.question === 'question7'">question 7 was pressed</span>
+  <span *ngIf="data.question === 'question6'">Risk is an essential element of R&D activity – risk of failing to
+    achieve the desired outcome, or success in achieving a result but in a way which is not commercially viable.
+    Whether or not the project succeeds does not determine whether it qualifies for the reliefs or not.</span>
+  <span *ngIf="data.question === 'question7'">R&D Tax relief may be given as a reduction of Corporation Tax due
+    on profits or as a tax credit payable to the company by HMRC if the company has made a loss, or a mixture
+    of tax relief and credit.</span>
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>

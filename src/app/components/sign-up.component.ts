@@ -75,7 +75,7 @@ export class SignUpComponent
 
   test(): any
   {
-    console.log(this.signUpForm.errors.email);
+
   }
 
 }

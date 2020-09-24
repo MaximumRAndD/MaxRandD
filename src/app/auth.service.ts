@@ -26,7 +26,6 @@ export class AuthService
     {
       if (user)
       {
-        console.log('auth called');
         this.userData = user;
         // localStorage.setItem('user', JSON.stringify(this.userData));
         localStorage.setItem('authSignedIn', 'true');
@@ -86,7 +85,6 @@ export class AuthService
 
   displayAuthErrorMessage(error): void
   {
-    console.log('called');
     switch (error.code)
     {
       case 'auth/wrong-password':
@@ -126,7 +124,8 @@ export class AuthService
         window.alert('Password reset Email sent, Please check your inbox');
       }).catch((error) =>
       {
-        window.alert(error);
+        console.log(error.code);
+        this.displayAuthErrorMessage(error);
       });
   }
 

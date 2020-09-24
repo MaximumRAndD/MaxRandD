@@ -112,14 +112,11 @@ export class ClaimFormComponent implements OnInit
 
   async ngOnInit(): Promise<any>
   {
-    console.log('ngOnInit called');
     if (this.authService.isLoggedIn)
     {
       this.user = await this.authService.getCurrentUserUid();
       const userUid = this.user.uid;
 
-      console.log('ngOnInit is logged in');
-      console.log(userUid);
       this.fsdb.collection('users').doc(userUid).collection('claimForm')
         .doc(this.route.snapshot.params.id).valueChanges().subscribe(value =>
       {
@@ -133,8 +130,6 @@ export class ClaimFormComponent implements OnInit
     }
 
     const id = this.route.snapshot.params.id;
-
-    console.log(id);
 
     // test filter options
     this.filteredOptions = this.claimForm.controls.test.valueChanges
@@ -428,7 +423,6 @@ export class ClaimFormComponent implements OnInit
 
   fillAddressInput(index): void
   {
-    console.log(this.addressArray);
     this.claimForm.patchValue
     ({
       addressLine1: this.addressArray[index].formatted_address[0],
@@ -538,38 +532,26 @@ export class ClaimFormComponent implements OnInit
 
   async delay(ms: number): Promise<void>
   {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log(''));
   }
 
   test(): any
   {
-    console.log(this.isInvalid('stateAid'));
-    console.log(this.isInvalid('staff'));
-    console.log(this.isInvalid('turnover'));
-    console.log(this.isInvalid('developmentOfSoftware'));
-    console.log('all empty?' + this.isRequiredFormEmpty());
-    console.log('is Empty? | stateAid = ' + this.isEmpty('stateAid'));
-    console.log('is Empty? | staff = ' + this.isEmpty('staff'));
-    console.log('is Empty? | turnover = ' + this.isEmpty('turnover'));
-    console.log('is Empty? | developmentOfSoftware = ' + this.isEmpty('developmentOfSoftware'));
 
-    console.log(this.claimForm.value.stateAid);
-    console.log(this.claimForm.value.staff);
   }
 
   submitForm(): any
   {
-    console.log(this.claimForm.value);
+
     // this.dataService.formData(this.claimForm);
 
     if (this.authService.isLoggedIn)
     {
-      // console.log(this.authService.userData.uid);
       this.saveFormToDB();
     }
     else
     {
-      console.log('value is null');
+      console.log('Error: not logged in');
     }
   }
 }

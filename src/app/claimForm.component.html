@@ -302,7 +302,7 @@
             <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
               <mat-label>Project R&D Description</mat-label>
               <textarea matInput (keydown)="projectRAndDDescriptionWordCounter()" #projectRAndDDescriptionText
-                        formControlName="projectRAndDDescription" rows="5" placeholder="sample text">
+                        formControlName="projectRAndDDescription" rows="5" placeholder="Project R&D Description">
               </textarea>
               <mat-hint align="end">Word count: {{projectRAndDDescriptionWords}}</mat-hint>
             </mat-form-field>
@@ -570,7 +570,7 @@
         </div>
       </form>
 
-      <p>
+      <p style="margin-top: 10px">
         Click here to complete your claim form!
       </p>
       <div class="row" style="margin-left: 10px">
@@ -588,12 +588,10 @@
         </span>
       </div>
 
-      <p (click)="test()" style="cursor: pointer; margin-top: 50px">
-        Test button - used to run methods
-      </p>
-<!--      <span *ngIf="isIncomplete()">-->
-<!--             Please select an answer for required each question-->
-<!--      </span>-->
+<!--      <p (click)="test()" style="cursor: pointer; margin-top: 50px">-->
+<!--        Test button - used to run methods-->
+<!--      </p>-->
+
     </div>
   </div>
 </div>

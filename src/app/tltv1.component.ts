@@ -44,8 +44,6 @@ export class Tltv1ComponentComponent
 
   onSubmit(): void
   {
-    console.log(this.trafficLightForm.value);
-
     const response = [];
 
     const test = response.push(this.trafficLightForm.value.question1, this.trafficLightForm.value.question2,
@@ -86,7 +84,6 @@ export class Tltv1ComponentComponent
         }
       }
     }
-    console.log(response);
   }
 
   isInvalid(control): any
@@ -180,7 +177,7 @@ export class Tltv1ComponentComponent
 
   async delay(ms: number): Promise<void>
   {
-    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log(''));
   }
 }
 

@@ -31,11 +31,8 @@ export class MemberComponent implements OnInit
 
     if (this.authService.isLoggedIn)
     {
-      console.log('ngOnInit is logged in');
       this.user = await this.authService.getCurrentUserUid();
       const userUid = this.user.uid;
-
-      console.log('User Uid = ' + userUid);
 
       this.readDb(userUid);
     }
@@ -47,11 +44,9 @@ export class MemberComponent implements OnInit
 
   readDb(user): any
   {
-    console.log('readDB is called');
     this.db.collection('users').doc(user)
       .collection('claimForm').valueChanges({idField: 'claimID'}).subscribe(value =>
     {
-      console.log(value);
       this.loading = false;
       this.claimFormArray = value;
 
@@ -74,30 +69,9 @@ export class MemberComponent implements OnInit
     this.dialog.open(NewClaimDialogComponent);
   }
 
-  // async tryReloadUid(): Promise<any>
-  // {
-  //   console.log('tryReloadUid called');
-  //
-  //   await this.delay(100);
-  //
-  //   console.log('after delay');
-  //
-  //   const uid = this.authService.getCurrentUserUid();
-  //
-  //   if (uid !== null)
-  //   {
-  //     console.log('uid not ull called');
-  //     this.readDb(uid);
-  //   }
-  // }
-
   async test(): Promise<any>
   {
-    console.log('test method is currently empty');
+
   }
 
-  // async delay(ms: number): Promise<void>
-  // {
-  //   await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log('fired'));
-  // }
 }

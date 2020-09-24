@@ -33,20 +33,16 @@ export class CreatePDFComponent implements OnInit
   {
     if (this.authService.isLoggedIn)
     {
-      console.log('logged in');
     }
   }
 
   async ngOnInit(): Promise<any>
   {
-    console.log('ngOnInit called');
     if (this.authService.isLoggedIn)
     {
       const user = await this.authService.getCurrentUserUid();
       const userUid = user.uid;
 
-      console.log('ngOnInit is logged in');
-      console.log(userUid);
       this.db.collection('users').doc(userUid).collection('claimForm')
         .doc(this.route.snapshot.params.id).valueChanges().subscribe(value =>
       {
@@ -92,7 +88,6 @@ export class CreatePDFComponent implements OnInit
         ', ' + this.claimForm.addressCounty + ', ' + this.claimForm.addressPostcode;
     }
 
-    console.log(this.fullAddress);
   }
 
   checkUnRequiredValues(): void
@@ -121,7 +116,7 @@ export class CreatePDFComponent implements OnInit
 
   testLog(): void
   {
-    console.log(this.claimForm);
+
   }
 
   createPDF(): any
@@ -177,7 +172,6 @@ export class CreatePDFComponent implements OnInit
   addWaterMark(doc): any
   {
     const totalPages = doc.internal.getNumberOfPages();
-    console.log('totalPages = ' + totalPages);
 
     for (let i = 0; i < totalPages; i++)
     {
