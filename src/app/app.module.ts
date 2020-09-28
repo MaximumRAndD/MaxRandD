@@ -42,6 +42,7 @@ import { NewClaimDialogComponent } from './dialogs/new-claim-dialog/new-claim-di
 import { LoggedInRouteGuard } from './guard/logged-in-route.guard';
 import { LoggedInPageRouteGuard } from './guard/logged-in-page-route.guard';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { SuccessTrafficLightDialog } from './dialogs/success-traffic-light-dialog/success-traffic-light-dialog';
 
 import { StripeCheckoutComponent } from './components/stripe-checkout/stripe-checkout.component';
 
@@ -67,7 +68,7 @@ const routes =
     AppComponent, WelcomeComponent, TrafficLightTestComponent, NavComponent,
     Tltv1ComponentComponent, SuccessComponent, FailureComponent, HelpDialog, FailureDialog,
     CreatePDFComponent, ClaimFormComponent, TestComponent, SignInComponent, SignUpComponent, ForgotPasswordComponent, FooterComponent,
-    ClaimFormHelpDialogComponent, MemberComponent, NewClaimDialogComponent
+    ClaimFormHelpDialogComponent, MemberComponent, NewClaimDialogComponent, SuccessTrafficLightDialog
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(routes, {scrollPositionRestoration: 'enabled'}),

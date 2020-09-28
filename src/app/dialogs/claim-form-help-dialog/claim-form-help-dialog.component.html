@@ -20,8 +20,9 @@
     what it is you have been working on more easily. We have provided some templates which can be selected and
     edited in order to help you complete this short synopsis, as the HMRC can be particular about the language
     used to outline projects.</span>
-  <span *ngIf="data.question === 'r_and_d_description'">A brief outline on what your company has been working on will
-    allow the HMRC to see how wonderful you are and be much more receptive to giving you lots of money!</span>
+  <span *ngIf="data.question === 'r_and_d_description'">Please refer to the HMRC and BIS guidelines on R&D.
+    Your project must be attempting to create something new, or do something in a new, better, or more efficient way.
+    What is it that makes your project unique? Tell HMRC this here.</span>
   <span *ngIf="data.question === 'project_research'">How did you find out about the problem which you are trying to
     solve? What did you and your company to try and solve the problem before developing your product? If you found
     any other products that attempted to solve your problem how did, they fall short of actually solving it?
@@ -40,6 +41,10 @@
   <a href="https://www.gov.uk/guidance/state-aid" *ngIf="data.question === 'state_aid'" target="_blank">
     Uk gov - state aid
   </a>
+  <span *ngIf="data.question === 'state_aid_notified'">If you are unsure whether you have received Notified State Aid,
+    please contact the grant provider </span>
+  <span *ngIf="data.question === 'state_aid_de'">If you are unsure whether you have received de minimis State Aid,
+    please contact the grant provider  </span>
 </div>
 
 <div mat-dialog-actions>

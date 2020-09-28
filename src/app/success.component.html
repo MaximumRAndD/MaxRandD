@@ -3,6 +3,12 @@
     Excellent! It looks like your business could qualify for generous HMRC tax reliefs
   </h2>
 
+  <p>
+    Would you like to prepare a claim with is compliant with HMRC requirements? For a one-off fee*,
+    you can become a user and prepare a claim potentially saving your company thousands of pounds in professional
+    fees.
+  </p>
+
   <p *ngIf="authService.isLoggedIn">
     You can create or edit an existing claim from the members dashboard
   </p>
@@ -11,7 +17,7 @@
     Users dashboard
   </button>
   <p *ngIf="!authService.isLoggedIn">
-    Please login or create an account to start a claim.
+    Please login or create an account to start your claim.
   </p>
   <div class="row" *ngIf="!authService.isLoggedIn">
     <button class="btn btn-primary" [routerLink]="['../sign-in']">
@@ -21,4 +27,7 @@
       Sign up
     </button>
   </div>
+  <p class="footer" style="padding-bottom: 50px">
+    *Refundable in full if your claim is unsuccessful. Full terms and conditions are available here
+  </p>
 </div>

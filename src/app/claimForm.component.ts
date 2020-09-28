@@ -33,7 +33,7 @@ export class ClaimFormComponent implements OnInit
         name: ['', Validators.required],
         compName: ['', Validators.required],
         UTR: ['', Validators.compose([Validators.required, Validators.minLength(10),
-          Validators.pattern('^(0|[1-9][0-9]*)$')])],
+          Validators.pattern(/^[0-9]\d*$/)])],
         compAdr: ['', Validators.required],
         claimStartDate: ['', Validators.required],
         claimEndDate: ['', Validators.required],
@@ -42,7 +42,7 @@ export class ClaimFormComponent implements OnInit
         addressLine2: [''],
         addressLine3: [''],
         addressTown: ['', Validators.required],
-        addressCounty: ['', Validators.required],
+        addressCounty: [''],
         addressPostcode: ['', Validators.required],
         projectSynopsis: ['', Validators.required],
         projectName: ['', Validators.required],
@@ -61,6 +61,8 @@ export class ClaimFormComponent implements OnInit
         projectTesting: ['', Validators.required],
         softwareAdvance: ['', Validators.required],
         stateAid: ['', Validators.required],
+        stateAid_notified: '',
+        stateAid_de: '',
         companiesHouseInput: '',
         test: '',
         staff: ['', Validators.required],
@@ -184,9 +186,9 @@ export class ClaimFormComponent implements OnInit
       stateAid: this.claimFormValues.stateAid,
       staff: this.claimFormValues.staff,
       turnover: this.claimFormValues.turnover,
-      developmentOfSoftware: this.claimFormValues.developmentOfSoftware
-
-
+      developmentOfSoftware: this.claimFormValues.developmentOfSoftware,
+      stateAid_notified: this.claimFormValues.stateAid_notified,
+      stateAid_de: this.claimFormValues.stateAid_de
     });
   }
 
@@ -244,7 +246,6 @@ export class ClaimFormComponent implements OnInit
       this.claimForm.controls.claimEndDate.pristine ||
       this.claimForm.controls.addressLine1.pristine ||
       this.claimForm.controls.addressTown.pristine ||
-      this.claimForm.controls.addressCounty.pristine ||
       this.claimForm.controls.addressPostcode.pristine ||
       this.claimForm.controls.projectSynopsis.pristine ||
       this.claimForm.controls.projectName.pristine ||
@@ -277,7 +278,7 @@ export class ClaimFormComponent implements OnInit
       this.isEmpty('claimEndDate') ||
       this.isEmpty('addressLine1') ||
       this.isEmpty('addressTown') ||
-      this.isEmpty('addressCounty') ||
+      // this.isEmpty('addressCounty') ||
       this.isEmpty('addressPostcode') ||
       this.isEmpty('projectSynopsis') ||
       this.isEmpty('projectName') ||
@@ -308,7 +309,7 @@ export class ClaimFormComponent implements OnInit
       this.isInvalid('claimEndDate') ||
       this.isInvalid('addressLine1') ||
       this.isInvalid('addressTown') ||
-      this.isInvalid('addressCounty') ||
+      // this.isInvalid('addressCounty') ||
       this.isInvalid('addressPostcode') ||
       this.isInvalid('projectSynopsis') ||
       this.isInvalid('projectName') ||
@@ -447,7 +448,7 @@ export class ClaimFormComponent implements OnInit
     this.displayCHError = false;
     this.claimForm.patchValue
     ({
-      name: data.company_name,
+      compName: data.company_name,
       addressLine1: data.registered_office_address.address_line_1,
       addressLine2: data.registered_office_address.address_line_2,
       addressTown: data.registered_office_address.locality,

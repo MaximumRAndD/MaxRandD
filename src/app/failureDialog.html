@@ -1,26 +1,32 @@
 <h1 mat-dialog-title>Failure dialog</h1>
 <div mat-dialog-content>
-  <span *ngIf="displayMessage(0)">question1 <br>
-    Text explaining why this answer resulted in the traffic light test failing <br>
-  </span>
-  <span *ngIf="displayMessage(1)">question2 <br>
-    Text explaining why this answer resulted in the traffic light test failing <br>
-  </span>
-  <span *ngIf="displayMessage(2)">question3 <br>
-    Text explaining why this answer resulted in the traffic light test failing <br>
-  </span>
-  <span *ngIf="displayMessage(3)">question4 <br>
-    Text explaining why this answer resulted in the traffic light test failing <br>
-  </span>
-  <span *ngIf="displayMessage(4)">question5 <br>
-    Text explaining why this answer resulted in the traffic light test failing <br>
-  </span>
-  <span *ngIf="displayMessage(5)">question6 <br>
-    Text explaining why this answer resulted in the traffic light test failing <br>
-  </span>
-  <span *ngIf="displayMessage(6)">question7 <br>
-    Text explaining why this answer resulted in the traffic light test failing <br>
-  </span>
+  <p>
+    Unfortunately we do not think you have a valid claim based, on your answers to the following questions: <br>
+  </p>
+  <p *ngIf="displayMessage(0)"><strong>Question 1</strong> <br>
+    R&D Tax Relief is for companies only, so if your business is not a company, unfortunately no R&D
+    Tax Relief is available. <br>
+  </p>
+  <p *ngIf="displayMessage(1)"><strong>Question 2</strong> <br>
+    Only Companies with a UK Permanent Establishment may be eligible for R&D Tax Relief. If your company
+    is not a UK company, you may still qualify for the reliefs if you have a Permanent Establishment in the UK <br>
+  </p>
+  <p *ngIf="displayMessage(2)"><strong>Question 3</strong> <br>
+    The time limit is the first anniversary of the filing date for the company tax return of the claimant
+    company for the accounting period for which the claim is made. In practice this means a Company
+    has a maximum of 2 years to make a claim after the end of an accounting period. <br>
+  </p>
+  <p *ngIf="displayMessage(3) && displayMessage(4)"><strong>Question 4</strong> <br>
+    If you have answered no to questions 4a and 4b, it is unlikely you have been carrying on a qualifying
+    R&D Activity. <br>
+  </p>
+  <p *ngIf="displayMessage(5)"><strong>Question 5</strong> <br>
+    Risk is an essential element of R&D activity – risk of failing to achieve the desired outcome,
+    or success in achieving a result but in a way which is not commercially viable. <br>
+  </p>
+<!--  <span *ngIf="displayMessage(6)">Question 7 <br>-->
+<!--    Text explaining why this answer resulted in the traffic light test failing <br>-->
+<!--  </span>-->
 
 </div>
 <div mat-dialog-actions style="margin-top: 20px">

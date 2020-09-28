@@ -167,9 +167,7 @@
                 <mat-label>County</mat-label>
                 <input type="text" id="addressCounty" matInput
                        formControlName="addressCounty" [(ngModel)]="addressCounty">
-                <mat-error *ngIf="claimForm.get('addressCounty').hasError('required')">
-                  County is <strong>required</strong>
-                </mat-error>
+                  <mat-hint>optional</mat-hint>
               </mat-form-field>
             </div>
           </div>
@@ -493,6 +491,44 @@
               </div>
               <mat-icon aria-hidden="false" aria-label="Example info icon"
                         (click)="openHelpDialog('state_aid')"
+                        style="cursor: pointer">info
+              </mat-icon>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h6>
+              Have you received any Notified State Aid in relation to this Project?
+            </h6>
+            <div class="row">
+              <div class="justify-content-lg-around" style="padding-left: 15px">
+                <mat-radio-group class="form-control" formControlName="stateAid_notified"
+                                 aria-label="Select an option">
+                  <mat-radio-button value="yes">yes</mat-radio-button>
+                  <mat-radio-button value="no">no</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-icon aria-hidden="false" aria-label="Example info icon"
+                        (click)="openHelpDialog('state_aid_notified')"
+                        style="cursor: pointer">info
+              </mat-icon>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <h6>
+              Have you received any de minimis State Aid in relation to this project?
+            </h6>
+            <div class="row">
+              <div class="justify-content-lg-around" style="padding-left: 15px">
+                <mat-radio-group class="form-control" formControlName="stateAid_de"
+                                 aria-label="Select an option">
+                  <mat-radio-button value="yes">yes</mat-radio-button>
+                  <mat-radio-button value="no">no</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <mat-icon aria-hidden="false" aria-label="Example info icon"
+                        (click)="openHelpDialog('state_aid_de')"
                         style="cursor: pointer">info
               </mat-icon>
             </div>

@@ -2,6 +2,7 @@ import {Component, Inject} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SuccessTrafficLightDialog } from './dialogs/success-traffic-light-dialog/success-traffic-light-dialog';
 
 export interface DialogData
 {
@@ -45,17 +46,25 @@ export class Tltv1ComponentComponent
   onSubmit(): void
   {
     const response = [];
+    const quetsion7 = [];
 
     const test = response.push(this.trafficLightForm.value.question1, this.trafficLightForm.value.question2,
       this.trafficLightForm.value.question3, this.trafficLightForm.value.question4, this.trafficLightForm.value.question5,
-      this.trafficLightForm.value.question6, this.trafficLightForm.value.question7);
+      this.trafficLightForm.value.question6/*, this.trafficLightForm.value.question7*/);
+
+    const q7 = quetsion7.push(this.trafficLightForm.value.question7);
 
     for (const i in response)
     {
       if (response[i] === 'yes')
       {
-        if (i === '6')
+        if (i === '5')
         {
+          const dialogRef = this.dialog.open(SuccessTrafficLightDialog,
+            {
+              data: quetsion7
+            });
+
           this.router.navigate(['../success'], {relativeTo: this.route});
         }
       }

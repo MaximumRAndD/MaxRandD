@@ -44,6 +44,8 @@ export class DatabaseService
       projectTesting: claimForm.value.projectTesting,
       softwareAdvance: claimForm.value.softwareAdvance,
       stateAid: claimForm.value.stateAid,
+      stateAid_notified: claimForm.value.stateAid_notified,
+      stateAid_de: claimForm.value.stateAid_de,
       staff: claimForm.value.staff,
       turnover: claimForm.value.turnover,
       developmentOfSoftware: claimForm.value.developmentOfSoftware
