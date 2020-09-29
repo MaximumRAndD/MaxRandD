@@ -12,7 +12,7 @@
   <p *ngIf="authService.isLoggedIn">
     You can create or edit an existing claim from the members dashboard
   </p>
-  <button class="btn btn-primary" [routerLink]="['../members']"
+  <button mat-stroked-button [routerLink]="['../members']"
   *ngIf="authService.isLoggedIn">
     Users dashboard
   </button>
@@ -20,10 +20,10 @@
     Please login or create an account to start your claim.
   </p>
   <div class="row" *ngIf="!authService.isLoggedIn">
-    <button class="btn btn-primary" [routerLink]="['../sign-in']">
+    <button mat-stroked-button [routerLink]="['../sign-in']">
       Login
     </button>
-    <button class="btn btn-primary" [routerLink]="['../register-user']" style="margin-left: 20px">
+    <button mat-stroked-button [routerLink]="['../register-user']" style="margin-left: 20px">
       Sign up
     </button>
   </div>

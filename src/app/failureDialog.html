@@ -1,7 +1,6 @@
-<h1 mat-dialog-title>Failure dialog</h1>
 <div mat-dialog-content>
   <p>
-    Unfortunately we do not think you have a valid claim based, on your answers to the following questions: <br>
+    Unfortunately, we do not think you have a valid claim based on your answers to the following questions: <br>
   </p>
   <p *ngIf="displayMessage(0)"><strong>Question 1</strong> <br>
     R&D Tax Relief is for companies only, so if your business is not a company, unfortunately no R&D
@@ -29,11 +28,11 @@
 <!--  </span>-->
 
 </div>
-<div mat-dialog-actions style="margin-top: 20px">
+<div mat-stroked-button style="margin-top: 20px">
   <button mat-button mat-dialog-close>
     Return
   </button>
-  <button mat-button mat-dialog-close
+  <button mat-stroked-button mat-dialog-close
           [routerLink]="['']">
     Home
   </button>
