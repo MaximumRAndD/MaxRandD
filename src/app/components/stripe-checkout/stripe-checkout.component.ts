@@ -14,6 +14,8 @@ export class StripeCheckoutComponent
   {
   }
 
+  // Code adapted from Stripe Docs
+
   stripePromise = loadStripe('pk_test_51HMuwWDf2mQcDNZ9oeVmgCRTNFHELSPWniFGmbiRpCffFGD8zz4Mu49FUT9TKWQO3ubeF1zVW46dNiSh37a1PsuA00afbPNvWW');
 
   // async checkout(): Promise<any>

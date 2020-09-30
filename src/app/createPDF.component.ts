@@ -36,6 +36,7 @@ export class CreatePDFComponent implements OnInit
     }
   }
 
+  // gets the claim data from firestore
   async ngOnInit(): Promise<any>
   {
     if (this.authService.isLoggedIn)
@@ -56,6 +57,7 @@ export class CreatePDFComponent implements OnInit
     }
   }
 
+  // Will buld the address to be used based addressLines filled
   createAddress(): void
   {
     if (this.claimForm.addressLine2 === 'undefined_value')

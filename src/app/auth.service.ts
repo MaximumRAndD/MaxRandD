@@ -15,6 +15,7 @@ import { first } from 'rxjs/operators';
 export class AuthService
 {
 
+  // Code adapted from:
   // https://www.positronx.io/full-angular-7-firebase-authentication-system/
 
   userData: any;

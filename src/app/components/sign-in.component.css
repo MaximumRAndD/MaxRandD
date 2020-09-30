@@ -6,3 +6,10 @@ div.question_border
   border-radius: 5px;
   padding: 5px;
 }
+
+.center
+{
+  margin: 0 auto;
+  width: 120px;
+}
+

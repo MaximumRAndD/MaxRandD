@@ -54,6 +54,8 @@ export class Tltv1ComponentComponent
 
     const q7 = quetsion7.push(this.trafficLightForm.value.question7);
 
+    // Will find out if the any out the questions have been answers wrong
+    // Any 'no' in questions 1 - 5 will result is a fail
     for (const i in response)
     {
       if (response[i] === 'yes')
@@ -95,6 +97,7 @@ export class Tltv1ComponentComponent
     }
   }
 
+  // following methods will check if form is valid
   isInvalid(control): any
   {
     return this.trafficLightForm.controls[control].invalid &&

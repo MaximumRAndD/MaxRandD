@@ -42,6 +42,7 @@ export class MemberComponent implements OnInit
     }
   }
 
+  // Will retrieve the users claims
   readDb(user): any
   {
     this.db.collection('users').doc(user)
@@ -57,6 +58,7 @@ export class MemberComponent implements OnInit
     });
   }
 
+  // Will make a call the nodeJS server to make the stripe payment
   newClaim(): void
   {
     this.loadingPayment = true;
@@ -64,11 +66,13 @@ export class MemberComponent implements OnInit
     // this.openHelpDialog();
   }
 
+  // unused
   openHelpDialog(): void
   {
     this.dialog.open(NewClaimDialogComponent);
   }
 
+  // connected to a 'test' btn
   async test(): Promise<any>
   {
 

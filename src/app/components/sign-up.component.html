@@ -7,13 +7,10 @@
       </h3>
 
       <div class="form-group">
-        <h6>
-          Email address
-        </h6>
         <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
-          <mat-label>Email</mat-label>
+          <mat-label>Email address</mat-label>
           <input type="email" matInput formControlName="email"
-                 placeholder="Email">
+                 placeholder="Email address">
           <mat-error *ngIf="signUpForm.get('email').hasError('email') && !signUpForm.get('email').hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -24,9 +21,6 @@
       </div>
 
       <div class="form-group">
-        <h6>
-          Password
-        </h6>
         <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
           <mat-label>Password</mat-label>
           <input type="password" matInput formControlName="password"
@@ -38,13 +32,10 @@
       </div>
 
       <div class="form-group">
-        <h6>
-          Confirm password
-        </h6>
         <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
-          <mat-label>Re-enter password</mat-label>
+          <mat-label>Confirm password</mat-label>
           <input type="password" matInput formControlName="passwordConfirm"
-                 placeholder="Re-enter password">
+                 placeholder="Confirm password">
           <mat-error *ngIf="signUpForm.get('passwordConfirm').errors?.passDontMatch">
             Passwords do <strong>not</strong> match
           </mat-error>
@@ -74,7 +65,7 @@
 
   <div>
     <span>
-      Or <br>Already have an account? <span class="redirect" routerLink="/sign-in" style="cursor: pointer">
+      Already have an account? <span class="redirect" routerLink="/sign-in" style="cursor: pointer">
       Log In
     </span>
   </span>

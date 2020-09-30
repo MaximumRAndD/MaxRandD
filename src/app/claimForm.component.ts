@@ -111,7 +111,7 @@ export class ClaimFormComponent implements OnInit
   filteredOptions: Observable<string[]>;
   user;
 
-
+  // gets the claim data from firestore and populate the fields
   async ngOnInit(): Promise<any>
   {
     if (this.authService.isLoggedIn)
@@ -151,6 +151,7 @@ export class ClaimFormComponent implements OnInit
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
+  // Will edit the values in the form fields from firestore
   addEditValues(): void
   {
     this.claimForm.patchValue
@@ -207,6 +208,7 @@ export class ClaimFormComponent implements OnInit
     this.db.writeClaimFormToDB(this.claimForm, this.user.uid, this.route.snapshot.params.id);
   }
 
+  // if a value is unAdded will assign a default value
   checkUnRequiredValues(): void
   {
     if (this.claimForm.value.addressLine2 === undefined || '')
@@ -231,6 +233,7 @@ export class ClaimFormComponent implements OnInit
     }
   }
 
+  // 5 methods below will check if form is complete
   isInvalid(control): any
   {
     return this.claimForm.controls[control].invalid &&
@@ -299,7 +302,6 @@ export class ClaimFormComponent implements OnInit
       this.isEmpty('developmentOfSoftware');
   }
 
-  // TODO check this: https://stackoverflow.com/questions/40793427/angular-2-form-is-invalid-when-browser-autofill
   isIncomplete(): any
   {
     return this.isInvalid('name') ||
@@ -345,6 +347,7 @@ export class ClaimFormComponent implements OnInit
     }
   }
 
+  // Unused
   onProjectStartDateChange(): void
   {
     if (this.claimForm.value.projectStartDate === null)
@@ -362,8 +365,7 @@ export class ClaimFormComponent implements OnInit
     }
   }
 
-
-
+  // Unused
   isClaimEndDateValid(): void
   {
     if (this.claimForm.value.claimEndDate !== '')
@@ -387,6 +389,7 @@ export class ClaimFormComponent implements OnInit
     }
   }
 
+  // Searched the postcode on GetAddress() API
   async onPostcodeSearch(): Promise<void>
    {
      this.webService.getAddresses(this.claimForm.value.addressPostcode).subscribe
@@ -434,6 +437,7 @@ export class ClaimFormComponent implements OnInit
     });
   }
 
+  // Searched the company number on companyHouse API
   async fillFormFromCH(): Promise<void>
   {
     this.webService.getCompanyInformation(this.claimForm.value.companiesHouseInput).subscribe

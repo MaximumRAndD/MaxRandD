@@ -5,13 +5,13 @@
     </h3>
 
     <div class="form-group">
-      <h6>
-        Email address
-      </h6>
+<!--      <h6>-->
+<!--        Email address-->
+<!--      </h6>-->
       <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label>Email address</mat-label>
         <input type="email" matInput formControlName="email"
-               placeholder="Email">
+               placeholder="Email address">
         <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">
           Please enter a valid email address
         </mat-error>
@@ -22,9 +22,9 @@
     </div>
 
     <div class="form-group">
-      <h6>
-        Password
-      </h6>
+<!--      <h6>-->
+<!--        Password-->
+<!--      </h6>-->
       <mat-form-field class="col-5 mb-2 mx-auto" appearance="outline">
         <mat-label>Password</mat-label>
         <input type="password" matInput formControlName="password"

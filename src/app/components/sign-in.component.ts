@@ -25,6 +25,7 @@ export class SignInComponent
     );
   }
 
+  // 4 methods below will check if the 'submit' btn should be used
   isInvalid(control): any
   {
     return this.loginForm.controls[control].invalid &&

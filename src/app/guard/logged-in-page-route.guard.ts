@@ -18,6 +18,7 @@ export class LoggedInPageRouteGuard implements CanActivate
   {
   }
 
+  // Will stop logged in users from accessing some pages
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean> | Promise<boolean> | boolean
   {

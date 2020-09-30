@@ -29,6 +29,7 @@ export class SignUpComponent
     );
   }
 
+  // 4 methods below will check if the 'submit' btn should be used
   isInvalid(control): any
   {
     return this.signUpForm.controls[control].invalid &&

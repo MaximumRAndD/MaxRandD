@@ -27,6 +27,7 @@ export class ForgotPasswordComponent implements OnInit
   {
   }
 
+  // 4 methods below will check if the 'submit' btn should be used
   isInvalid(control): any
   {
     return this.email.controls[control].invalid &&
