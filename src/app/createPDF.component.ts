@@ -25,6 +25,7 @@ export class CreatePDFComponent implements OnInit
   // Booleans for showing if an UnRequired value is used
   address2Used = false;
   address3Used = false;
+  addressCountyUsed = false;
   projectProblemsUsed = false;
   projectProblemsDifficultyUsed = false;
   projectProblemsSolvedUsed = false;
@@ -57,39 +58,31 @@ export class CreatePDFComponent implements OnInit
     }
   }
 
-  // Will buld the address to be used based addressLines filled
+  // Will build the address to be used based addressLines filled
   createAddress(): void
   {
-    if (this.claimForm.addressLine2 === 'undefined_value')
+    this.fullAddress = this.claimForm.addressLine1;
+
+    if (this.claimForm.addressLine2.length !== 0)
     {
       this.address2Used = true;
+      this.fullAddress = this.fullAddress + ', ' + this.claimForm.addressLine2;
     }
-    if (this.claimForm.addressLine3 === 'undefined_value')
+    if (this.claimForm.addressLine3.length !== 0)
     {
       this.address3Used = true;
+      this.fullAddress = this.fullAddress + ', ' + this.claimForm.addressLine3;
     }
 
-    if (this.address2Used === true && this.address3Used === true)
+    this.fullAddress = this.fullAddress + ', ' + this.claimForm.addressTown;
+
+    if (this.claimForm.addressCounty.length !== 0)
     {
-      this.fullAddress = this.claimForm.addressLine1 + ', ' + this.claimForm.addressLine2 + ', ' + this.claimForm.address3Used + ', ' +
-        this.claimForm.addressTown + ', ' + this.claimForm.addressCounty + ', ' + this.claimForm.addressPostcode;
-    }
-    else if (this.address2Used === true && this.address3Used === false)
-    {
-      this.fullAddress = this.claimForm.addressLine1 + ', ' + this.claimForm.addressLine2 + ', ' + this.claimForm.addressTown +
-        ', ' + this.claimForm.addressCounty + ', ' + this.claimForm.addressPostcode;
-    }
-    else if (this.address2Used === false && this.address3Used === true)
-    {
-      this.fullAddress = this.claimForm.addressLine1 + ', ' + this.claimForm.addressLine3 + ', ' + this.claimForm.addressTown +
-        ', ' + this.claimForm.addressCounty + ', ' + this.claimForm.addressPostcode;
-    }
-    else if (this.address2Used === false && this.address3Used === false)
-    {
-      this.fullAddress = this.claimForm.addressLine1 + ', ' + this.claimForm.addressTown +
-        ', ' + this.claimForm.addressCounty + ', ' + this.claimForm.addressPostcode;
+      this.addressCountyUsed = true;
+      this.fullAddress = this.fullAddress + ', ' + this.claimForm.addressCounty;
     }
 
+    this.fullAddress = this.fullAddress + ', ' + this.claimForm.addressPostcode;
   }
 
   checkUnRequiredValues(): void

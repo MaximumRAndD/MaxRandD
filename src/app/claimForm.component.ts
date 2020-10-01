@@ -61,8 +61,8 @@ export class ClaimFormComponent implements OnInit
         projectTesting: ['', Validators.required],
         softwareAdvance: ['', Validators.required],
         stateAid: ['', Validators.required],
-        stateAid_notified: '',
-        stateAid_de: '',
+        stateAid_notified: ['', Validators.required],
+        stateAid_de: ['', Validators.required],
         companiesHouseInput: '',
         test: '',
         staff: ['', Validators.required],
@@ -262,6 +262,8 @@ export class ClaimFormComponent implements OnInit
       this.claimForm.controls.projectTesting.pristine ||
       this.claimForm.controls.softwareAdvance.pristine ||
       this.claimForm.controls.stateAid.pristine ||
+      this.claimForm.controls.stateAid_notified.pristine ||
+      this.claimForm.controls.stateAid_de.pristine ||
       this.claimForm.controls.staff.pristine ||
       this.claimForm.controls.turnover.pristine ||
       this.claimForm.controls.developmentOfSoftware.pristine;
@@ -297,6 +299,8 @@ export class ClaimFormComponent implements OnInit
       this.isEmpty('projectTesting') ||
       this.isEmpty('softwareAdvance') ||
       this.isEmpty('stateAid') ||
+      this.isEmpty('stateAid_notified') ||
+      this.isEmpty('stateAid_de') ||
       this.isEmpty('staff') ||
       this.isEmpty('turnover') ||
       this.isEmpty('developmentOfSoftware');
@@ -325,6 +329,8 @@ export class ClaimFormComponent implements OnInit
       this.isInvalid('projectTesting') ||
       this.isInvalid('softwareAdvance') ||
       this.isInvalid('stateAid') ||
+      this.isInvalid('stateAid_notified') ||
+      this.isInvalid('stateAid_de') ||
       this.isInvalid('staff') ||
       this.isInvalid('turnover') ||
       this.isInvalid('developmentOfSoftware') ||
